@@ -1,0 +1,52 @@
+<div class="sheet-layout">
+
+    <div class="sheet-basics">
+        <label>Name</label><input type="text" name="attr_character_name" />
+        <label>Erfolgsabzug</label><input type="number" step="1" name="attr_abzug" class="sheet-variable" value="0"/>
+    </div>
+
+    <div class="sheet-attributes">
+        <h2>Attribute</h2>
+
+        <div class="sheet-attributes-list">
+            
+            <label>Körperkraft</label>
+            <input type="number" step="1" name="attr_kk" max="10"/>
+            <button type='roll' name='roll_kk' value='&{template:default} {{name=Körperkraft}} {{Erfolge=[[(2*@{kk})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{kk}]]}}'></button>
+            
+            <label>Konstitution</label>
+            <input type="number" step="1" name="attr_ko" max="10"/>
+            <button type='roll' name='roll_ko' value='&{template:default} {{name=Konstitution}} {{Erfolge=[[(2*@{ko})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{ko}]]}}'></button>
+            
+            <label>Gewandtheit</label>
+            <input type="number" step="1" name="attr_ge" max="10"/>
+            <button type='roll' name='roll_ge' value='&{template:default} {{name=Gewandtheit}} {{Erfolge=[[(2*@{ge})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{ge}]]}}'></button>
+            
+            <label>Fingerfertigkeit</label>
+            <input type="number" step="1" name="attr_ff" max="10"/>
+            <button type='roll' name='roll_ff' value='&{template:default} {{name=Fingerfertigkeit}} {{Erfolge=[[(2*@{ff})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{ff}]]}}'></button>
+            
+            <label>Klugheit</label>
+            <input type="number" step="1" name="attr_kl" max="10"/>
+            <button type='roll' name='roll_kl' value='&{template:default} {{name=Klugheit}} {{Erfolge=[[(2*@{kl})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{kl}]]}}'></button>
+            
+            <label>Willenskraft</label>
+            <input type="number" step="1" name="attr_wk" max="10"/>
+            <button type='roll' name='roll_wk' value='&{template:default} {{name=Willenskraft}} {{Erfolge=[[(2*@{wk})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{wk}]]}}'></button>
+            
+            <label>Intuition</label>
+            <input type="number" step="1" name="attr_in" max="10"/>
+            <button type='roll' name='roll_in' value='&{template:default} {{name=Intuition}} {{Erfolge=[[(2*@{in})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{in}]]}}'></button>
+            
+            <label>Charisma</label>
+            <input type="number" step="1" name="attr_ch" max="10"/>
+            <button type='roll' name='roll_ch' value='&{template:default} {{name=Charisma}} {{Erfolge=[[(2*@{ch})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{ch}]]}}'></button>
+            
+            <label>Glück</label>
+            <input type="number" step="1" name="attr_gl" max="10"/>
+            <button type='roll' name='roll_gl' value='&{template:default} {{name=Glück}} {{Erfolge=[[(2*@{gl})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{gl}]]}}'></button>
+            
+        </div>
+    </div>
+
+</div>

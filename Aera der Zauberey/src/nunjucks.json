@@ -1,0 +1,10 @@
+{
+    "tags": {
+        "variableStart": "#$",
+        "variableEnd": "$#",
+        "blockStart": "#%",
+        "blockEnd": "%#",
+        "commentStart": "#!",
+        "commentEnd": "!#"
+    }
+}

@@ -1,0 +1,20 @@
+<div class="sheet-layout">
+
+    <div class="sheet-basics">
+        <label>Name</label><input type="text" name="attr_character_name" />
+        <label>Erfolgsabzug</label><input type="number" step="1" name="attr_abzug" class="sheet-variable" value="0"/>
+    </div>
+
+    <div class="sheet-attributes">
+        <h2>Attribute</h2>
+
+        <div class="sheet-attributes-list">
+            #% for abbreviation, name in attributes %#
+            <label>#$ name $#</label>
+            <input type="number" step="1" name="attr_#$ abbreviation $#" max="10"/>
+            <button type='roll' name='roll_#$ abbreviation $#' value='&{template:default} {{name=#$ name $#}} {{Erfolge=[[(2*@{#$ abbreviation $#})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{#$ abbreviation $#}]]}}'></button>
+            #% endfor %#
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,50 @@
+.charsheet {
+	background-color: #f0f0f0;
+	min-width: 800px;
+}
+
+.sheet-layout {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-areas:
+			"base   .     .  "
+			"attr   .     .";
+}
+
+label::after {
+	content: ":";
+}
+
+.sheet-basics {
+	grid-area: base;
+}
+
+.sheet-attributes {
+	grid-area: attr;
+}
+
+.sheet-attributes-list {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(9, 1fr);
+	grid-column-gap: 0;
+	grid-row-gap: 0;
+}
+
+.sheet-attributes-list label {
+
+}
+
+.sheet-attributes-list input {
+	width: 4em;
+}
+
+.sheet-attributes input[type=number] {
+	-moz-appearance: textfield;
+}
+
+.sheet-attributes input::-webkit-outer-spin-button,
+.sheet-attributes input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}

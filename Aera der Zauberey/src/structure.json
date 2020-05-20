@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "kk": "Körperkraft",
+        "ko": "Konstitution",
+        "ge": "Gewandtheit",
+        "ff": "Fingerfertigkeit",
+        "kl": "Klugheit",
+        "wk": "Willenskraft",
+        "in": "Intuition",
+        "ch": "Charisma",
+        "gl": "Glück"
+    }
+}
