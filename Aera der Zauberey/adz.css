@@ -3,6 +3,12 @@
 .charsheet {
 	background-color: #f0f0f0;
 	min-width: 800px;
+	--base-font-size: 10pt;
+	font-size: var(--base-font-size);
+}
+
+.charsheet label {
+	font-size: var(--base-font-size);
 }
 
 .sheet-layout {
@@ -31,10 +37,6 @@
 	grid-area: magic;
 }
 
-input {
-	border: 1px solid #6a4602
-}
-
 .sheet-magic-matrix th,
 .sheet-magic-matrix td {
 	font-size: 1rem;
@@ -47,19 +49,37 @@ input {
 	grid-template-rows: repeat(9, 1fr);
 	grid-column-gap: 0;
 	grid-row-gap: 0;
+	align-items: center;
+	justify-items: start;
 }
 
 .sheet-attributes-list label {
-
+	margin: 0;
 }
 
-.sheet-attributes-list input {
-	width: 4em;
+.charsheet .sheet-layout div input {
+	height: initial !important;
+	border-color: #6a4602;
+	border-width: 0;
+	border-radius: 0;
+	background: transparent;
+	padding: 0;
+	margin: 0 1px 2px 1px;
+}
+
+.charsheet .sheet-layout div input:not([readonly]) {
+	border-color: #6a4602;
+	border-bottom-width: 1px;
+}
+
+.charsheet .sheet-layout div input[readonly] {
+	cursor: default;
+	background: rgba(0, 0, 0, 0.05);
 }
 
 .charsheet .sheet-layout div input[type=number] {
 	-moz-appearance: textfield;
-	width: 2.2em;
+	width: 2em;
 	text-align: center;
 }
 

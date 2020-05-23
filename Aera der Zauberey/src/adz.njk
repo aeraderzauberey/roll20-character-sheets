@@ -26,7 +26,7 @@
                 #% for technique in techniques %#
                 <th>
                     <label>#$ technique $#</label>
-                    <input type="number" step="1" name="attr_#$ technique | lower $#" max="10"/>
+                    <input name="attr_#$ technique | lower $#" type="number" step="1" max="10"/>
                 </th>
                 #% endfor %#
             </tr>
@@ -38,7 +38,8 @@
                 </th>
                 #% for technique in techniques %#
                 <td>
-                    <input type="number" step="1" name="attr_focus_#$ domain | lower $#_#$ technique | lower $#" max="10"/>
+                    <input name="attr_focus_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
+                    <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" readonly="true" type="number" />
                 </td>
                 #% endfor %#
             </tr>
