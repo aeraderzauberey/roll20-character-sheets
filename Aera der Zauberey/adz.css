@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Eagle+Lake&display=swap');
+
 .charsheet {
 	background-color: #f0f0f0;
 	min-width: 800px;
@@ -47,4 +49,46 @@ label::after {
 .sheet-attributes input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
+}
+
+.sheet-rolltemplate-adz {
+	display: block;
+	margin-right: 0.75em;
+	border-image-slice: 28 35 30 24;
+	border-image-width: 20px 20px 20px 20px;
+	border-image-outset: 0px 0px 0px 0px;
+	border-image-repeat: stretch;
+	border-image-source: url("https://svgshare.com/i/LMv.svg");
+	background: #d9bd96;
+	background-clip: content-box;
+	padding: 20px;
+	text-align: center;
+}
+
+.sheet-rolltemplate-adz h1 {
+	font-size: 1.7rem;
+	margin-bottom: 0.5rem;
+	font-family: 'Eagle Lake';
+}
+
+.sheet-rolltemplate-adz span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-adz span.inlinerollresult.fullfail,
+.sheet-rolltemplate-adz span.inlinerollresult.importantroll {
+	border-width: 0;
+	padding: 0.2em 0.4em;
+}
+
+.sheet-rolltemplate-adz span.inlinerollresult {
+	border-radius: 0.4em;
+}
+
+.sheet-rolltemplate-adz .sheet-plain .inlinerollresult {
+	background: transparent;
+	font-weight: normal;
+	border-width: 0;
+	padding: 0;
+}
+
+.sheet-rolltemplate-adz .sheet-note {
+	font-size: 70%;
 }

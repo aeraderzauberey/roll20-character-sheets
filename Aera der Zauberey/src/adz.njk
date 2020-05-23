@@ -12,9 +12,16 @@
             #% for abbreviation, name in attributes %#
             <label>#$ name $#</label>
             <input type="number" step="1" name="attr_#$ abbreviation $#" max="10"/>
-            <button type='roll' name='roll_#$ abbreviation $#' value='&{template:default} {{name=#$ name $#}} {{Erfolge=[[(2*@{#$ abbreviation $#})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{#$ abbreviation $#}]]}}'></button>
+            <button type='roll' name='roll_#$ abbreviation $#' value='&{template:adz} {{name=#$ name $#}} {{erfolge=[[(2*@{#$ abbreviation $#})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{#$ abbreviation $#}]]}}'></button>
             #% endfor %#
         </div>
     </div>
+
+
+    <rolltemplate class="sheet-rolltemplate-adz">
+        <h1>{{name}}</h1>
+        <p>{{erfolge}} Erfolge mit <span class="plain">{{wuerfel}}</span> Würfeln</p>
+        <p class="note">Erfolgsabzug von {{abzug}} berücksichtigt.</p>
+    </rolltemplate>
 
 </div>

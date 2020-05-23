@@ -12,41 +12,48 @@
             
             <label>Körperkraft</label>
             <input type="number" step="1" name="attr_kk" max="10"/>
-            <button type='roll' name='roll_kk' value='&{template:default} {{name=Körperkraft}} {{Erfolge=[[(2*@{kk})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{kk}]]}}'></button>
+            <button type='roll' name='roll_kk' value='&{template:adz} {{name=Körperkraft}} {{erfolge=[[(2*@{kk})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{kk}]]}}'></button>
             
             <label>Konstitution</label>
             <input type="number" step="1" name="attr_ko" max="10"/>
-            <button type='roll' name='roll_ko' value='&{template:default} {{name=Konstitution}} {{Erfolge=[[(2*@{ko})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{ko}]]}}'></button>
+            <button type='roll' name='roll_ko' value='&{template:adz} {{name=Konstitution}} {{erfolge=[[(2*@{ko})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{ko}]]}}'></button>
             
             <label>Gewandtheit</label>
             <input type="number" step="1" name="attr_ge" max="10"/>
-            <button type='roll' name='roll_ge' value='&{template:default} {{name=Gewandtheit}} {{Erfolge=[[(2*@{ge})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{ge}]]}}'></button>
+            <button type='roll' name='roll_ge' value='&{template:adz} {{name=Gewandtheit}} {{erfolge=[[(2*@{ge})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{ge}]]}}'></button>
             
             <label>Fingerfertigkeit</label>
             <input type="number" step="1" name="attr_ff" max="10"/>
-            <button type='roll' name='roll_ff' value='&{template:default} {{name=Fingerfertigkeit}} {{Erfolge=[[(2*@{ff})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{ff}]]}}'></button>
+            <button type='roll' name='roll_ff' value='&{template:adz} {{name=Fingerfertigkeit}} {{erfolge=[[(2*@{ff})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{ff}]]}}'></button>
             
             <label>Klugheit</label>
             <input type="number" step="1" name="attr_kl" max="10"/>
-            <button type='roll' name='roll_kl' value='&{template:default} {{name=Klugheit}} {{Erfolge=[[(2*@{kl})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{kl}]]}}'></button>
+            <button type='roll' name='roll_kl' value='&{template:adz} {{name=Klugheit}} {{erfolge=[[(2*@{kl})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{kl}]]}}'></button>
             
             <label>Willenskraft</label>
             <input type="number" step="1" name="attr_wk" max="10"/>
-            <button type='roll' name='roll_wk' value='&{template:default} {{name=Willenskraft}} {{Erfolge=[[(2*@{wk})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{wk}]]}}'></button>
+            <button type='roll' name='roll_wk' value='&{template:adz} {{name=Willenskraft}} {{erfolge=[[(2*@{wk})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{wk}]]}}'></button>
             
             <label>Intuition</label>
             <input type="number" step="1" name="attr_in" max="10"/>
-            <button type='roll' name='roll_in' value='&{template:default} {{name=Intuition}} {{Erfolge=[[(2*@{in})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{in}]]}}'></button>
+            <button type='roll' name='roll_in' value='&{template:adz} {{name=Intuition}} {{erfolge=[[(2*@{in})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{in}]]}}'></button>
             
             <label>Charisma</label>
             <input type="number" step="1" name="attr_ch" max="10"/>
-            <button type='roll' name='roll_ch' value='&{template:default} {{name=Charisma}} {{Erfolge=[[(2*@{ch})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{ch}]]}}'></button>
+            <button type='roll' name='roll_ch' value='&{template:adz} {{name=Charisma}} {{erfolge=[[(2*@{ch})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{ch}]]}}'></button>
             
             <label>Glück</label>
             <input type="number" step="1" name="attr_gl" max="10"/>
-            <button type='roll' name='roll_gl' value='&{template:default} {{name=Glück}} {{Erfolge=[[(2*@{gl})d6>5 - @{abzug}]]}} {{Erfolgsabzug=@{abzug} (bereits eingerechnet)}} {{Würfelanzahl=[[2*@{gl}]]}}'></button>
+            <button type='roll' name='roll_gl' value='&{template:adz} {{name=Glück}} {{erfolge=[[(2*@{gl})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{gl}]]}}'></button>
             
         </div>
     </div>
+
+
+    <rolltemplate class="sheet-rolltemplate-adz">
+        <h1>{{name}}</h1>
+        <p>{{erfolge}} Erfolge mit <span class="plain">{{wuerfel}}</span> Würfeln</p>
+        <p class="note">Erfolgsabzug von {{abzug}} berücksichtigt.</p>
+    </rolltemplate>
 
 </div>
