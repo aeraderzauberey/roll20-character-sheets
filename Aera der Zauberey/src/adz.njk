@@ -17,6 +17,35 @@
         </div>
     </div>
 
+    <div class="sheet-magic">
+        <h2>Techniken & Magiebereiche</h2>
+
+        <table class="sheet-magic-matrix">
+            <tr>
+                <th></th>
+                #% for technique in techniques %#
+                <th>
+                    <label>#$ technique $#</label>
+                    <input type="number" step="1" name="attr_#$ technique | lower $#" max="10"/>
+                </th>
+                #% endfor %#
+            </tr>
+            #% for domain in domains %#
+            <tr>
+                <th>
+                    <label>#$ domain $#</label>
+                    <input type="number" step="1" name="attr_#$ domain | lower $#" max="10"/>
+                </th>
+                #% for technique in techniques %#
+                <td>
+                    <input type="number" step="1" name="attr_focus_#$ domain | lower $#_#$ technique | lower $#" max="10"/>
+                </td>
+                #% endfor %#
+            </tr>
+            #% endfor %#
+
+        </div>
+    </div>
 
     <rolltemplate class="sheet-rolltemplate-adz">
         <h1>{{name}}</h1>

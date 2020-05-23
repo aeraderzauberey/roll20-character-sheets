@@ -9,11 +9,13 @@
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-areas:
-			"base   .     .  "
-			"attr   .     .";
+			"base   .      .    "
+			"attr   .      .    "
+			"magic  magic  magic";
 }
 
-label::after {
+.sheet-basics label::after,
+.sheet-attributes label::after {
 	content: ":";
 }
 
@@ -23,6 +25,20 @@ label::after {
 
 .sheet-attributes {
 	grid-area: attr;
+}
+
+.sheet-magic {
+	grid-area: magic;
+}
+
+input {
+	border: 1px solid #6a4602
+}
+
+.sheet-magic-matrix th,
+.sheet-magic-matrix td {
+	font-size: 1rem;
+	text-align: center;
 }
 
 .sheet-attributes-list {
@@ -41,12 +57,14 @@ label::after {
 	width: 4em;
 }
 
-.sheet-attributes input[type=number] {
+.charsheet .sheet-layout div input[type=number] {
 	-moz-appearance: textfield;
+	width: 2.2em;
+	text-align: center;
 }
 
-.sheet-attributes input::-webkit-outer-spin-button,
-.sheet-attributes input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }

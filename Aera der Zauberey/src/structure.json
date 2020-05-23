@@ -9,5 +9,28 @@
         "in": "Intuition",
         "ch": "Charisma",
         "gl": "Glück"
-    }
+    },
+    "domains": [
+        "Darstellung",
+        "Erde",
+        "Feuer",
+        "Geist",
+        "Humanoid",
+        "Kraft",
+        "Luft",
+        "Metall",
+        "Pflanze",
+        "Tier",
+        "Wasser"
+    ],
+    "techniques": [
+        "Beherrschen",
+        "Erkennen",
+        "Erschaffen",
+        "Kooperieren",
+        "Modifizieren",
+        "Verankern",
+        "Versetzen",
+        "Zerstören"
+    ]
 }
