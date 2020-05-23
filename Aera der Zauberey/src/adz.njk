@@ -35,6 +35,37 @@
         </div>
     </div>
 
+    <div class="sheet-skills">
+        <h2>Fertigkeiten</h2>
+
+        <div class="skill-list">
+            <fieldset class="repeating_skills">
+              <input type="text" name="attr_name" />
+              <select name="attr_attribute">
+                #% for abbreviation, name in attributes %#
+                <option value="#$ abbreviation $#">#$ abbreviation $#</option>
+                #% endfor %#
+              </select>
+              <input type="text" name="attr_value" />
+              #! <button type='roll' name='roll_skill_@{name}' value='&{template:adz} {{name=@{name}}} {{erfolge=[[(@{value}+@{(@{repeating_skills_${x}_attribute})})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=99}}'></button> !#
+
+                <div class="stack clickable-total">
+                    <input name="attr_calc_total" class="number" readonly="true" />
+                    #$ roll_button('@{name}', '@{name}', '@{value}') $#
+                </div>
+                <button type='roll' name='roll_ExampleRoll' value='Test: name=@{name}, value=@{value}'></button>
+
+            </fieldset>
+
+            <fieldset class="repeating_example" style="background: green">
+                <label>name</label>
+            	<input type="text" name="attr_name"/>
+                <label>value</label>
+            	<input type="text" name="attr_value"/>
+            	<button type='roll' name='roll_ExampleRoll' value='Test: name=@{name}, value=@{value}'></button>
+            </fieldset>
+
+        </div>
     <div class="sheet-magic">
         <h2>Techniken & Magiebereiche</h2>
 

@@ -204,6 +204,58 @@
         </div>
     </div>
 
+    <div class="sheet-skills">
+        <h2>Fertigkeiten</h2>
+
+        <div class="skill-list">
+            <fieldset class="repeating_skills">
+              <input type="text" name="attr_name" />
+              <select name="attr_attribute">
+                
+                <option value="kk">kk</option>
+                
+                <option value="ko">ko</option>
+                
+                <option value="ge">ge</option>
+                
+                <option value="ff">ff</option>
+                
+                <option value="kl">kl</option>
+                
+                <option value="wk">wk</option>
+                
+                <option value="in">in</option>
+                
+                <option value="ch">ch</option>
+                
+                <option value="gl">gl</option>
+                
+              </select>
+              <input type="text" name="attr_value" />
+              
+
+                <div class="stack clickable-total">
+                    <input name="attr_calc_total" class="number" readonly="true" />
+                    
+<button type='roll'
+        name='roll_@{name}'
+        value='&{template:adz} {{title=@{name}}} {{dice=[[@{value}+0]]}} {{result=[[(@{value}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+</button>
+
+                </div>
+                <button type='roll' name='roll_ExampleRoll' value='Test: name=@{name}, value=@{value}'></button>
+
+            </fieldset>
+
+            <fieldset class="repeating_example" style="background: green">
+                <label>name</label>
+            	<input type="text" name="attr_name"/>
+                <label>value</label>
+            	<input type="text" name="attr_value"/>
+            	<button type='roll' name='roll_ExampleRoll' value='Test: name=@{name}, value=@{value}'></button>
+            </fieldset>
+
+        </div>
     <div class="sheet-magic">
         <h2>Techniken & Magiebereiche</h2>
 
