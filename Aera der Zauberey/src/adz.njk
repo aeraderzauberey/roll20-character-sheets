@@ -89,25 +89,17 @@ for (const domain of domains) {
 }
 
 for (const technique of techniques) {
-    // TODO implement this, then remove 'change:technique' from addCellListener
-    // addColumnListener(technique);
+    addColumnListener(technique);
 }
 
 function addCellListener(domain, technique) {
     var combination = domain + "_" + technique;
-    var events = [technique, combination].map(x => "change:" + x).join(" ");
-    on(events, function() {
+    on("change:" + combination, function() {
         console.log("cell change", domain, technique);
         getAttrs([domain, technique, combination], function(values) {
             parseIntegersIn(values);
-            let sum = 0;
-            if (values[domain] && values[technique]) {
-                for (const value of Object.values(values)) {
-                    sum += parseInt(value);
-                }
-            }
             let result = {};
-            result["calc_total_" + combination] = sum || "";
+            calculate(values, domain, technique, result);
             setAttrs(result);
        });
     });
@@ -121,15 +113,33 @@ function addRowListener(domain) {
             parseIntegersIn(values);
             let result = {};
             for (const technique of techniques) {
-                var total = "";
-                if (values[domain] && values[technique]) {
-                    total = values[domain] + values[technique] + values[domain + "_" + technique];
-                }
-                result["calc_total_" + domain + "_" + technique] = total;
+                calculate(values, domain, technique, result);
             }
             setAttrs(result);
-       });
+        });
     });
 }
 
+function addColumnListener(technique) {
+    var inputAttributes = [technique].concat(domains, domains.map(domain => domain + "_" + technique));
+    on("change:" + technique, function() {
+        console.log("column change", technique);
+        getAttrs(inputAttributes, function(values) {
+            parseIntegersIn(values);
+            let result = {};
+            for (const domain of domains) {
+                calculate(values, domain, technique, result);
+            }
+            setAttrs(result);
+        });
+    });
+}
+
+function calculate(values, domain, technique, result) {
+    var total = "";
+    if (values[domain] && values[technique]) {
+        total = values[domain] + values[technique] + values[domain + "_" + technique];
+    }
+    result["calc_total_" + domain + "_" + technique] = total;
+}
 </script>
