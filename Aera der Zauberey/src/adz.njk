@@ -42,6 +42,7 @@
             <div class="horizontal">
                 <input name="attr_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
                 <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" class="number" readonly="true" />
+#! TODO make this transparent and stack it on top of the calc_total to save space !#
                 #$ roll_button(domain | lower + '_' + technique | lower, domain + ' ' + technique | lower, '@{calc_total_' + domain | lower + '_' + technique | lower + '}') $#
             </div>
             #% endfor %#
@@ -66,9 +67,11 @@ function parseIntegersIn(values) {
     }
 }
 
+// TODO fill from structure.json
 var techniques = ["beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"];
 var domains = ["darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"];
 
+// TODO add all listeners to startup event
 for (const domain of domains) {
     addRowListener(domain);
     for (const technique of techniques) {
