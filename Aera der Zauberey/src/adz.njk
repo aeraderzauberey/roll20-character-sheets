@@ -71,7 +71,6 @@ function parseIntegersIn(values) {
 var techniques = ["beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"];
 var domains = ["darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"];
 
-// TODO add all listeners to startup event
 for (const domain of domains) {
     addRowListener(domain);
     for (const technique of techniques) {
@@ -105,8 +104,8 @@ function addCellListener(domain, technique) {
 }
 
 function addRowListener(domain) {
-    var inputAttributes = [domain].concat(techniques, techniques.map(x => domain +"_" + x));
-    on("change:" + domain, function() {
+    var inputAttributes = [domain].concat(techniques, techniques.map(technique => domain + "_" + technique));
+    on("sheet:opened change:" + domain, function() {
         console.log("row change", domain);
         getAttrs(inputAttributes, function(values) {
             parseIntegersIn(values);
