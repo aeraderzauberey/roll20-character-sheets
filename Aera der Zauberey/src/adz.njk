@@ -67,9 +67,19 @@ function parseIntegersIn(values) {
     }
 }
 
-// TODO fill from structure.json
-var techniques = ["beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"];
-var domains = ["darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"];
+var techniques = [
+    #% for technique in techniques -%#
+        "#$ technique | lower $#"
+        #%- if not loop.last %#, #% endif -%#
+    #%- endfor %#
+];
+
+var domains = [
+    #% for domain in domains -%#
+        "#$ domain | lower $#"
+        #%- if not loop.last %#, #% endif -%#
+    #%- endfor %#
+];
 
 for (const domain of domains) {
     addRowListener(domain);

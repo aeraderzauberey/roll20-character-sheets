@@ -1167,9 +1167,13 @@ function parseIntegersIn(values) {
     }
 }
 
-// TODO fill from structure.json
-var techniques = ["beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"];
-var domains = ["darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"];
+var techniques = [
+    "beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"
+];
+
+var domains = [
+    "darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"
+];
 
 for (const domain of domains) {
     addRowListener(domain);
