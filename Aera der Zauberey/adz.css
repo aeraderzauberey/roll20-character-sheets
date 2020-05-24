@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Eagle+Lake&display=swap');
 
 .charsheet {
-	background-color: #f0f0f0;
+	background-color: #fafafa;
 	min-width: 800px;
 	--base-font-size: 10pt;
 	font-size: var(--base-font-size);
@@ -49,6 +49,17 @@
 	grid-area: magic;
 }
 
+.sheet-stack {
+	display: grid;
+	grid-template-areas: "stack";
+	align-items: center;
+	justify-items: center;
+}
+
+.sheet-stack > * {
+	grid-area: stack;
+}
+
 .sheet-attributes-list {
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(9, 1fr);
@@ -72,6 +83,49 @@
 	grid-template-rows: min-content;
 }
 
+.charsheet .sheet-layout button[type="roll"] {
+	border-width: 0;
+	background: transparent;
+	transform: rotate(45deg);
+	opacity: 1;
+	position: relative;
+	width: 1em;
+	height: 1em;
+}
+
+.charsheet .sheet-layout button[type="roll"]::before,
+.charsheet .sheet-layout button[type="roll"]::after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	font-family: "dicefontd6";
+}
+
+.charsheet .sheet-layout button[type="roll"]::before {
+	/* render a white '1' die below the '6' to make it non-transparent */
+	content: "A";
+	color: white;
+}
+
+.charsheet .sheet-layout button[type="roll"]::after {
+	content: "F";
+	color: blue;
+}
+
+.charsheet .sheet-stack > button[type="roll"] {
+	opacity: 0;
+}
+
+.charsheet .sheet-stack > button[type="roll"]:hover {
+	opacity: 1;
+}
+
+.charsheet .sheet-stack > input[readonly] {
+	color: darkblue;
+}
+
 .charsheet .sheet-layout div input {
 	height: initial !important;
 	border-color: #6a4602;
@@ -89,7 +143,7 @@
 
 .charsheet .sheet-layout div input[readonly] {
 	cursor: default;
-	background: rgba(0, 0, 0, 0.025);
+	background: rgba(0, 0, 0, 0.04);
 }
 
 .charsheet .sheet-layout div input[type=number],

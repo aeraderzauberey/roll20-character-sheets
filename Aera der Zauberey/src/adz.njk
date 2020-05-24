@@ -18,6 +18,7 @@
             #% for abbreviation, name in attributes %#
             <label>#$ name $#</label>
             <input type="number" step="1" name="attr_#$ abbreviation $#" max="10"/>
+#! TODO add a calc_ field with a stacked roll button like in the magic matrix !#
             #$ roll_button(abbreviation, name, '2*@{' + abbreviation + '}') $#
             #% endfor %#
         </div>
@@ -41,9 +42,10 @@
             #% for technique in techniques %#
             <div class="horizontal">
                 <input name="attr_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
-                <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" class="number" readonly="true" />
-#! TODO make this transparent and stack it on top of the calc_total to save space !#
-                #$ roll_button(domain | lower + '_' + technique | lower, domain + ' ' + technique | lower, '@{calc_total_' + domain | lower + '_' + technique | lower + '}') $#
+                <div class="stack">
+                    <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" class="number" readonly="true" />
+                    #$ roll_button(domain | lower + '_' + technique | lower, domain + ' ' + technique | lower, '@{calc_total_' + domain | lower + '_' + technique | lower + '}') $#
+                </div>
             </div>
             #% endfor %#
             #% endfor %#
