@@ -1,8 +1,14 @@
+#% macro roll_button(name, title, dice) %#
+<button type='roll'
+        name='roll_#$ name $#'
+        value='&{template:adz} {{title=#$ title $#}} {{dice=[[#$ dice $#]]}} {{result=[[(#$ dice $#)d6>5 - @{penalty}]]}} {{penalty=@{penalty}}}'></button>
+#% endmacro %#
+
 <div class="sheet-layout">
 
     <div class="sheet-basics">
         <label>Name</label><input type="text" name="attr_character_name" />
-        <label>Erfolgsabzug</label><input type="number" step="1" name="attr_abzug" class="sheet-variable" value="0"/>
+        <label>Erfolgsabzug</label><input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
     </div>
 
     <div class="sheet-attributes">
@@ -12,7 +18,7 @@
             #% for abbreviation, name in attributes %#
             <label>#$ name $#</label>
             <input type="number" step="1" name="attr_#$ abbreviation $#" max="10"/>
-            <button type='roll' name='roll_#$ abbreviation $#' value='&{template:adz} {{name=#$ name $#}} {{erfolge=[[(2*@{#$ abbreviation $#})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=[[2*@{#$ abbreviation $#}]]}}'></button>
+            #$ roll_button(abbreviation, name, '2*@{' + abbreviation + '}') $#
             #% endfor %#
         </div>
     </div>
@@ -20,38 +26,97 @@
     <div class="sheet-magic">
         <h2>Techniken & Magiebereiche</h2>
 
-        <table class="sheet-magic-matrix">
-            <tr>
-                <th></th>
-                #% for technique in techniques %#
-                <th>
-                    <label>#$ technique $#</label>
-                    <input name="attr_#$ technique | lower $#" type="number" step="1" max="10"/>
-                </th>
-                #% endfor %#
-            </tr>
-            #% for domain in domains %#
-            <tr>
-                <th>
-                    <label>#$ domain $#</label>
-                    <input type="number" step="1" name="attr_#$ domain | lower $#" max="10"/>
-                </th>
-                #% for technique in techniques %#
-                <td>
-                    <input name="attr_focus_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
-                    <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" readonly="true" type="number" />
-                </td>
-                #% endfor %#
-            </tr>
+        <div class="sheet-magic-matrix">
+            <div>#! label !#</div>
+            <div>#! input !#</div>
+            #% for technique in techniques %#
+            <div class="vertical">
+                <label>#$ technique $#</label>
+                <input name="attr_#$ technique | lower $#" type="number" step="1" max="10"/>
+            </div>
             #% endfor %#
-
+            #% for domain in domains %#
+            <label>#$ domain $#</label>
+            <input type="number" step="1" name="attr_#$ domain | lower $#" max="10"/>
+            #% for technique in techniques %#
+            <div class="horizontal">
+                <input name="attr_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
+                <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" class="number" readonly="true" />
+                #$ roll_button(domain | lower + '_' + technique | lower, domain + ' ' + technique | lower, '@{calc_total_' + domain | lower + '_' + technique | lower + '}') $#
+            </div>
+            #% endfor %#
+            #% endfor %#
         </div>
     </div>
 
     <rolltemplate class="sheet-rolltemplate-adz">
-        <h1>{{name}}</h1>
-        <p>{{erfolge}} Erfolge mit <span class="plain">{{wuerfel}}</span> Würfeln</p>
-        <p class="note">Erfolgsabzug von {{abzug}} berücksichtigt.</p>
+        <h1>{{title}}</h1>
+        <p>{{result}} Erfolge mit <span class="plain">{{dice}}</span> Würfeln</p>
+        <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
     </rolltemplate>
 
 </div>
+
+
+<script type="text/worker">
+
+function parseIntegersIn(values) {
+    for (const key of Object.keys(values)) {
+        values[key] = parseInt(values[key]) || 0;
+    }
+}
+
+var techniques = ["beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"];
+var domains = ["darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"];
+
+for (const domain of domains) {
+    addRowListener(domain);
+    for (const technique of techniques) {
+        addCellListener(domain, technique);
+    }
+}
+
+for (const technique of techniques) {
+    // TODO implement this, then remove 'change:technique' from addCellListener
+    // addColumnListener(technique);
+}
+
+function addCellListener(domain, technique) {
+    var combination = domain + "_" + technique;
+    var events = [technique, combination].map(x => "change:" + x).join(" ");
+    on(events, function() {
+        console.log("cell change", domain, technique);
+        getAttrs([domain, technique, combination], function(values) {
+            parseIntegersIn(values);
+            let sum = 0;
+            // TODO only do this if domain and technique is truthy
+            for (const value of Object.values(values)) {
+                sum += parseInt(value);
+            }
+            let result = {};
+            result["calc_total_" + combination] = sum || "";
+            setAttrs(result);
+       });
+    });
+}
+
+function addRowListener(domain) {
+    var inputAttributes = [domain].concat(techniques, techniques.map(x => domain +"_" + x));
+    on("change:" + domain, function() {
+        console.log("row change", domain);
+        getAttrs(inputAttributes, function(values) {
+            parseIntegersIn(values);
+            let result = {};
+            for (const technique of techniques) {
+                var total = "";
+                if (values[domain] && values[technique]) {
+                    total = values[domain] + values[technique] + values[domain + "_" + technique];
+                }
+                result["calc_total_" + domain + "_" + technique] = total;
+            }
+            setAttrs(result);
+       });
+    });
+}
+
+</script>
