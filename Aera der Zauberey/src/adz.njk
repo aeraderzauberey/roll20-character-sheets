@@ -89,9 +89,10 @@ function addCellListener(domain, technique) {
         getAttrs([domain, technique, combination], function(values) {
             parseIntegersIn(values);
             let sum = 0;
-            // TODO only do this if domain and technique is truthy
-            for (const value of Object.values(values)) {
-                sum += parseInt(value);
+            if (values[domain] && values[technique]) {
+                for (const value of Object.values(values)) {
+                    sum += parseInt(value);
+                }
             }
             let result = {};
             result["calc_total_" + combination] = sum || "";
