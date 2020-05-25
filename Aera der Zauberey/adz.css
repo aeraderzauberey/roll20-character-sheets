@@ -141,6 +141,10 @@
 	border-bottom-width: 1px;
 }
 
+.charsheet .sheet-layout div input:focus {
+	background-color: #fef68e;
+}
+
 .charsheet .sheet-layout div input[readonly] {
 	cursor: default;
 	background: rgba(0, 0, 0, 0.04);
