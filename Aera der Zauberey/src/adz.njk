@@ -1,7 +1,7 @@
 #% macro roll_button(name, title, dice) %#
 <button type='roll'
         name='roll_#$ name $#'
-        value='&{template:adz} {{title=#$ title $#}} {{dice=[[#$ dice $#]]}} {{result=[[(#$ dice $#)d6>5 - @{penalty}]]}} {{penalty=@{penalty}}}'></button>
+        value='&{template:adz} {{title=#$ title $#}} {{dice=#$ dice $#}} {{result=[[(#$ dice $#)d6>5 - @{penalty}]]}} {{penalty=@{penalty}}}'></button>
 #% endmacro %#
 
 <div class="sheet-layout">
@@ -17,9 +17,13 @@
         <div class="sheet-attributes-list">
             #% for abbreviation, name in attributes %#
             <label>#$ name $#</label>
-            <input type="number" step="1" name="attr_#$ abbreviation $#" max="10"/>
-#! TODO add a calc_ field with a stacked roll button like in the magic matrix !#
-            #$ roll_button(abbreviation, name, '2*@{' + abbreviation + '}') $#
+            <div class="horizontal">
+                <input type="number" step="1" name="attr_#$ abbreviation $#" max="10"/>
+                <div class="stack">
+                    <input name="attr_calc_total_#$ abbreviation $#" class="number" readonly="true" />
+                    #$ roll_button(abbreviation, name, '@{calc_total_' + abbreviation + '}') $#
+                </div>
+            </div>
             #% endfor %#
         </div>
     </div>
@@ -67,6 +71,35 @@ function parseIntegersIn(values) {
     for (const key of Object.keys(values)) {
         values[key] = parseInt(values[key]) || 0;
     }
+}
+
+var attributes = [
+    #% for abbreviation, name in attributes %#
+        "#$ abbreviation | lower $#"
+        #%- if not loop.last %#, #% endif -%#
+    #%- endfor %#
+];
+
+for (const abbreviation of attributes) {
+    addAttributeListener(abbreviation);
+}
+
+function addAttributeListener(abbreviation) {
+    on("sheet:opened change:" + abbreviation, function() {
+        console.log("attribute change", abbreviation);
+        getAttrs([abbreviation], function(values) {
+            parseIntegersIn(values);
+
+            var total = "";
+            if (values[abbreviation]) {
+                total = values[abbreviation] * 2;
+            }
+
+            let result = {};
+            result["calc_total_" + abbreviation] = total;
+            setAttrs(result);
+        });
+    });
 }
 
 var techniques = [
