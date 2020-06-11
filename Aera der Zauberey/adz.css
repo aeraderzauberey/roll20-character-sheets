@@ -5,12 +5,33 @@
 	min-width: 800px;
 	--base-font-size: 10pt;
 	font-size: var(--base-font-size);
+	background: url('https://cdn.inspirationhut.net/wp-content/uploads/2012/11/Grunge-Paper-Texture-1.jpg');
+	background-size: 100% 100%;
+	border-radius: 15px;
+}
+
+.sheet-layout {
+	padding: 1.5em 1.0em 3em 1.0em;
 }
 
 .charsheet label {
 	font-size: var(--base-font-size);
 	margin: 0;
 	padding: 0;
+}
+
+.charsheet h1,
+.charsheet h2,
+.charsheet h3 {
+	margin-top: 0.5em;
+	margin-bottom: 0.25em;
+}
+
+.charsheet label,
+.charsheet h1,
+.charsheet h2,
+.charsheet h3 {
+	text-shadow: 2px 2px 2px rgba(1, 1, 1, 0.2)
 }
 
 .sheet-layout,
@@ -170,7 +191,7 @@ button.sheet-labelled {
 }
 
 .charsheet .sheet-layout div input:focus {
-	background-color: #fef68e;
+	background-color: rgba(254, 246, 142, 0.5);
 }
 
 .charsheet .sheet-layout div input[readonly] {
