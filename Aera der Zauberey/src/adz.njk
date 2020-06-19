@@ -54,7 +54,7 @@
               <input type="text" name="attr_name" />
               <select name="attr_attribute">
                 #% for abbreviation, name in attributes %#
-                <option value="#$ abbreviation $#">#$ abbreviation $#</option>
+                <option value="#$ abbreviation $#">#$ abbreviation | upper $#</option>
                 #% endfor %#
               </select>
               <input type="number" name="attr_value" />

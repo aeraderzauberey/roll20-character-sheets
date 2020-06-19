@@ -165,14 +165,41 @@ button.sheet-labelled {
 	resize: vertical;
 }
 
+.sheet-skill-list > div[class~="repcontainer"] {
+	columns: 2;
+	column-gap: 2em;
+	margin-bottom: 0.5em;
+}
+
+.sheet-skill-list > div[class~="repcontainer"][class~="editmode"] {
+	columns: 1;
+}
+
 .sheet-skills .repcontainer .repitem {
 	display: grid;
-	grid-template-columns: 50% 30% 10% 10%;
+	grid-template-columns: 1fr min-content min-content min-content;
 	grid-template-rows: min-content;
+	column-gap: 0.25em;
+	margin-bottom: 0.5em;
 }
 
 .sheet-skills select {
-	width: auto;
+	box-sizing: border-box;
+	width: min-content;
+	height: 1.6em;
+	padding: 0;
+	margin: 0;
+
+	background: transparent;
+	text-align: center;
+
+	border-width: 0 0 1px 0;
+	border-color: var(--border-color);
+	border-radius: 0;
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
 }
 
 .sheet-skills input {
@@ -233,23 +260,27 @@ button.sheet-labelled {
 }
 
 .charsheet .sheet-layout div input {
-	height: initial !important;
-	border-color: var(--border-color);
-	border-width: 0;
-	border-radius: 0;
-	background: transparent;
+	box-sizing: border-box;
+	height: 1.6em;
 	padding: 0;
-	margin: 0 1px 2px 1px;
+	margin: 0;
+
+	background: transparent;
+
+	border-width: 0 0 1px 0;
+	border-color: transparent;
+	border-radius: 0;
 }
 
 .charsheet .sheet-layout div input:not([readonly]) {
 	border-color: var(--border-color);
-	border-bottom-width: 1px;
 }
 
 .charsheet .sheet-layout div input:focus,
-.charsheet .sheet-layout textarea:focus {
+.charsheet .sheet-layout textarea:focus,
+.charsheet .sheet-skill-list select:focus {
 	background-color: var(--highlight-color);
+	outline: none;
 }
 
 .charsheet .sheet-layout div input[readonly] {
