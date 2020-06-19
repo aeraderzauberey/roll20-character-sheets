@@ -1,7 +1,7 @@
 #% macro roll_button(name, title, dice, buttonLabel) %#
 <button type='roll'
         name='roll_#$ name $#'
-        value='&{template:adz} {{title=#$ title $#}} {{dice=#$ dice $#}} {{result=[[(#$ dice $#)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=#$ title $#}} {{dice=[[#$ dice $#+0]]}} {{result=[[(#$ dice $#+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
         #%- if buttonLabel %#
         class="labelled">
     <label>#$ buttonLabel $#</label>
