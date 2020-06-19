@@ -1580,7 +1580,7 @@ function bulkCalculateSkills(inputAttributes) {
     getAttrs(inputAttributes.concat(attributes), function(values) {
         let result = {};
         for (const key of Object.keys(values).filter(key => key.endsWith("_value"))) {
-            let prefix = key.replaceAll("_value", "");
+            let prefix = key.replace("_value", "");
             calculateSkill(values, prefix, result);
         }
         console.log("bulk calculate result:", result);
