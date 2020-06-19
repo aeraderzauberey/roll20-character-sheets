@@ -231,7 +231,7 @@
                 <option value="gl">gl</option>
                 
               </select>
-              <input type="text" name="attr_value" />
+              <input type="number" name="attr_value" />
               
 
                 <div class="stack clickable-total">
@@ -239,23 +239,14 @@
                     
 <button type='roll'
         name='roll_@{name}'
-        value='&{template:adz} {{title=@{name}}} {{dice=[[@{value}+0]]}} {{result=[[(@{value}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=@{name}}} {{dice=[[@{calc_total}+0]]}} {{result=[[(@{calc_total}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
 </button>
 
                 </div>
-                <button type='roll' name='roll_ExampleRoll' value='Test: name=@{name}, value=@{value}'></button>
-
             </fieldset>
-
-            <fieldset class="repeating_example" style="background: green">
-                <label>name</label>
-            	<input type="text" name="attr_name"/>
-                <label>value</label>
-            	<input type="text" name="attr_value"/>
-            	<button type='roll' name='roll_ExampleRoll' value='Test: name=@{name}, value=@{value}'></button>
-            </fieldset>
-
         </div>
+    </div>
+
     <div class="sheet-magic">
         <h2>Techniken & Magiebereiche</h2>
 
@@ -1506,10 +1497,12 @@
 
 <script type="text/worker">
 
-function parseIntegersIn(values) {
+function getIntegersFrom(values) {
+    let result = {};
     for (const key of Object.keys(values)) {
-        values[key] = parseInt(values[key]) || 0;
+        result[key] = parseInt(values[key]) || 0;
     }
+    return result;
 }
 
 var attributes = [
@@ -1531,13 +1524,13 @@ for (const abbreviation of attributes) {
 
 function addAttributeListener(abbreviation) {
     on("sheet:opened change:" + abbreviation, function() {
-        console.log("attribute change", abbreviation);
+        console.log("attribute change:", abbreviation);
         getAttrs([abbreviation], function(values) {
-            parseIntegersIn(values);
+            let integers = getIntegersFrom(values);
 
             var total = "";
-            if (values[abbreviation]) {
-                total = values[abbreviation] * 2;
+            if (integers[abbreviation]) {
+                total = integers[abbreviation] * 2;
             }
 
             let result = {};
@@ -1546,6 +1539,51 @@ function addAttributeListener(abbreviation) {
         });
     });
 }
+
+on("sheet:opened", function() {
+    getSectionIDs("repeating_skills", function(ids) {
+        let valueIds = ids.map(id => "repeating_skills_" + id + "_value");
+        let attributeIds = ids.map(id => "repeating_skills_" + id + "_attribute");
+        var inputAttributes = valueIds.concat(attributeIds);
+        bulkCalculateSkills(inputAttributes);
+    });
+});
+
+on("change:repeating_skills", function(eventInfo) {
+    console.log("change:", eventInfo.sourceAttribute);
+    if (/_(value|attribute)$/.test(eventInfo.sourceAttribute)) {
+        console.log("change", eventInfo);
+
+        let inputAttributes = ["_value", "_attribute"].map(s => eventInfo.triggerName + s);
+        console.log(inputAttributes);
+        bulkCalculateSkills(inputAttributes);
+    }
+});
+
+function bulkCalculateSkills(inputAttributes) {
+    getAttrs(inputAttributes.concat(attributes), function(values) {
+        let result = {};
+        for (const key of Object.keys(values).filter(key => key.endsWith("_value"))) {
+            let prefix = key.replaceAll("_value", "");
+            calculateSkill(values, prefix, result);
+        }
+        console.log("bulk calculate result:", result);
+        setAttrs(result);
+    });
+}
+
+function calculateSkill(values, prefix, result) {
+    let rawValue = values[prefix + "_value"];
+    let value = parseInt(rawValue) || 0;
+
+    let attributeAbbreviation = values[prefix + "_attribute"];
+    let attributeRawValue = values[attributeAbbreviation];
+    let attributeValue = parseInt(attributeRawValue) || 0;
+
+    console.log("calculate " + prefix + " based on values: ", values);
+    result[prefix + "_calc_total"] = attributeValue + value;
+}
+
 
 var techniques = [
     "beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"
@@ -1571,9 +1609,8 @@ function addCellListener(domain, technique) {
     on("change:" + combination, function() {
         console.log("cell change", domain, technique);
         getAttrs([domain, technique, combination], function(values) {
-            parseIntegersIn(values);
             let result = {};
-            calculate(values, domain, technique, result);
+            calculateMagicCell(values, domain, technique, result);
             setAttrs(result);
        });
     });
@@ -1584,10 +1621,9 @@ function addRowListener(domain) {
     on("sheet:opened change:" + domain, function() {
         console.log("row change", domain);
         getAttrs(inputAttributes, function(values) {
-            parseIntegersIn(values);
             let result = {};
             for (const technique of techniques) {
-                calculate(values, domain, technique, result);
+                calculateMagicCell(values, domain, technique, result);
             }
             setAttrs(result);
         });
@@ -1599,20 +1635,20 @@ function addColumnListener(technique) {
     on("change:" + technique, function() {
         console.log("column change", technique);
         getAttrs(inputAttributes, function(values) {
-            parseIntegersIn(values);
             let result = {};
             for (const domain of domains) {
-                calculate(values, domain, technique, result);
+                calculateMagicCell(values, domain, technique, result);
             }
             setAttrs(result);
         });
     });
 }
 
-function calculate(values, domain, technique, result) {
+function calculateMagicCell(values, domain, technique, result) {
+    let integers = getIntegersFrom(values);
     var total = "";
-    if (values[domain] && values[technique]) {
-        total = values[domain] + values[technique] + values[domain + "_" + technique];
+    if (integers[domain] && integers[technique]) {
+        total = integers[domain] + integers[technique] + integers[domain + "_" + technique];
     }
     result["calc_total_" + domain + "_" + technique] = total;
 }

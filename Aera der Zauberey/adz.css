@@ -55,9 +55,9 @@
 .sheet-layout {
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-areas:
-			"base   .      .    "
-			"attr   .      .    "
-			"magic  magic  magic";
+			"base   .       .    "
+			"attr   skills  skills"
+			"magic  magic   magic";
 }
 
 .sheet-basics label::after,
@@ -71,6 +71,10 @@
 
 .sheet-attributes {
 	grid-area: attr;
+}
+
+.sheet-skills {
+	grid-area: skills;
 }
 
 .sheet-magic {
@@ -125,6 +129,25 @@ button.sheet-labelled {
 .sheet-clickable-label label:hover {
 	color: blue;
 	text-decoration: underline;
+}
+
+.sheet-skills .repcontainer .repitem {
+	display: grid;
+	grid-template-columns: 50% 30% 10% 10%;
+	grid-template-rows: min-content;
+}
+
+.sheet-skills select {
+	width: auto;
+}
+
+.sheet-skills input {
+	width: auto;
+}
+
+/* FIXME make this work */
+.sheet-skills .repcontainer.editmode .sheet-clickable-total {
+	display: none;
 }
 
 .sheet-magic-matrix {
