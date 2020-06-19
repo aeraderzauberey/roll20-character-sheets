@@ -3,8 +3,24 @@
 <div class="sheet-layout">
 
     <div class="sheet-basics">
-        <label>Name</label><input type="text" name="attr_character_name" />
-        <label>Erfolgsabzug</label><input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
+        <label>Name</label>
+        <input type="text" name="attr_character_name" />
+
+        <label>Erfolgsabzug</label>
+        <input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
+
+        <label>Benutzerdefinierte Probe</label>
+        
+<button type='roll'
+        name='roll_custom-roll'
+        value='&{template:adz} {{title=?{Titel|Probe}}} {{dice=[[?{Würfelanzahl|1}+0]]}} {{result=[[(?{Würfelanzahl|1}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+</button>
+
+    </div>
+
+    <div class="sheet-notes">
+        <label>Notizen</label>
+        <textarea name="attr_character_notes"></textarea>
     </div>
 
     <div class="sheet-attributes">

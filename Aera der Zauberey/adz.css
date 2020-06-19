@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Eagle+Lake&display=swap');
 
+:root {
+}
+
 .charsheet {
 	background-color: #fafafa;
 	min-width: 800px;
 	--base-font-size: 10pt;
+	--border-color: #6a4602;
+	--highlight-color: rgba(254, 246, 142, 0.5);
 	font-size: var(--base-font-size);
 	background: url('https://cdn.inspirationhut.net/wp-content/uploads/2012/11/Grunge-Paper-Texture-1.jpg');
 	background-size: 100% 100%;
@@ -37,6 +42,7 @@
 .sheet-layout,
 .sheet-magic-matrix,
 .sheet-attributes-list,
+.sheet-notes,
 .sheet-horizontal,
 .sheet-vertical {
 	display: grid;
@@ -55,18 +61,30 @@
 .sheet-layout {
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-areas:
-			"base   .       .    "
+			"base   notes   notes"
 			"attr   skills  skills"
 			"magic  magic   magic";
+	align-items: start;
 }
 
 .sheet-basics label::after,
-.sheet-attributes label::after {
+.sheet-attributes label::after,
+.sheet-notes label::after {
 	content: ":";
 }
 
 .sheet-basics {
 	grid-area: base;
+}
+
+.sheet-notes {
+	grid-area: notes;
+	justify-self: stretch;
+	align-self: stretch;
+}
+
+.sheet-custom-roll {
+	grid-area: custom;
 }
 
 .sheet-attributes {
@@ -129,6 +147,22 @@ button.sheet-labelled {
 .sheet-clickable-label label:hover {
 	color: blue;
 	text-decoration: underline;
+}
+
+.sheet-notes {
+	align-items: stretch;
+	justify-items: stretch;
+}
+
+.charsheet .sheet-notes textarea {
+	background: none;
+	border: 1px solid var(--border-color);
+	border-radius: 0.5em;
+	padding: 0.5em;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	resize: vertical;
 }
 
 .sheet-skills .repcontainer .repitem {
@@ -200,7 +234,7 @@ button.sheet-labelled {
 
 .charsheet .sheet-layout div input {
 	height: initial !important;
-	border-color: #6a4602;
+	border-color: var(--border-color);
 	border-width: 0;
 	border-radius: 0;
 	background: transparent;
@@ -209,12 +243,13 @@ button.sheet-labelled {
 }
 
 .charsheet .sheet-layout div input:not([readonly]) {
-	border-color: #6a4602;
+	border-color: var(--border-color);
 	border-bottom-width: 1px;
 }
 
-.charsheet .sheet-layout div input:focus {
-	background-color: rgba(254, 246, 142, 0.5);
+.charsheet .sheet-layout div input:focus,
+.charsheet .sheet-layout textarea:focus {
+	background-color: var(--highlight-color);
 }
 
 .charsheet .sheet-layout div input[readonly] {

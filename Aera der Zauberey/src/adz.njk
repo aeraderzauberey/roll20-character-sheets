@@ -14,8 +14,19 @@
 <div class="sheet-layout">
 
     <div class="sheet-basics">
-        <label>Name</label><input type="text" name="attr_character_name" />
-        <label>Erfolgsabzug</label><input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
+        <label>Name</label>
+        <input type="text" name="attr_character_name" />
+
+        <label>Erfolgsabzug</label>
+        <input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
+
+        <label>Benutzerdefinierte Probe</label>
+        #$ roll_button('custom-roll', '?{Titel|Probe}', '?{Würfelanzahl|1}') $#
+    </div>
+
+    <div class="sheet-notes">
+        <label>Notizen</label>
+        <textarea name="attr_character_notes"></textarea>
     </div>
 
     <div class="sheet-attributes">
