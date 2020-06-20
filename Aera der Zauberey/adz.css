@@ -3,20 +3,57 @@
 :root {
 }
 
-.charsheet {
-	background-color: #fafafa;
-	min-width: 800px;
+.charsheet,
+.sheet-rolltemplate-adz {
 	--base-font-size: 10pt;
 	--border-color: #6a4602;
 	--highlight-color: rgba(254, 246, 142, 0.5);
+	--parchment-color-dark: #d9bd96;
+	--parchment-color-light: #ebd2b6;
+	--danger-color: #d99696;
+}
+
+.charsheet {
+	min-width: 60em;
+	max-width: 70em;
 	font-size: var(--base-font-size);
+	background-color: var(--parchment-color-light);
 	background: url('https://cdn.inspirationhut.net/wp-content/uploads/2012/11/Grunge-Paper-Texture-1.jpg');
 	background-size: 100% 100%;
 	border-radius: 15px;
+	box-shadow: 0.5em 0.5em 0.5em rgba(1, 1, 1, 0.2);
+	margin-bottom: 1em;
+	margin: 0 auto 1em auto;
+}
+
+.sheet-layout,
+.sheet-magic-matrix,
+.sheet-attributes-list,
+.sheet-notes,
+.sheet-horizontal,
+.sheet-vertical {
+	display: grid;
+	gap: 0;
+	align-items: center;
+	justify-items: start;
+}
+
+.sheet-magic-matrix,
+.sheet-attributes-list {
+	gap: 0.5em 1em;
 }
 
 .sheet-layout {
 	padding: 1.5em 1.0em 3em 1.0em;
+
+	grid-template-columns: min-content 1fr 1fr;
+	gap: 1em 2em;
+	grid-template-areas:
+			"base   notes   notes"
+			"attr   skills  skills"
+			"magic  magic   magic";
+	align-items: start;
+	justify-items: stretch;
 }
 
 .charsheet label {
@@ -37,34 +74,6 @@
 .charsheet h2,
 .charsheet h3 {
 	text-shadow: 2px 2px 2px rgba(1, 1, 1, 0.2)
-}
-
-.sheet-layout,
-.sheet-magic-matrix,
-.sheet-attributes-list,
-.sheet-notes,
-.sheet-horizontal,
-.sheet-vertical {
-	display: grid;
-	grid-column-gap: 0;
-	grid-row-gap: 0;
-	align-items: center;
-	justify-items: start;
-}
-
-.sheet-layout,
-.sheet-magic-matrix,
-.sheet-attributes-list {
-	grid-gap: 0.5em 1em;
-}
-
-.sheet-layout {
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-areas:
-			"base   notes   notes"
-			"attr   skills  skills"
-			"magic  magic   magic";
-	align-items: start;
 }
 
 .sheet-basics label::after,
@@ -171,8 +180,36 @@ button.sheet-labelled {
 	margin-bottom: 0.5em;
 }
 
+
+.sheet-skill-list > div[class~="repcontainer"] div[class~="itemcontrol"] > * {
+	background: none;
+	height: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0 0.75em;
+	border-width: 0;
+	border-radius: 0;
+	background-color: var(--parchment-color-dark);
+	color: black;
+	text-shadow: none;
+}
+
+.sheet-skill-list > div[class~="repcontainer"] div[class~="itemcontrol"] > button[class~="repcontrol_del"]:hover {
+	background: var(--danger-color);
+}
+
+.sheet-skill-list > div[class~="repcontrol"] > button[class~="repcontrol_add"] {
+	float: right;
+}
+
 .sheet-skill-list > div[class~="repcontainer"][class~="editmode"] {
 	columns: 1;
+	max-width: 20em;
+	margin: 0 auto;
+}
+
+.sheet-skills .repcontainer .repitem .itemcontrol {
+	background: transparent !important;
 }
 
 .sheet-skills .repcontainer .repitem {
@@ -181,6 +218,21 @@ button.sheet-labelled {
 	grid-template-rows: min-content;
 	column-gap: 0.25em;
 	margin-bottom: 0.5em;
+}
+
+.sheet-skill-list > div[class~="editmode"] .repitem {
+	display: block;
+	background: rgba(0, 0, 0, 0.04);
+}
+
+.sheet-skill-list > div[class~="editmode"] .repitem *[name^=attr_] {
+	display: none;
+}
+
+.sheet-skill-list > div[class~="editmode"] .repitem input[type=text] {
+	display: block;
+	margin: 0 auto;
+	border-color: transparent;
 }
 
 .sheet-skills select {
@@ -200,6 +252,10 @@ button.sheet-labelled {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
+}
+
+.sheet-skills select option {
+	background: var(--parchment-color-light);
 }
 
 .sheet-skills input {
@@ -309,7 +365,7 @@ input::-webkit-inner-spin-button {
 	border-image-outset: 0px 0px 0px 0px;
 	border-image-repeat: stretch;
 	border-image-source: url("https://svgshare.com/i/LMv.svg");
-	background: #d9bd96;
+	background: var(--parchment-color-dark);
 	background-clip: content-box;
 	padding: 20px;
 	text-align: center;

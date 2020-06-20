@@ -1562,6 +1562,13 @@ on("sheet:opened", function() {
         let attributeIds = ids.map(id => "repeating_skills_" + id + "_attribute");
         var inputAttributes = valueIds.concat(attributeIds);
         bulkCalculateSkills(inputAttributes);
+
+        var newAttributes = {};
+        for (let i = ids.length; i < 16; i++) {
+            var newId = generateRowID();
+            newAttributes["repeating_skills_" + newId + "_attribute"] = "-";
+        }
+        setAttrs(newAttributes);
     });
 });
 
@@ -1571,33 +1578,52 @@ on("change:repeating_skills", function(eventInfo) {
         console.log("change", eventInfo);
 
         let inputAttributes = ["_value", "_attribute"].map(s => eventInfo.triggerName + s);
-        console.log(inputAttributes);
         bulkCalculateSkills(inputAttributes);
     }
 });
 
+on("remove:repeating_skills", function(eventInfo) {
+    getSectionIDs("repeating_skills", function(ids) {
+        console.log("remove:repeating_skills ➞ all skill row IDs:", ids);
+        var newAttributes = {};
+        if (ids.length < 16) {
+            var newId = generateRowID();
+            newAttributes["repeating_skills_" + newId + "_attribute"] = "-";
+            console.log("row removed; appending a new one to keep the minimum row count");
+        }
+
+        setAttrs(newAttributes);
+    });
+});
+
 function bulkCalculateSkills(inputAttributes) {
     getAttrs(inputAttributes.concat(attributes), function(values) {
+        console.debug("bulkCalculateSkills with values", values);
         let result = {};
         for (const key of Object.keys(values).filter(key => key.endsWith("_value"))) {
             let prefix = key.replace("_value", "");
             calculateSkill(values, prefix, result);
         }
-        console.log("bulk calculate result:", result);
+        console.log("bulk skill calculation result:", result);
         setAttrs(result);
     });
 }
 
-function calculateSkill(values, prefix, result) {
+function calculateSkill(values, prefix, target) {
     let rawValue = values[prefix + "_value"];
     let value = parseInt(rawValue) || 0;
 
     let attributeAbbreviation = values[prefix + "_attribute"];
-    let attributeRawValue = values[attributeAbbreviation];
-    let attributeValue = parseInt(attributeRawValue) || 0;
 
-    console.log("calculate " + prefix + " based on values: ", values);
-    result[prefix + "_calc_total"] = attributeValue + value;
+    let result = 0;
+    if (attributeAbbreviation != "-") {
+        let attributeRawValue = values[attributeAbbreviation];
+        let attributeValue = parseInt(attributeRawValue) || 0;
+
+        console.log("calculate " + prefix + " based on values: ", values);
+        result = attributeValue + value;
+    }
+    target[prefix + "_calc_total"] = result;
 }
 
 
