@@ -389,11 +389,19 @@ input::-webkit-inner-spin-button {
 	border-radius: 0.4em;
 }
 
-.sheet-rolltemplate-adz .sheet-plain .inlinerollresult {
+.sheet-rolltemplate-adz .sheet-transparent-roll .inlinerollresult,
+.sheet-rolltemplate-adz .sheet-plain-roll .inlinerollresult {
 	background: transparent;
-	font-weight: normal;
 	border-width: 0;
 	padding: 0;
+}
+
+.sheet-rolltemplate-adz .sheet-plain-roll .inlinerollresult {
+	font-weight: normal;
+}
+
+.sheet-rolltemplate-adz .sheet-large {
+	font-size: 120%;
 }
 
 .sheet-rolltemplate-adz .sheet-note {

@@ -32,6 +32,14 @@
 </button>
 
 
+
+        <label>Initiativewurf</label>
+        <button type='roll'
+                name='roll_initiative'
+                value='&{template:adz} {{title=Initiative}} {{result=[[@{calc_initiative_base} + 2d6cs>7cf<0]]}}'>
+        </button>
+        <input name="attr_calc_initiative_base" class="number" readonly="true" />
+
     </div>
 
     <div class="sheet-notes">
@@ -1734,19 +1742,25 @@
 
     <rolltemplate class="sheet-rolltemplate-adz">
         <h1>{{title}}</h1>
-        <p>
-            {{result}}
-            Erfolg{{#^rollTotal() result 1}}e{{/^rollTotal() result 1}}
-            mit
-            <span class="plain">{{dice}}</span>
-            Würfel{{#^rollTotal() dice 1}}n{{/^rollTotal() dice 1}}
-        </p>
-        {{#penalty}}
-            <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
-        {{/penalty}}
-        {{^penalty}}
-            <p class="note">Erfolgsabzug ignoriert.</p>
-        {{/penalty}}
+
+        {{#dice}}
+            <p>
+                {{result}}
+                Erfolg{{#^rollTotal() result 1}}e{{/^rollTotal() result 1}}
+                mit
+                <span class="plain-roll transparent-roll">{{dice}}</span>
+                Würfel{{#^rollTotal() dice 1}}n{{/^rollTotal() dice 1}}
+            </p>
+            {{#penalty}}
+                <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
+            {{/penalty}}
+            {{^penalty}}
+                <p class="note">Erfolgsabzug ignoriert.</p>
+            {{/penalty}}
+        {{/dice}}
+        {{^dice}}
+            <p class="large transparent-roll">{{result}}</p>
+        {{/dice}}
     </rolltemplate>
 
 </div>
@@ -1801,7 +1815,8 @@ on("sheet:opened", function() {
     getSectionIDs("repeating_skills", function(ids) {
         let valueIds = ids.map(id => "repeating_skills_" + id + "_value");
         let attributeIds = ids.map(id => "repeating_skills_" + id + "_attribute");
-        var inputAttributes = valueIds.concat(attributeIds);
+        let nameIds = ids.map(id => "repeating_skills_" + id + "_name");
+        var inputAttributes = valueIds.concat(attributeIds).concat(nameIds);
         bulkCalculateSkills(inputAttributes);
 
         var newAttributes = {};
@@ -1816,14 +1831,26 @@ on("sheet:opened", function() {
 on("change:repeating_skills", function(eventInfo) {
     console.log("change:", eventInfo.sourceAttribute);
     if (/_(value|attribute)$/.test(eventInfo.sourceAttribute)) {
-        console.log("change", eventInfo);
+        console.debug("change", eventInfo);
 
-        let inputAttributes = ["_value", "_attribute"].map(s => eventInfo.triggerName + s);
+        let inputAttributes = ["_value", "_attribute", "_name"].map(s => eventInfo.triggerName + s);
         bulkCalculateSkills(inputAttributes);
+    } else if (/_name$/.test(eventInfo.sourceAttribute)) {
+        console.debug("rename", eventInfo);
+
+        if (eventInfo.previousValue == "Reflexe") {
+            setAttrs({ "calc_symlink_Reflexe": "" });
+        } else if (eventInfo.newValue == "Reflexe") {
+            var valueId = eventInfo.sourceAttribute.replace("_name", "_value");
+            getAttrs([valueId], function(values) {
+                setAttrs({ "calc_symlink_Reflexe": values[valueId] });
+            });
+        }
     }
 });
 
 on("remove:repeating_skills", function(eventInfo) {
+    console.debug("remove skill row:", eventInfo);
     getSectionIDs("repeating_skills", function(ids) {
         console.log("remove:repeating_skills ➞ all skill row IDs:", ids);
         var newAttributes = {};
@@ -1835,6 +1862,11 @@ on("remove:repeating_skills", function(eventInfo) {
 
         setAttrs(newAttributes);
     });
+
+    const nameKey = Object.keys(eventInfo.removedInfo).filter(key => key.endsWith("_name"))[0];
+    if (eventInfo.removedInfo[nameKey] == "Reflexe") {
+        setAttrs({ "calc_symlink_Reflexe": "" });
+    }
 });
 
 function bulkCalculateSkills(inputAttributes) {
@@ -1854,6 +1886,11 @@ function calculateSkill(values, prefix, target) {
     let rawValue = values[prefix + "_value"];
     let value = parseInt(rawValue) || 0;
 
+    const name = values[prefix + "_name"];
+    if (name == "Reflexe") {
+        target["calc_symlink_" + name] = value;
+    }
+
     let attributeAbbreviation = values[prefix + "_attribute"];
 
     let result = 0;
@@ -1867,6 +1904,18 @@ function calculateSkill(values, prefix, target) {
     target[prefix + "_calc_total"] = result;
 }
 
+
+on("sheet:opened change:in change:calc_symlink_reflexe", function(eventInfo) {
+    console.log("initiative base change:", eventInfo.sourceAttribute);
+    getAttrs(["in", "calc_symlink_Reflexe"], function(values) {
+        var base = 0;
+        for (const value of Object.values(values)) {
+            base += parseInt(value) * 2;
+        }
+        console.log("base=", base);
+        setAttrs({ "calc_initiative_base": base });
+    });
+});
 
 var techniques = [
     "beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"
