@@ -1734,7 +1734,13 @@
 
     <rolltemplate class="sheet-rolltemplate-adz">
         <h1>{{title}}</h1>
-        <p>{{result}} Erfolge mit <span class="plain">{{dice}}</span> Würfeln</p>
+        <p>
+            {{result}}
+            Erfolg{{#^rollTotal() result 1}}e{{/^rollTotal() result 1}}
+            mit
+            <span class="plain">{{dice}}</span>
+            Würfel{{#^rollTotal() dice 1}}n{{/^rollTotal() dice 1}}
+        </p>
         {{#penalty}}
             <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
         {{/penalty}}
