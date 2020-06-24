@@ -1,7 +1,15 @@
 #% macro roll_button(name, title, dice, buttonLabel) %#
+#$ roll_button_impl(name, title, dice, buttonLabel, true) $#
+#% endmacro %#
+
+#% macro roll_button_special(name, title, dice, buttonLabel) %#
+#$ roll_button_impl(name, title, dice, buttonLabel, false) $#
+#% endmacro %#
+
+#% macro roll_button_impl(name, title, dice, buttonLabel, penaltyActive) %#
 <button type='roll'
         name='roll_#$ name $#'
-        value='&{template:adz} {{title=#$ title $#}} {{dice=[[#$ dice $#+0]]}} {{result=[[(#$ dice $#+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=#$ title $#}} {{dice=[[#$ dice $#+0]]}} {{result=[[(#$ dice $#+0)d6>5cs>5cf<0#$ " - @{penalty}" if penaltyActive $#]]}}#$ " {{penalty=@{penalty}}}" if penaltyActive $#'
         #%- if buttonLabel %#
         class="labelled">
     <label>#$ buttonLabel $#</label>
@@ -20,8 +28,11 @@
         <label>Erfolgsabzug</label>
         <input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
 
-        <label>Benutzerdefinierte Probe</label>
+        <label>Sonstige Probe</label>
         #$ roll_button('custom-roll', '?{Titel|Probe}', '?{Würfelanzahl|1}') $#
+
+        <label>Sonstige Probe (ohne Abzug)</label>
+        #$ roll_button_special('custom-roll-special', '?{Titel|Probe}', '?{Würfelanzahl|1}') $#
     </div>
 
     <div class="sheet-notes">
@@ -99,7 +110,12 @@
     <rolltemplate class="sheet-rolltemplate-adz">
         <h1>{{title}}</h1>
         <p>{{result}} Erfolge mit <span class="plain">{{dice}}</span> Würfeln</p>
-        <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
+        {{#penalty}}
+            <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
+        {{/penalty}}
+        {{^penalty}}
+            <p class="note">Erfolgsabzug ignoriert.</p>
+        {{/penalty}}
     </rolltemplate>
 
 </div>
