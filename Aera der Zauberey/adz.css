@@ -276,24 +276,31 @@ button.sheet-labelled {
 	justify-items: center;
 }
 
-.charsheet .sheet-clickable-total button[type="roll"] {
-	border-width: 0;
-	background: transparent;
-	transform: rotate(45deg);
-	opacity: 0;
+.charsheet button[type="roll"] {
 	position: relative;
 	width: 1em;
 	height: 1em;
 }
 
-.charsheet .sheet-clickable-total button[type="roll"]::before,
-.charsheet .sheet-clickable-total button[type="roll"]::after {
+.charsheet .sheet-layout button[type="roll"]::before,
+.charsheet .sheet-layout button[type="roll"]::after {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
+	transform: rotate(45deg);
 	font-family: "dicefontd6";
+}
+
+.charsheet .sheet-layout button[type="roll"]::before {
+	content: "F";
+}
+
+.charsheet .sheet-clickable-total button[type="roll"] {
+	border-width: 0;
+	background: transparent;
+	opacity: 0;
 }
 
 .charsheet .sheet-clickable-total button[type="roll"]::before {
