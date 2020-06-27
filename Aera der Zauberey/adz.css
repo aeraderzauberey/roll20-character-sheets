@@ -314,6 +314,32 @@ button.sheet-labelled {
 	border-color: transparent;
 }
 
+.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2)::before {
+	border-top: 1px dashed black;
+	content: " ";
+	position: absolute;
+	top: -4px;
+	width: 100%;
+	height: 2px;
+}
+
+.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2) {
+	position: relative;
+}
+
+.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2) .repcontrol_del {
+	position: relative;
+}
+.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2) .repcontrol_del::after {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	left: 30%;
+	width: 40%;
+	content: " ";
+	border-bottom: 7px solid var(--parchment-color-dark);
+}
+
 .sheet-skills select {
 	box-sizing: border-box;
 	width: min-content;
