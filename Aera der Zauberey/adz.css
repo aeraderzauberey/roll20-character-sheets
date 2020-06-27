@@ -207,6 +207,30 @@ button.sheet-labelled {
 	display: none;
 }
 
+.sheet-character-name[value$="🐛"] + .sheet-layout .sheet-skill-list div[class~="repitem"] {
+	position: relative;
+}
+
+.sheet-character-name[value$="🐛"] + .sheet-layout .sheet-skill-list div[class~="repitem"]::after {
+	content: attr(data-reprowid);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+
+	text-shadow:
+		1em -0.3em 0.5em white,
+		-1em -0.3em 0.5em white,
+		1em 0.3em 0.5em white,
+		-1em 0.3em 0.5em white;
+
+	color: darkgreen;
+	pointer-events: none;
+	font-family: "JetBrains Mono", monospace;
+}
+
 .sheet-skill-list button[type=action] {
 	float: right;
 
