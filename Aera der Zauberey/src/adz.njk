@@ -97,23 +97,27 @@
             <div>#! label !#</div>
             <div>#! input !#</div>
             #% for technique in techniques %#
-            <div class="vertical">
-                <label>#$ technique $#</label>
-                <input name="attr_#$ technique | lower $#" type="number" step="1" max="10"/>
-            </div>
+                <div class="vertical technique r1 #$ 'c' + (loop.index + 2) $#">
+                    <label>#$ technique $#</label>
+                    <input name="attr_#$ technique | lower $#" type="number" step="1" max="10"/>
+                </div>
             #% endfor %#
             #% for domain in domains %#
-            <label>#$ domain $#</label>
-            <input type="number" step="1" name="attr_#$ domain | lower $#" max="10"/>
-            #% for technique in techniques %#
-            <div class="horizontal">
-                <input name="attr_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" class="number" readonly="true" />
-                    #$ roll_button(domain | lower + '_' + technique | lower, domain + ' ' + technique | lower, '@{calc_total_' + domain | lower + '_' + technique | lower + '}') $#
-                </div>
-            </div>
-            #% endfor %#
+                #% set row = 'r' + (loop.index + 1) %#
+                <label class="domain #$ row $# c1">#$ domain $#</label>
+                <input class="#$ row $# c2" type="number" step="1" name="attr_#$ domain | lower $#" max="10"/>
+                #% for technique in techniques %#
+                    #% set column = 'c' + (loop.index + 2) %#
+                    <div class="horizontal node #$ row $# #$ column $#">
+                        <input name="attr_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
+                        <div class="stack clickable-total">
+                            <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" class="number" readonly="true" />
+                            #$ roll_button(domain | lower + '_' + technique | lower, domain + ' ' + technique | lower, '@{calc_total_' + domain | lower + '_' + technique | lower + '}') $#
+                        </div>
+                    </div>
+                    <div class="column-marker r1 #$ column $#"></div>
+                    <div class="row-marker #$ row $# c1"></div>
+                #% endfor %#
             #% endfor %#
         </div>
     </div>
