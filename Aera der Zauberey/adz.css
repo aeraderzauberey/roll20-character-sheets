@@ -383,6 +383,35 @@ button.sheet-labelled {
 	justify-items: center;
 }
 
+.sheet-magic-matrix .sheet-row-marker,
+.sheet-magic-matrix .sheet-column-marker {
+	color: var(--highlight-color-strong);
+	visibility: hidden;
+}
+
+.sheet-magic-matrix .sheet-row-marker {
+	justify-self: start;
+	transform: scale(3.5) translateX(-0.4em);
+}
+
+.sheet-magic-matrix .sheet-column-marker {
+	align-self: start;
+	transform: scale(3.5) translateY(-0.4em);
+}
+
+.sheet-magic-matrix .sheet-row-marker:before {
+	content: "⏵";
+}
+
+.sheet-magic-matrix .sheet-column-marker:before {
+	content: "⏷";
+}
+
+.sheet-magic-matrix .sheet-node:hover + .sheet-column-marker,
+.sheet-magic-matrix .sheet-node:hover + .sheet-column-marker + .sheet-row-marker {
+	visibility: visible;
+}
+
 .sheet-c1 {  grid-column-start: 1; grid-column-end: 2; }
 .sheet-c2 {  grid-column-start: 2; grid-column-end: 3; }
 .sheet-c3 {  grid-column-start: 3; grid-column-end: 4; }
