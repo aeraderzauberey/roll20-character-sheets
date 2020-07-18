@@ -1770,6 +1770,26 @@
 
 
 <script type="text/worker">
+var attributes = [
+    
+    "kk", 
+    "ko", 
+    "ge", 
+    "ff", 
+    "kl", 
+    "wk", 
+    "in", 
+    "ch", 
+    "gl"
+];
+
+var techniques = [
+    "beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"
+];
+
+var domains = [
+    "darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"
+];
 
 function getIntegersFrom(values) {
     let result = {};
@@ -1778,19 +1798,6 @@ function getIntegersFrom(values) {
     }
     return result;
 }
-
-var attributes = [
-    
-        "kk", 
-        "ko", 
-        "ge", 
-        "ff", 
-        "kl", 
-        "wk", 
-        "in", 
-        "ch", 
-        "gl"
-];
 
 for (const abbreviation of attributes) {
     addAttributeListener(abbreviation);
@@ -1953,14 +1960,14 @@ function addBalancingSkillRow() {
 }
 
 function getSectionIDsOrdered(sectionName, callback) {
-  'use strict';
-  getAttrs([`_reporder_${sectionName}`], function (v) {
-    getSectionIDs(sectionName, function (idArray) {
-      let reporderArray = v[`_reporder_${sectionName}`] ? v[`_reporder_${sectionName}`].toLowerCase().split(',') : [],
-        ids = [...new Set(reporderArray.filter(x => idArray.includes(x)).concat(idArray))];
-      callback(ids);
+    'use strict';
+    getAttrs([`_reporder_${sectionName}`], function (v) {
+        getSectionIDs(sectionName, function (idArray) {
+            let reporderArray = v[`_reporder_${sectionName}`] ? v[`_reporder_${sectionName}`].toLowerCase().split(',') : [],
+                ids = [...new Set(reporderArray.filter(x => idArray.includes(x)).concat(idArray))];
+            callback(ids);
+        });
     });
-  });
 };
 
 function bulkCalculateSkills(inputAttributes) {
@@ -2011,14 +2018,6 @@ on("sheet:opened change:in change:calc_symlink_reflexe", function(eventInfo) {
     });
 });
 
-var techniques = [
-    "beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"
-];
-
-var domains = [
-    "darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"
-];
-
 for (const domain of domains) {
     addRowListener(domain);
     for (const technique of techniques) {
@@ -2038,7 +2037,7 @@ function addCellListener(domain, technique) {
             let result = {};
             calculateMagicCell(values, domain, technique, result);
             setAttrs(result);
-       });
+        });
     });
 }
 
