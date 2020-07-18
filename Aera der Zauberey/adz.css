@@ -7,7 +7,9 @@
 .sheet-rolltemplate-adz {
 	--base-font-size: 10pt;
 	--border-color: #6a4602;
+	--highlight-color-strong: rgb(255, 247, 129);
 	--highlight-color: rgba(254, 246, 142, 0.5);
+	--highlight-color-weak: rgba(254, 246, 142, 0.25);
 	--parchment-color-dark: #d9bd96;
 	--parchment-color-light: #ebd2b6;
 	--danger-color: #d99696;
