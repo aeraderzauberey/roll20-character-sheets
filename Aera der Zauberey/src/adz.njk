@@ -146,24 +146,24 @@
 
 <script type="text/worker">
 var attributes = [
-    #% for abbreviation, name in attributes %#
+    #%- for abbreviation, name in attributes -%#
     "#$ abbreviation | lower $#"
     #%- if not loop.last %#, #% endif -%#
-#%- endfor %#
+#%- endfor -%#
 ];
 
 var techniques = [
-    #% for technique in techniques -%#
+    #%- for technique in techniques -%#
     "#$ technique | lower $#"
     #%- if not loop.last %#, #% endif -%#
-#%- endfor %#
+#%- endfor -%#
 ];
 
 var domains = [
-    #% for domain in domains -%#
+    #%- for domain in domains -%#
     "#$ domain | lower $#"
     #%- if not loop.last %#, #% endif -%#
-#%- endfor %#
+#%- endfor -%#
 ];
 
 function getIntegersFrom(values) {
