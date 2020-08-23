@@ -10,8 +10,9 @@
 	--highlight-color-strong: rgba(254, 246, 142, 1);
 	--highlight-color: rgba(254, 246, 142, 0.5);
 	--highlight-color-weak: rgba(254, 246, 142, 0.25);
-	--parchment-color-dark: #d9bd96;
-	--parchment-color-light: #ebd2b6;
+	--parchment-color-dark: #d7b588;
+	--parchment-color-light: #eccea7;
+	--scroll-background-color: #d9bd96;
 	--danger-color: #d99696;
 }
 
@@ -20,7 +21,8 @@
 	max-width: 70em;
 	font-size: var(--base-font-size);
 	background-color: var(--parchment-color-light);
-	background: url('https://cdn.inspirationhut.net/wp-content/uploads/2012/11/Grunge-Paper-Texture-1.jpg');
+	/* TODO: change to github repo */
+	background: url('https://i.imgur.com/kTfvnrk.jpg');
 	background-size: 100% 100%;
 	border-radius: 15px;
 	box-shadow: 0.5em 0.5em 0.5em rgba(1, 1, 1, 0.2);
@@ -536,7 +538,7 @@ input::-webkit-inner-spin-button {
 	border-image-width: 20px;
 	border-image-outset: 20px;
 	border-image-source: url("https://svgshare.com/i/LMv.svg");
-	background: var(--parchment-color-dark);
+	background: var(--scroll-background-color);
 	background-clip: border-box;
 	text-align: center;
 }
