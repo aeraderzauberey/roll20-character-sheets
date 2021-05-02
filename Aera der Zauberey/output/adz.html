@@ -41,6 +41,16 @@
         </button>
         <input name="attr_calc_initiative_base" class="number" readonly="true" />
 
+        <label>Glück dazuwürfeln</label>
+        
+
+<button type='roll'
+        name='roll_use-luck'
+        value='&{template:adz} {{title=＋ Glück}} {{dice=[[@{gl}+0]]}} {{result=[[(@{gl}+0)d6>5cs>5cf<0]]}}'>
+</button>
+
+
+
     </div>
 
     <div class="sheet-notes">
