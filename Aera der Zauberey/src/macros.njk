@@ -1,0 +1,20 @@
+#% macro roll_button(name, title, dice, buttonLabel) %#
+#$ roll_button_impl(name, title, dice, buttonLabel, true) $#
+#% endmacro %#
+
+#% macro roll_button_special(name, title, dice, buttonLabel) %#
+#$ roll_button_impl(name, title, dice, buttonLabel, false) $#
+#% endmacro %#
+
+#% macro roll_button_impl(name, title, dice, buttonLabel, penaltyActive) %#
+<button type='roll'
+        name='roll_#$ name $#'
+        value='&{template:adz} {{title=#$ title $#}} {{dice=[[#$ dice $#+0]]}} {{result=[[(#$ dice $#+0)d6>5cs>5cf<0#$ " - @{penalty}" if penaltyActive $#]]}}#$ " {{penalty=@{penalty}}}" if penaltyActive $#'
+        #%- if buttonLabel %#
+        class="labelled">
+    <label>#$ buttonLabel $#</label>
+        #%- else -%#
+        >
+        #%- endif %#
+</button>
+#% endmacro %#

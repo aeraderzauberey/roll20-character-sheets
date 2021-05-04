@@ -1,0 +1,114 @@
+<div class="sheet-basics">
+    <label>Name</label>
+    <input type="text" name="attr_character_name" />
+
+    <label>Erfolgsabzug</label>
+    <input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
+
+    <label>Sonstige Probe</label>
+    #$ roll_button('custom-roll', '?{Titel|Probe}', '?{Würfelanzahl|1}') $#
+
+    <label>Sonstige Probe (ohne Abzug)</label>
+    #$ roll_button_special('custom-roll-special', '?{Titel|Probe}', '?{Würfelanzahl|1}') $#
+
+    <label>Initiativewurf</label>
+    <button type='roll'
+            name='roll_initiative'
+            value='&{template:adz} {{title=Initiative}} {{result=[[@{calc_initiative_base} + 2d6cs>7cf<0]]}}'>
+    </button>
+    <input name="attr_calc_initiative_base" class="number" readonly="true" />
+
+    <label>Glück dazuwürfeln</label>
+    #$ roll_button_special('use-luck', '＋ Glück', '@{gl}') $#
+
+    <label>Entzugsattribut</label>
+    <select name="attr_drain_attribute">
+        #% for abbreviation, name in drainAttributes %#
+            <option value="#$ abbreviation $#">#$ name $#</option>
+        #% endfor %#
+    </select>
+</div>
+
+<div class="sheet-notes">
+    <label>Notizen</label>
+    <textarea name="attr_character_notes"></textarea>
+</div>
+
+<div class="sheet-attributes">
+    <h2>Attribute</h2>
+
+    <div class="sheet-attributes-list">
+        #% for abbreviation, name in attributes %#
+        #$ roll_button(abbreviation, name, '@{calc_total_' + abbreviation + '}', name) $#
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_#$ abbreviation $#" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_#$ abbreviation $#" class="number" readonly="true" />
+                #$ roll_button(abbreviation, name, '@{calc_total_' + abbreviation + '}') $#
+            </div>
+        </div>
+        #% endfor %#
+    </div>
+</div>
+
+<div class="sheet-skills">
+    <h2>Fertigkeiten</h2>
+
+    <div class="skill-list">
+        <fieldset class="repeating_skills">
+          <input type="text" name="attr_name" />
+          <select name="attr_attribute">
+            <option value="-">-</option>
+            #% for abbreviation, name in attributes %#
+            <option value="#$ abbreviation $#">#$ abbreviation | upper $#</option>
+            #% endfor %#
+          </select>
+          <input type="number" name="attr_value" />
+          #! <button type='roll' name='roll_skill_@{name}' value='&{template:adz} {{name=@{name}}} {{erfolge=[[(@{value}+@{(@{repeating_skills_${x}_attribute})})d6>5 - @{abzug}]]}} {{abzug=@{abzug}}} {{wuerfel=99}}'></button> !#
+
+            <div class="stack clickable-total">
+                <input name="attr_calc_total" class="number" readonly="true" />
+                #$ roll_button('@{name}', '@{name}', '@{calc_total}') $#
+            </div>
+        </fieldset>
+        <button type="action" name="act_add-skills">Add Row</button>
+    </div>
+</div>
+
+<div class="sheet-magic">
+    <h2>Techniken & Magiebereiche</h2>
+
+    <div class="sheet-magic-matrix">
+        <div>#! label !#</div>
+        <div>#! input !#</div>
+        <div class="vertical r1 c3">
+            <label>Entzug</label>
+        </div>
+        #% for technique in techniques %#
+            <div class="vertical technique r1 #$ 'c' + (loop.index + 3) $#">
+                <label>#$ technique $#</label>
+                <input name="attr_#$ technique | lower $#" type="number" step="1" max="10"/>
+            </div>
+        #% endfor %#
+        #% for domain in domains %#
+            #% set row = 'r' + (loop.index + 1) %#
+            <label class="domain #$ row $# c1">#$ domain $#</label>
+            <input class="#$ row $# c2" type="number" step="1" name="attr_#$ domain | lower $#" max="10"/>
+            <div class="#$ row $# c3">
+                #$ roll_button_special('roll-drain-' + domain, 'Entzug (' + domain + ')', '@{calc_drain_' + domain | lower + '}' ) $#
+            </div>
+            #% for technique in techniques %#
+                #% set column = 'c' + (loop.index + 3) %#
+                <div class="horizontal node #$ row $# #$ column $#">
+                    <input name="attr_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" class="number" readonly="true" />
+                        #$ roll_button(domain | lower + '_' + technique | lower, domain + ' ' + technique | lower, '@{calc_total_' + domain | lower + '_' + technique | lower + '}') $#
+                    </div>
+                </div>
+                <div class="column-marker r1 #$ column $#"></div>
+                <div class="row-marker #$ row $# c1"></div>
+            #% endfor %#
+        #% endfor %#
+    </div>
+</div>

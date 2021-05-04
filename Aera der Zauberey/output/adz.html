@@ -1,21 +1,16 @@
 
 
-
-
-
-
 <input class="sheet-character-name" type="hidden" name="attr_character_name" />
 <div class="sheet-layout">
-
     <div class="sheet-basics">
-        <label>Name</label>
-        <input type="text" name="attr_character_name" />
+    <label>Name</label>
+    <input type="text" name="attr_character_name" />
 
-        <label>Erfolgsabzug</label>
-        <input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
+    <label>Erfolgsabzug</label>
+    <input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
 
-        <label>Sonstige Probe</label>
-        
+    <label>Sonstige Probe</label>
+    
 
 <button type='roll'
         name='roll_custom-roll'
@@ -24,8 +19,8 @@
 
 
 
-        <label>Sonstige Probe (ohne Abzug)</label>
-        
+    <label>Sonstige Probe (ohne Abzug)</label>
+    
 
 <button type='roll'
         name='roll_custom-roll-special'
@@ -34,15 +29,15 @@
 
 
 
-        <label>Initiativewurf</label>
-        <button type='roll'
-                name='roll_initiative'
-                value='&{template:adz} {{title=Initiative}} {{result=[[@{calc_initiative_base} + 2d6cs>7cf<0]]}}'>
-        </button>
-        <input name="attr_calc_initiative_base" class="number" readonly="true" />
+    <label>Initiativewurf</label>
+    <button type='roll'
+            name='roll_initiative'
+            value='&{template:adz} {{title=Initiative}} {{result=[[@{calc_initiative_base} + 2d6cs>7cf<0]]}}'>
+    </button>
+    <input name="attr_calc_initiative_base" class="number" readonly="true" />
 
-        <label>Glück dazuwürfeln</label>
-        
+    <label>Glück dazuwürfeln</label>
+    
 
 <button type='roll'
         name='roll_use-luck'
@@ -51,31 +46,31 @@
 
 
 
-        <label>Entzugsattribut</label>
-        <select name="attr_drain_attribute">
-            
-                <option value="kl">Klugheit</option>
-            
-                <option value="wk">Willenskraft</option>
-            
-                <option value="in">Intuition</option>
-            
-                <option value="ch">Charisma</option>
-            
-        </select>
-    </div>
+    <label>Entzugsattribut</label>
+    <select name="attr_drain_attribute">
+        
+            <option value="kl">Klugheit</option>
+        
+            <option value="wk">Willenskraft</option>
+        
+            <option value="in">Intuition</option>
+        
+            <option value="ch">Charisma</option>
+        
+    </select>
+</div>
 
-    <div class="sheet-notes">
-        <label>Notizen</label>
-        <textarea name="attr_character_notes"></textarea>
-    </div>
+<div class="sheet-notes">
+    <label>Notizen</label>
+    <textarea name="attr_character_notes"></textarea>
+</div>
 
-    <div class="sheet-attributes">
-        <h2>Attribute</h2>
+<div class="sheet-attributes">
+    <h2>Attribute</h2>
 
-        <div class="sheet-attributes-list">
-            
-            
+    <div class="sheet-attributes-list">
+        
+        
 
 <button type='roll'
         name='roll_kk'
@@ -85,11 +80,11 @@
 </button>
 
 
-            <div class="horizontal">
-                <input type="number" step="1" name="attr_kk" max="10"/>
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_kk" class="number" readonly="true" />
-                    
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_kk" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_kk" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_kk'
@@ -97,10 +92,10 @@
 </button>
 
 
-                </div>
             </div>
-            
-            
+        </div>
+        
+        
 
 <button type='roll'
         name='roll_ko'
@@ -110,11 +105,11 @@
 </button>
 
 
-            <div class="horizontal">
-                <input type="number" step="1" name="attr_ko" max="10"/>
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_ko" class="number" readonly="true" />
-                    
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_ko" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_ko" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_ko'
@@ -122,10 +117,10 @@
 </button>
 
 
-                </div>
             </div>
-            
-            
+        </div>
+        
+        
 
 <button type='roll'
         name='roll_ge'
@@ -135,11 +130,11 @@
 </button>
 
 
-            <div class="horizontal">
-                <input type="number" step="1" name="attr_ge" max="10"/>
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_ge" class="number" readonly="true" />
-                    
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_ge" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_ge" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_ge'
@@ -147,10 +142,10 @@
 </button>
 
 
-                </div>
             </div>
-            
-            
+        </div>
+        
+        
 
 <button type='roll'
         name='roll_ff'
@@ -160,11 +155,11 @@
 </button>
 
 
-            <div class="horizontal">
-                <input type="number" step="1" name="attr_ff" max="10"/>
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_ff" class="number" readonly="true" />
-                    
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_ff" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_ff" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_ff'
@@ -172,10 +167,10 @@
 </button>
 
 
-                </div>
             </div>
-            
-            
+        </div>
+        
+        
 
 <button type='roll'
         name='roll_kl'
@@ -185,11 +180,11 @@
 </button>
 
 
-            <div class="horizontal">
-                <input type="number" step="1" name="attr_kl" max="10"/>
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_kl" class="number" readonly="true" />
-                    
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_kl" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_kl" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_kl'
@@ -197,10 +192,10 @@
 </button>
 
 
-                </div>
             </div>
-            
-            
+        </div>
+        
+        
 
 <button type='roll'
         name='roll_wk'
@@ -210,11 +205,11 @@
 </button>
 
 
-            <div class="horizontal">
-                <input type="number" step="1" name="attr_wk" max="10"/>
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_wk" class="number" readonly="true" />
-                    
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_wk" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_wk" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_wk'
@@ -222,10 +217,10 @@
 </button>
 
 
-                </div>
             </div>
-            
-            
+        </div>
+        
+        
 
 <button type='roll'
         name='roll_in'
@@ -235,11 +230,11 @@
 </button>
 
 
-            <div class="horizontal">
-                <input type="number" step="1" name="attr_in" max="10"/>
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_in" class="number" readonly="true" />
-                    
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_in" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_in" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_in'
@@ -247,10 +242,10 @@
 </button>
 
 
-                </div>
             </div>
-            
-            
+        </div>
+        
+        
 
 <button type='roll'
         name='roll_ch'
@@ -260,11 +255,11 @@
 </button>
 
 
-            <div class="horizontal">
-                <input type="number" step="1" name="attr_ch" max="10"/>
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_ch" class="number" readonly="true" />
-                    
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_ch" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_ch" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_ch'
@@ -272,10 +267,10 @@
 </button>
 
 
-                </div>
             </div>
-            
-            
+        </div>
+        
+        
 
 <button type='roll'
         name='roll_gl'
@@ -285,11 +280,11 @@
 </button>
 
 
-            <div class="horizontal">
-                <input type="number" step="1" name="attr_gl" max="10"/>
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total_gl" class="number" readonly="true" />
-                    
+        <div class="horizontal">
+            <input type="number" step="1" name="attr_gl" max="10"/>
+            <div class="stack clickable-total">
+                <input name="attr_calc_total_gl" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_gl'
@@ -297,46 +292,46 @@
 </button>
 
 
-                </div>
             </div>
-            
         </div>
+        
     </div>
+</div>
 
-    <div class="sheet-skills">
-        <h2>Fertigkeiten</h2>
+<div class="sheet-skills">
+    <h2>Fertigkeiten</h2>
 
-        <div class="skill-list">
-            <fieldset class="repeating_skills">
-              <input type="text" name="attr_name" />
-              <select name="attr_attribute">
-                <option value="-">-</option>
-                
-                <option value="kk">KK</option>
-                
-                <option value="ko">KO</option>
-                
-                <option value="ge">GE</option>
-                
-                <option value="ff">FF</option>
-                
-                <option value="kl">KL</option>
-                
-                <option value="wk">WK</option>
-                
-                <option value="in">IN</option>
-                
-                <option value="ch">CH</option>
-                
-                <option value="gl">GL</option>
-                
-              </select>
-              <input type="number" name="attr_value" />
-              
+    <div class="skill-list">
+        <fieldset class="repeating_skills">
+          <input type="text" name="attr_name" />
+          <select name="attr_attribute">
+            <option value="-">-</option>
+            
+            <option value="kk">KK</option>
+            
+            <option value="ko">KO</option>
+            
+            <option value="ge">GE</option>
+            
+            <option value="ff">FF</option>
+            
+            <option value="kl">KL</option>
+            
+            <option value="wk">WK</option>
+            
+            <option value="in">IN</option>
+            
+            <option value="ch">CH</option>
+            
+            <option value="gl">GL</option>
+            
+          </select>
+          <input type="number" name="attr_value" />
+          
 
-                <div class="stack clickable-total">
-                    <input name="attr_calc_total" class="number" readonly="true" />
-                    
+            <div class="stack clickable-total">
+                <input name="attr_calc_total" class="number" readonly="true" />
+                
 
 <button type='roll'
         name='roll_@{name}'
@@ -344,68 +339,68 @@
 </button>
 
 
-                </div>
-            </fieldset>
-            <button type="action" name="act_add-skills">Add Row</button>
-        </div>
-    </div>
-
-    <div class="sheet-magic">
-        <h2>Techniken & Magiebereiche</h2>
-
-        <div class="sheet-magic-matrix">
-            <div></div>
-            <div></div>
-            <div class="vertical r1 c3">
-                <label>Entzug</label>
             </div>
+        </fieldset>
+        <button type="action" name="act_add-skills">Add Row</button>
+    </div>
+</div>
+
+<div class="sheet-magic">
+    <h2>Techniken & Magiebereiche</h2>
+
+    <div class="sheet-magic-matrix">
+        <div></div>
+        <div></div>
+        <div class="vertical r1 c3">
+            <label>Entzug</label>
+        </div>
+        
+            <div class="vertical technique r1 c4">
+                <label>Beherrschen</label>
+                <input name="attr_beherrschen" type="number" step="1" max="10"/>
+            </div>
+        
+            <div class="vertical technique r1 c5">
+                <label>Erkennen</label>
+                <input name="attr_erkennen" type="number" step="1" max="10"/>
+            </div>
+        
+            <div class="vertical technique r1 c6">
+                <label>Erschaffen</label>
+                <input name="attr_erschaffen" type="number" step="1" max="10"/>
+            </div>
+        
+            <div class="vertical technique r1 c7">
+                <label>Kooperieren</label>
+                <input name="attr_kooperieren" type="number" step="1" max="10"/>
+            </div>
+        
+            <div class="vertical technique r1 c8">
+                <label>Modifizieren</label>
+                <input name="attr_modifizieren" type="number" step="1" max="10"/>
+            </div>
+        
+            <div class="vertical technique r1 c9">
+                <label>Verankern</label>
+                <input name="attr_verankern" type="number" step="1" max="10"/>
+            </div>
+        
+            <div class="vertical technique r1 c10">
+                <label>Versetzen</label>
+                <input name="attr_versetzen" type="number" step="1" max="10"/>
+            </div>
+        
+            <div class="vertical technique r1 c11">
+                <label>Zerstören</label>
+                <input name="attr_zerstören" type="number" step="1" max="10"/>
+            </div>
+        
+        
             
-                <div class="vertical technique r1 c4">
-                    <label>Beherrschen</label>
-                    <input name="attr_beherrschen" type="number" step="1" max="10"/>
-                </div>
-            
-                <div class="vertical technique r1 c5">
-                    <label>Erkennen</label>
-                    <input name="attr_erkennen" type="number" step="1" max="10"/>
-                </div>
-            
-                <div class="vertical technique r1 c6">
-                    <label>Erschaffen</label>
-                    <input name="attr_erschaffen" type="number" step="1" max="10"/>
-                </div>
-            
-                <div class="vertical technique r1 c7">
-                    <label>Kooperieren</label>
-                    <input name="attr_kooperieren" type="number" step="1" max="10"/>
-                </div>
-            
-                <div class="vertical technique r1 c8">
-                    <label>Modifizieren</label>
-                    <input name="attr_modifizieren" type="number" step="1" max="10"/>
-                </div>
-            
-                <div class="vertical technique r1 c9">
-                    <label>Verankern</label>
-                    <input name="attr_verankern" type="number" step="1" max="10"/>
-                </div>
-            
-                <div class="vertical technique r1 c10">
-                    <label>Versetzen</label>
-                    <input name="attr_versetzen" type="number" step="1" max="10"/>
-                </div>
-            
-                <div class="vertical technique r1 c11">
-                    <label>Zerstören</label>
-                    <input name="attr_zerstören" type="number" step="1" max="10"/>
-                </div>
-            
-            
+            <label class="domain r2 c1">Darstellung</label>
+            <input class="r2 c2" type="number" step="1" name="attr_darstellung" max="10"/>
+            <div class="r2 c3">
                 
-                <label class="domain r2 c1">Darstellung</label>
-                <input class="r2 c2" type="number" step="1" name="attr_darstellung" max="10"/>
-                <div class="r2 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Darstellung'
@@ -413,14 +408,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r2 c4">
-                        <input name="attr_darstellung_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_darstellung_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r2 c4">
+                    <input name="attr_darstellung_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_darstellung_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_darstellung_beherrschen'
@@ -428,17 +423,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r2 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r2 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r2 c5">
-                        <input name="attr_darstellung_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_darstellung_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r2 c5">
+                    <input name="attr_darstellung_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_darstellung_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_darstellung_erkennen'
@@ -446,17 +441,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r2 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r2 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r2 c6">
-                        <input name="attr_darstellung_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_darstellung_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r2 c6">
+                    <input name="attr_darstellung_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_darstellung_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_darstellung_erschaffen'
@@ -464,17 +459,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r2 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r2 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r2 c7">
-                        <input name="attr_darstellung_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_darstellung_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r2 c7">
+                    <input name="attr_darstellung_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_darstellung_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_darstellung_kooperieren'
@@ -482,17 +477,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r2 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r2 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r2 c8">
-                        <input name="attr_darstellung_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_darstellung_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r2 c8">
+                    <input name="attr_darstellung_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_darstellung_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_darstellung_modifizieren'
@@ -500,17 +495,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r2 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r2 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r2 c9">
-                        <input name="attr_darstellung_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_darstellung_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r2 c9">
+                    <input name="attr_darstellung_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_darstellung_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_darstellung_verankern'
@@ -518,17 +513,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r2 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r2 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r2 c10">
-                        <input name="attr_darstellung_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_darstellung_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r2 c10">
+                    <input name="attr_darstellung_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_darstellung_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_darstellung_versetzen'
@@ -536,17 +531,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r2 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r2 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r2 c11">
-                        <input name="attr_darstellung_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_darstellung_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r2 c11">
+                    <input name="attr_darstellung_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_darstellung_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_darstellung_zerstören'
@@ -554,17 +549,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r2 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r2 c1"></div>
             
+        
+            
+            <label class="domain r3 c1">Erde</label>
+            <input class="r3 c2" type="number" step="1" name="attr_erde" max="10"/>
+            <div class="r3 c3">
                 
-                <label class="domain r3 c1">Erde</label>
-                <input class="r3 c2" type="number" step="1" name="attr_erde" max="10"/>
-                <div class="r3 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Erde'
@@ -572,14 +567,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r3 c4">
-                        <input name="attr_erde_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_erde_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r3 c4">
+                    <input name="attr_erde_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_erde_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_erde_beherrschen'
@@ -587,17 +582,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r3 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r3 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r3 c5">
-                        <input name="attr_erde_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_erde_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r3 c5">
+                    <input name="attr_erde_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_erde_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_erde_erkennen'
@@ -605,17 +600,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r3 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r3 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r3 c6">
-                        <input name="attr_erde_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_erde_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r3 c6">
+                    <input name="attr_erde_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_erde_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_erde_erschaffen'
@@ -623,17 +618,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r3 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r3 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r3 c7">
-                        <input name="attr_erde_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_erde_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r3 c7">
+                    <input name="attr_erde_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_erde_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_erde_kooperieren'
@@ -641,17 +636,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r3 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r3 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r3 c8">
-                        <input name="attr_erde_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_erde_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r3 c8">
+                    <input name="attr_erde_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_erde_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_erde_modifizieren'
@@ -659,17 +654,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r3 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r3 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r3 c9">
-                        <input name="attr_erde_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_erde_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r3 c9">
+                    <input name="attr_erde_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_erde_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_erde_verankern'
@@ -677,17 +672,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r3 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r3 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r3 c10">
-                        <input name="attr_erde_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_erde_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r3 c10">
+                    <input name="attr_erde_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_erde_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_erde_versetzen'
@@ -695,17 +690,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r3 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r3 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r3 c11">
-                        <input name="attr_erde_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_erde_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r3 c11">
+                    <input name="attr_erde_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_erde_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_erde_zerstören'
@@ -713,17 +708,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r3 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r3 c1"></div>
             
+        
+            
+            <label class="domain r4 c1">Feuer</label>
+            <input class="r4 c2" type="number" step="1" name="attr_feuer" max="10"/>
+            <div class="r4 c3">
                 
-                <label class="domain r4 c1">Feuer</label>
-                <input class="r4 c2" type="number" step="1" name="attr_feuer" max="10"/>
-                <div class="r4 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Feuer'
@@ -731,14 +726,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r4 c4">
-                        <input name="attr_feuer_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_feuer_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r4 c4">
+                    <input name="attr_feuer_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_feuer_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_feuer_beherrschen'
@@ -746,17 +741,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r4 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r4 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r4 c5">
-                        <input name="attr_feuer_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_feuer_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r4 c5">
+                    <input name="attr_feuer_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_feuer_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_feuer_erkennen'
@@ -764,17 +759,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r4 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r4 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r4 c6">
-                        <input name="attr_feuer_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_feuer_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r4 c6">
+                    <input name="attr_feuer_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_feuer_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_feuer_erschaffen'
@@ -782,17 +777,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r4 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r4 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r4 c7">
-                        <input name="attr_feuer_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_feuer_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r4 c7">
+                    <input name="attr_feuer_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_feuer_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_feuer_kooperieren'
@@ -800,17 +795,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r4 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r4 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r4 c8">
-                        <input name="attr_feuer_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_feuer_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r4 c8">
+                    <input name="attr_feuer_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_feuer_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_feuer_modifizieren'
@@ -818,17 +813,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r4 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r4 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r4 c9">
-                        <input name="attr_feuer_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_feuer_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r4 c9">
+                    <input name="attr_feuer_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_feuer_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_feuer_verankern'
@@ -836,17 +831,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r4 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r4 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r4 c10">
-                        <input name="attr_feuer_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_feuer_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r4 c10">
+                    <input name="attr_feuer_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_feuer_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_feuer_versetzen'
@@ -854,17 +849,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r4 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r4 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r4 c11">
-                        <input name="attr_feuer_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_feuer_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r4 c11">
+                    <input name="attr_feuer_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_feuer_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_feuer_zerstören'
@@ -872,17 +867,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r4 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r4 c1"></div>
             
+        
+            
+            <label class="domain r5 c1">Geist</label>
+            <input class="r5 c2" type="number" step="1" name="attr_geist" max="10"/>
+            <div class="r5 c3">
                 
-                <label class="domain r5 c1">Geist</label>
-                <input class="r5 c2" type="number" step="1" name="attr_geist" max="10"/>
-                <div class="r5 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Geist'
@@ -890,14 +885,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r5 c4">
-                        <input name="attr_geist_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_geist_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r5 c4">
+                    <input name="attr_geist_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_geist_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_geist_beherrschen'
@@ -905,17 +900,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r5 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r5 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r5 c5">
-                        <input name="attr_geist_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_geist_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r5 c5">
+                    <input name="attr_geist_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_geist_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_geist_erkennen'
@@ -923,17 +918,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r5 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r5 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r5 c6">
-                        <input name="attr_geist_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_geist_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r5 c6">
+                    <input name="attr_geist_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_geist_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_geist_erschaffen'
@@ -941,17 +936,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r5 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r5 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r5 c7">
-                        <input name="attr_geist_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_geist_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r5 c7">
+                    <input name="attr_geist_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_geist_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_geist_kooperieren'
@@ -959,17 +954,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r5 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r5 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r5 c8">
-                        <input name="attr_geist_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_geist_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r5 c8">
+                    <input name="attr_geist_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_geist_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_geist_modifizieren'
@@ -977,17 +972,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r5 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r5 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r5 c9">
-                        <input name="attr_geist_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_geist_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r5 c9">
+                    <input name="attr_geist_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_geist_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_geist_verankern'
@@ -995,17 +990,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r5 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r5 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r5 c10">
-                        <input name="attr_geist_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_geist_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r5 c10">
+                    <input name="attr_geist_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_geist_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_geist_versetzen'
@@ -1013,17 +1008,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r5 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r5 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r5 c11">
-                        <input name="attr_geist_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_geist_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r5 c11">
+                    <input name="attr_geist_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_geist_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_geist_zerstören'
@@ -1031,17 +1026,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r5 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r5 c1"></div>
             
+        
+            
+            <label class="domain r6 c1">Humanoid</label>
+            <input class="r6 c2" type="number" step="1" name="attr_humanoid" max="10"/>
+            <div class="r6 c3">
                 
-                <label class="domain r6 c1">Humanoid</label>
-                <input class="r6 c2" type="number" step="1" name="attr_humanoid" max="10"/>
-                <div class="r6 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Humanoid'
@@ -1049,14 +1044,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r6 c4">
-                        <input name="attr_humanoid_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_humanoid_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r6 c4">
+                    <input name="attr_humanoid_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_humanoid_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_humanoid_beherrschen'
@@ -1064,17 +1059,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r6 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r6 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r6 c5">
-                        <input name="attr_humanoid_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_humanoid_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r6 c5">
+                    <input name="attr_humanoid_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_humanoid_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_humanoid_erkennen'
@@ -1082,17 +1077,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r6 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r6 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r6 c6">
-                        <input name="attr_humanoid_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_humanoid_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r6 c6">
+                    <input name="attr_humanoid_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_humanoid_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_humanoid_erschaffen'
@@ -1100,17 +1095,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r6 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r6 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r6 c7">
-                        <input name="attr_humanoid_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_humanoid_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r6 c7">
+                    <input name="attr_humanoid_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_humanoid_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_humanoid_kooperieren'
@@ -1118,17 +1113,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r6 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r6 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r6 c8">
-                        <input name="attr_humanoid_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_humanoid_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r6 c8">
+                    <input name="attr_humanoid_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_humanoid_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_humanoid_modifizieren'
@@ -1136,17 +1131,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r6 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r6 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r6 c9">
-                        <input name="attr_humanoid_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_humanoid_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r6 c9">
+                    <input name="attr_humanoid_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_humanoid_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_humanoid_verankern'
@@ -1154,17 +1149,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r6 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r6 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r6 c10">
-                        <input name="attr_humanoid_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_humanoid_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r6 c10">
+                    <input name="attr_humanoid_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_humanoid_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_humanoid_versetzen'
@@ -1172,17 +1167,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r6 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r6 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r6 c11">
-                        <input name="attr_humanoid_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_humanoid_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r6 c11">
+                    <input name="attr_humanoid_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_humanoid_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_humanoid_zerstören'
@@ -1190,17 +1185,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r6 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r6 c1"></div>
             
+        
+            
+            <label class="domain r7 c1">Kraft</label>
+            <input class="r7 c2" type="number" step="1" name="attr_kraft" max="10"/>
+            <div class="r7 c3">
                 
-                <label class="domain r7 c1">Kraft</label>
-                <input class="r7 c2" type="number" step="1" name="attr_kraft" max="10"/>
-                <div class="r7 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Kraft'
@@ -1208,14 +1203,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r7 c4">
-                        <input name="attr_kraft_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_kraft_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r7 c4">
+                    <input name="attr_kraft_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_kraft_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_kraft_beherrschen'
@@ -1223,17 +1218,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r7 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r7 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r7 c5">
-                        <input name="attr_kraft_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_kraft_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r7 c5">
+                    <input name="attr_kraft_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_kraft_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_kraft_erkennen'
@@ -1241,17 +1236,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r7 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r7 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r7 c6">
-                        <input name="attr_kraft_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_kraft_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r7 c6">
+                    <input name="attr_kraft_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_kraft_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_kraft_erschaffen'
@@ -1259,17 +1254,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r7 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r7 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r7 c7">
-                        <input name="attr_kraft_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_kraft_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r7 c7">
+                    <input name="attr_kraft_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_kraft_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_kraft_kooperieren'
@@ -1277,17 +1272,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r7 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r7 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r7 c8">
-                        <input name="attr_kraft_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_kraft_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r7 c8">
+                    <input name="attr_kraft_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_kraft_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_kraft_modifizieren'
@@ -1295,17 +1290,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r7 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r7 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r7 c9">
-                        <input name="attr_kraft_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_kraft_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r7 c9">
+                    <input name="attr_kraft_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_kraft_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_kraft_verankern'
@@ -1313,17 +1308,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r7 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r7 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r7 c10">
-                        <input name="attr_kraft_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_kraft_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r7 c10">
+                    <input name="attr_kraft_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_kraft_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_kraft_versetzen'
@@ -1331,17 +1326,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r7 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r7 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r7 c11">
-                        <input name="attr_kraft_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_kraft_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r7 c11">
+                    <input name="attr_kraft_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_kraft_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_kraft_zerstören'
@@ -1349,17 +1344,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r7 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r7 c1"></div>
             
+        
+            
+            <label class="domain r8 c1">Luft</label>
+            <input class="r8 c2" type="number" step="1" name="attr_luft" max="10"/>
+            <div class="r8 c3">
                 
-                <label class="domain r8 c1">Luft</label>
-                <input class="r8 c2" type="number" step="1" name="attr_luft" max="10"/>
-                <div class="r8 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Luft'
@@ -1367,14 +1362,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r8 c4">
-                        <input name="attr_luft_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_luft_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r8 c4">
+                    <input name="attr_luft_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_luft_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_luft_beherrschen'
@@ -1382,17 +1377,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r8 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r8 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r8 c5">
-                        <input name="attr_luft_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_luft_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r8 c5">
+                    <input name="attr_luft_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_luft_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_luft_erkennen'
@@ -1400,17 +1395,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r8 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r8 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r8 c6">
-                        <input name="attr_luft_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_luft_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r8 c6">
+                    <input name="attr_luft_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_luft_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_luft_erschaffen'
@@ -1418,17 +1413,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r8 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r8 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r8 c7">
-                        <input name="attr_luft_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_luft_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r8 c7">
+                    <input name="attr_luft_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_luft_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_luft_kooperieren'
@@ -1436,17 +1431,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r8 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r8 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r8 c8">
-                        <input name="attr_luft_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_luft_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r8 c8">
+                    <input name="attr_luft_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_luft_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_luft_modifizieren'
@@ -1454,17 +1449,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r8 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r8 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r8 c9">
-                        <input name="attr_luft_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_luft_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r8 c9">
+                    <input name="attr_luft_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_luft_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_luft_verankern'
@@ -1472,17 +1467,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r8 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r8 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r8 c10">
-                        <input name="attr_luft_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_luft_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r8 c10">
+                    <input name="attr_luft_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_luft_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_luft_versetzen'
@@ -1490,17 +1485,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r8 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r8 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r8 c11">
-                        <input name="attr_luft_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_luft_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r8 c11">
+                    <input name="attr_luft_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_luft_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_luft_zerstören'
@@ -1508,17 +1503,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r8 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r8 c1"></div>
             
+        
+            
+            <label class="domain r9 c1">Metall</label>
+            <input class="r9 c2" type="number" step="1" name="attr_metall" max="10"/>
+            <div class="r9 c3">
                 
-                <label class="domain r9 c1">Metall</label>
-                <input class="r9 c2" type="number" step="1" name="attr_metall" max="10"/>
-                <div class="r9 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Metall'
@@ -1526,14 +1521,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r9 c4">
-                        <input name="attr_metall_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_metall_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r9 c4">
+                    <input name="attr_metall_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_metall_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_metall_beherrschen'
@@ -1541,17 +1536,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r9 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r9 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r9 c5">
-                        <input name="attr_metall_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_metall_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r9 c5">
+                    <input name="attr_metall_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_metall_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_metall_erkennen'
@@ -1559,17 +1554,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r9 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r9 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r9 c6">
-                        <input name="attr_metall_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_metall_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r9 c6">
+                    <input name="attr_metall_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_metall_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_metall_erschaffen'
@@ -1577,17 +1572,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r9 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r9 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r9 c7">
-                        <input name="attr_metall_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_metall_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r9 c7">
+                    <input name="attr_metall_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_metall_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_metall_kooperieren'
@@ -1595,17 +1590,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r9 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r9 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r9 c8">
-                        <input name="attr_metall_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_metall_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r9 c8">
+                    <input name="attr_metall_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_metall_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_metall_modifizieren'
@@ -1613,17 +1608,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r9 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r9 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r9 c9">
-                        <input name="attr_metall_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_metall_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r9 c9">
+                    <input name="attr_metall_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_metall_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_metall_verankern'
@@ -1631,17 +1626,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r9 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r9 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r9 c10">
-                        <input name="attr_metall_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_metall_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r9 c10">
+                    <input name="attr_metall_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_metall_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_metall_versetzen'
@@ -1649,17 +1644,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r9 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r9 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r9 c11">
-                        <input name="attr_metall_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_metall_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r9 c11">
+                    <input name="attr_metall_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_metall_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_metall_zerstören'
@@ -1667,17 +1662,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r9 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r9 c1"></div>
             
+        
+            
+            <label class="domain r10 c1">Pflanze</label>
+            <input class="r10 c2" type="number" step="1" name="attr_pflanze" max="10"/>
+            <div class="r10 c3">
                 
-                <label class="domain r10 c1">Pflanze</label>
-                <input class="r10 c2" type="number" step="1" name="attr_pflanze" max="10"/>
-                <div class="r10 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Pflanze'
@@ -1685,14 +1680,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r10 c4">
-                        <input name="attr_pflanze_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_pflanze_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r10 c4">
+                    <input name="attr_pflanze_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_pflanze_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_pflanze_beherrschen'
@@ -1700,17 +1695,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r10 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r10 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r10 c5">
-                        <input name="attr_pflanze_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_pflanze_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r10 c5">
+                    <input name="attr_pflanze_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_pflanze_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_pflanze_erkennen'
@@ -1718,17 +1713,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r10 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r10 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r10 c6">
-                        <input name="attr_pflanze_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_pflanze_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r10 c6">
+                    <input name="attr_pflanze_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_pflanze_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_pflanze_erschaffen'
@@ -1736,17 +1731,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r10 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r10 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r10 c7">
-                        <input name="attr_pflanze_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_pflanze_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r10 c7">
+                    <input name="attr_pflanze_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_pflanze_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_pflanze_kooperieren'
@@ -1754,17 +1749,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r10 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r10 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r10 c8">
-                        <input name="attr_pflanze_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_pflanze_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r10 c8">
+                    <input name="attr_pflanze_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_pflanze_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_pflanze_modifizieren'
@@ -1772,17 +1767,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r10 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r10 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r10 c9">
-                        <input name="attr_pflanze_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_pflanze_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r10 c9">
+                    <input name="attr_pflanze_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_pflanze_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_pflanze_verankern'
@@ -1790,17 +1785,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r10 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r10 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r10 c10">
-                        <input name="attr_pflanze_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_pflanze_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r10 c10">
+                    <input name="attr_pflanze_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_pflanze_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_pflanze_versetzen'
@@ -1808,17 +1803,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r10 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r10 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r10 c11">
-                        <input name="attr_pflanze_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_pflanze_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r10 c11">
+                    <input name="attr_pflanze_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_pflanze_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_pflanze_zerstören'
@@ -1826,17 +1821,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r10 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r10 c1"></div>
             
+        
+            
+            <label class="domain r11 c1">Tier</label>
+            <input class="r11 c2" type="number" step="1" name="attr_tier" max="10"/>
+            <div class="r11 c3">
                 
-                <label class="domain r11 c1">Tier</label>
-                <input class="r11 c2" type="number" step="1" name="attr_tier" max="10"/>
-                <div class="r11 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Tier'
@@ -1844,14 +1839,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r11 c4">
-                        <input name="attr_tier_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_tier_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r11 c4">
+                    <input name="attr_tier_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_tier_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_tier_beherrschen'
@@ -1859,17 +1854,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r11 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r11 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r11 c5">
-                        <input name="attr_tier_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_tier_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r11 c5">
+                    <input name="attr_tier_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_tier_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_tier_erkennen'
@@ -1877,17 +1872,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r11 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r11 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r11 c6">
-                        <input name="attr_tier_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_tier_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r11 c6">
+                    <input name="attr_tier_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_tier_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_tier_erschaffen'
@@ -1895,17 +1890,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r11 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r11 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r11 c7">
-                        <input name="attr_tier_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_tier_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r11 c7">
+                    <input name="attr_tier_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_tier_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_tier_kooperieren'
@@ -1913,17 +1908,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r11 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r11 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r11 c8">
-                        <input name="attr_tier_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_tier_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r11 c8">
+                    <input name="attr_tier_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_tier_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_tier_modifizieren'
@@ -1931,17 +1926,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r11 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r11 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r11 c9">
-                        <input name="attr_tier_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_tier_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r11 c9">
+                    <input name="attr_tier_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_tier_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_tier_verankern'
@@ -1949,17 +1944,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r11 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r11 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r11 c10">
-                        <input name="attr_tier_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_tier_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r11 c10">
+                    <input name="attr_tier_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_tier_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_tier_versetzen'
@@ -1967,17 +1962,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r11 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r11 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r11 c11">
-                        <input name="attr_tier_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_tier_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r11 c11">
+                    <input name="attr_tier_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_tier_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_tier_zerstören'
@@ -1985,17 +1980,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r11 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r11 c1"></div>
             
+        
+            
+            <label class="domain r12 c1">Wasser</label>
+            <input class="r12 c2" type="number" step="1" name="attr_wasser" max="10"/>
+            <div class="r12 c3">
                 
-                <label class="domain r12 c1">Wasser</label>
-                <input class="r12 c2" type="number" step="1" name="attr_wasser" max="10"/>
-                <div class="r12 c3">
-                    
 
 <button type='roll'
         name='roll_roll-drain-Wasser'
@@ -2003,14 +1998,14 @@
 </button>
 
 
-                </div>
+            </div>
+            
                 
-                    
-                    <div class="horizontal node r12 c4">
-                        <input name="attr_wasser_beherrschen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_wasser_beherrschen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r12 c4">
+                    <input name="attr_wasser_beherrschen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_wasser_beherrschen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_wasser_beherrschen'
@@ -2018,17 +2013,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c4"></div>
-                    <div class="row-marker r12 c1"></div>
+                </div>
+                <div class="column-marker r1 c4"></div>
+                <div class="row-marker r12 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r12 c5">
-                        <input name="attr_wasser_erkennen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_wasser_erkennen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r12 c5">
+                    <input name="attr_wasser_erkennen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_wasser_erkennen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_wasser_erkennen'
@@ -2036,17 +2031,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c5"></div>
-                    <div class="row-marker r12 c1"></div>
+                </div>
+                <div class="column-marker r1 c5"></div>
+                <div class="row-marker r12 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r12 c6">
-                        <input name="attr_wasser_erschaffen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_wasser_erschaffen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r12 c6">
+                    <input name="attr_wasser_erschaffen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_wasser_erschaffen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_wasser_erschaffen'
@@ -2054,17 +2049,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c6"></div>
-                    <div class="row-marker r12 c1"></div>
+                </div>
+                <div class="column-marker r1 c6"></div>
+                <div class="row-marker r12 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r12 c7">
-                        <input name="attr_wasser_kooperieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_wasser_kooperieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r12 c7">
+                    <input name="attr_wasser_kooperieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_wasser_kooperieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_wasser_kooperieren'
@@ -2072,17 +2067,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c7"></div>
-                    <div class="row-marker r12 c1"></div>
+                </div>
+                <div class="column-marker r1 c7"></div>
+                <div class="row-marker r12 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r12 c8">
-                        <input name="attr_wasser_modifizieren" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_wasser_modifizieren" class="number" readonly="true" />
-                            
+                <div class="horizontal node r12 c8">
+                    <input name="attr_wasser_modifizieren" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_wasser_modifizieren" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_wasser_modifizieren'
@@ -2090,17 +2085,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c8"></div>
-                    <div class="row-marker r12 c1"></div>
+                </div>
+                <div class="column-marker r1 c8"></div>
+                <div class="row-marker r12 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r12 c9">
-                        <input name="attr_wasser_verankern" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_wasser_verankern" class="number" readonly="true" />
-                            
+                <div class="horizontal node r12 c9">
+                    <input name="attr_wasser_verankern" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_wasser_verankern" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_wasser_verankern'
@@ -2108,17 +2103,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c9"></div>
-                    <div class="row-marker r12 c1"></div>
+                </div>
+                <div class="column-marker r1 c9"></div>
+                <div class="row-marker r12 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r12 c10">
-                        <input name="attr_wasser_versetzen" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_wasser_versetzen" class="number" readonly="true" />
-                            
+                <div class="horizontal node r12 c10">
+                    <input name="attr_wasser_versetzen" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_wasser_versetzen" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_wasser_versetzen'
@@ -2126,17 +2121,17 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c10"></div>
-                    <div class="row-marker r12 c1"></div>
+                </div>
+                <div class="column-marker r1 c10"></div>
+                <div class="row-marker r12 c1"></div>
+            
                 
-                    
-                    <div class="horizontal node r12 c11">
-                        <input name="attr_wasser_zerstören" type="number" step="1" max="10" />
-                        <div class="stack clickable-total">
-                            <input name="attr_calc_total_wasser_zerstören" class="number" readonly="true" />
-                            
+                <div class="horizontal node r12 c11">
+                    <input name="attr_wasser_zerstören" type="number" step="1" max="10" />
+                    <div class="stack clickable-total">
+                        <input name="attr_calc_total_wasser_zerstören" class="number" readonly="true" />
+                        
 
 <button type='roll'
         name='roll_wasser_zerstören'
@@ -2144,42 +2139,41 @@
 </button>
 
 
-                        </div>
                     </div>
-                    <div class="column-marker r1 c11"></div>
-                    <div class="row-marker r12 c1"></div>
-                
+                </div>
+                <div class="column-marker r1 c11"></div>
+                <div class="row-marker r12 c1"></div>
             
-        </div>
+        
     </div>
-
-    <rolltemplate class="sheet-rolltemplate-adz">
-        <div class="sheet-scroll">
-            <h1>{{title}}</h1>
-
-            {{#dice}}
-                <p>
-                    {{result}}
-                    Erfolg{{#^rollTotal() result 1}}e{{/^rollTotal() result 1}}
-                    mit
-                    <span class="plain-roll transparent-roll">{{dice}}</span>
-                    Würfel{{#^rollTotal() dice 1}}n{{/^rollTotal() dice 1}}
-                </p>
-                {{#penalty}}
-                    <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
-                {{/penalty}}
-                {{^penalty}}
-                    <p class="note">Erfolgsabzug ignoriert.</p>
-                {{/penalty}}
-            {{/dice}}
-            {{^dice}}
-                <p class="large transparent-roll">{{result}}</p>
-            {{/dice}}
-        </div>
-    </rolltemplate>
-
 </div>
 
+    <rolltemplate class="sheet-rolltemplate-adz">
+    <div class="sheet-scroll">
+        <h1>{{title}}</h1>
+
+        {{#dice}}
+            <p>
+                {{result}}
+                Erfolg{{#^rollTotal() result 1}}e{{/^rollTotal() result 1}}
+                mit
+                <span class="plain-roll transparent-roll">{{dice}}</span>
+                Würfel{{#^rollTotal() dice 1}}n{{/^rollTotal() dice 1}}
+            </p>
+            {{#penalty}}
+                <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
+            {{/penalty}}
+            {{^penalty}}
+                <p class="note">Erfolgsabzug ignoriert.</p>
+            {{/penalty}}
+        {{/dice}}
+        {{^dice}}
+            <p class="large transparent-roll">{{result}}</p>
+        {{/dice}}
+    </div>
+</rolltemplate>
+
+</div>
 
 <script type="text/worker">
 var attributes = ["kk", "ko", "ge", "ff", "kl", "wk", "in", "ch", "gl"];
@@ -2200,6 +2194,7 @@ function getIntegersFrom(values) {
     }
     return result;
 }
+
 
 for (const abbreviation of attributes) {
     addAttributeListener(abbreviation);
@@ -2418,7 +2413,6 @@ function calculateSkill(values, prefix, target) {
     target[prefix + "_calc_total"] = result;
 }
 
-
 on("sheet:opened change:in change:calc_symlink_reflexe", function(eventInfo) {
     console.log("initiative base change:", eventInfo.sourceAttribute);
     getAttrs(["in", "calc_symlink_Reflexe"], function(values) {
@@ -2430,6 +2424,8 @@ on("sheet:opened change:in change:calc_symlink_reflexe", function(eventInfo) {
         setAttrs({ "calc_initiative_base": base });
     });
 });
+
+
 
 for (const domain of domains) {
     addRowListener(domain);
@@ -2520,6 +2516,11 @@ function calculateAllDrainRolls(integers, drainAttributeAbbreviation, resultAttr
 function calculateDrainRoll(integers, domainName, drainAttributeAbbreviation, resultAttributes) {
     resultAttributes["calc_drain_" + domainName] = integers[domainName] + integers[drainAttributeAbbreviation];
 }
+
+
+
+
+
 
 console.log("AdZ sheetworker initialized");
 

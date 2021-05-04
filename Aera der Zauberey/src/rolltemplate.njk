@@ -1,0 +1,24 @@
+<rolltemplate class="sheet-rolltemplate-adz">
+    <div class="sheet-scroll">
+        <h1>{{title}}</h1>
+
+        {{#dice}}
+            <p>
+                {{result}}
+                Erfolg{{#^rollTotal() result 1}}e{{/^rollTotal() result 1}}
+                mit
+                <span class="plain-roll transparent-roll">{{dice}}</span>
+                Würfel{{#^rollTotal() dice 1}}n{{/^rollTotal() dice 1}}
+            </p>
+            {{#penalty}}
+                <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
+            {{/penalty}}
+            {{^penalty}}
+                <p class="note">Erfolgsabzug ignoriert.</p>
+            {{/penalty}}
+        {{/dice}}
+        {{^dice}}
+            <p class="large transparent-roll">{{result}}</p>
+        {{/dice}}
+    </div>
+</rolltemplate>

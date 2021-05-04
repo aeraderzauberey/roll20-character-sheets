@@ -1,0 +1,27 @@
+var attributes = [
+    #%- for abbreviation, name in attributes -%#
+    "#$ abbreviation | lower $#"
+    #%- if not loop.last %#, #% endif -%#
+#%- endfor -%#
+];
+
+var drainAttributes = [
+    #%- for abbreviation, name in drainAttributes -%#
+    "#$ abbreviation | lower $#"
+    #%- if not loop.last %#, #% endif -%#
+#%- endfor -%#
+];
+
+var techniques = [
+    #%- for technique in techniques -%#
+    "#$ technique | lower $#"
+    #%- if not loop.last %#, #% endif -%#
+#%- endfor -%#
+];
+
+var domains = [
+    #%- for domain in domains -%#
+    "#$ domain | lower $#"
+    #%- if not loop.last %#, #% endif -%#
+#%- endfor -%#
+];
