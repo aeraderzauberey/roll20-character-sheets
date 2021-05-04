@@ -344,6 +344,10 @@ button.sheet-labelled {
 	border-bottom: 7px solid var(--parchment-color-dark);
 }
 
+select {
+	background: transparent;
+}
+
 .sheet-skills select {
 	box-sizing: border-box;
 	width: min-content;
@@ -351,7 +355,6 @@ button.sheet-labelled {
 	padding: 0;
 	margin: 0;
 
-	background: transparent;
 	text-align: center;
 
 	border-width: 0 0 1px 0;
@@ -377,12 +380,13 @@ button.sheet-labelled {
 }
 
 .sheet-magic-matrix {
-	grid-template-columns: repeat(10, 1fr);
+	grid-template-columns: repeat(11, 1fr);
 }
 
 .sheet-magic-matrix,
 .sheet-magic-matrix > div {
 	justify-items: center;
+	align-self: start;
 }
 
 .sheet-magic-matrix .sheet-row-marker,
@@ -424,6 +428,7 @@ button.sheet-labelled {
 .sheet-c8 {  grid-column-start: 8; grid-column-end: 9; }
 .sheet-c9 {  grid-column-start: 9; grid-column-end: 10; }
 .sheet-c10 { grid-column-start: 10; grid-column-end: 11; }
+.sheet-c11 { grid-column-start: 11; grid-column-end: 12; }
 
 .sheet-r1 {  grid-row-start: 1; grid-row-end: 2; }
 .sheet-r2 {  grid-row-start: 2; grid-row-end: 3; }

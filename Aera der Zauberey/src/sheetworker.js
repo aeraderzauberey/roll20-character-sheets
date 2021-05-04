@@ -1,3 +1,6 @@
+const DOMAINS_AND_DRAIN_RELATED = ["drain_attribute"].concat(drainAttributes, domains);
+const MAGIC_MATRIX_INPUT = DOMAINS_AND_DRAIN_RELATED.concat(techniques);
+
 function getIntegersFrom(values) {
     let result = {};
     for (const key of Object.keys(values)) {
@@ -13,17 +16,26 @@ for (const abbreviation of attributes) {
 function addAttributeListener(abbreviation) {
     on("sheet:opened change:" + abbreviation, function() {
         console.log("attribute change:", abbreviation);
-        getAttrs([abbreviation], function(values) {
+        getAttrs([abbreviation].concat(DOMAINS_AND_DRAIN_RELATED), function(values) {
             let integers = getIntegersFrom(values);
+
+            let result = {};
 
             var total = "";
             if (integers[abbreviation]) {
                 total = integers[abbreviation] * 2;
             }
-
-            let result = {};
             result["calc_total_" + abbreviation] = total;
+
+            let drainAttributeAbbreviation = values.drain_attribute;
+            if (drainAttributeAbbreviation === abbreviation) {
+                console.log("recalculating drain");
+                calculateAllDrainRolls(integers, drainAttributeAbbreviation, result);
+            }
+
             setAttrs(result);
+
+            // FIXME recalculate skill values due to attribute change
         });
     });
 }
@@ -44,6 +56,8 @@ on("sheet:opened", function() {
             newAttributes["repeating_skills_" + newId + "_attribute"] = "-";
         }
         setAttrs(newAttributes);
+
+        // Note: calculation of magic cells and drain values is triggered by a separate sheet:opened listener per domain
     });
 });
 
@@ -241,22 +255,28 @@ function addCellListener(domain, technique) {
     on("change:" + combination, function() {
         console.log("cell change", domain, technique);
         getAttrs([domain, technique, combination], function(values) {
+            let integers = getIntegersFrom(values);
             let result = {};
-            calculateMagicCell(values, domain, technique, result);
+            calculateMagicCell(integers, domain, technique, result);
             setAttrs(result);
         });
     });
 }
 
-function addRowListener(domain) {
-    var inputAttributes = [domain].concat(techniques, techniques.map(technique => domain + "_" + technique));
-    on("sheet:opened change:" + domain, function() {
-        console.log("row change", domain);
+function addRowListener(domainName) {
+    var inputAttributes = MAGIC_MATRIX_INPUT.concat(techniques.map(techniqueName => domainName + '_' + techniqueName));
+    on("sheet:opened change:" + domainName, function() {
+        console.log("row change", domainName);
         getAttrs(inputAttributes, function(values) {
+            let integers = getIntegersFrom(values);
             let result = {};
-            for (const technique of techniques) {
-                calculateMagicCell(values, domain, technique, result);
+
+            for (const techniqueName of techniques) {
+                calculateMagicCell(integers, domainName, techniqueName, result);
             }
+
+            calculateDrainRoll(integers, domainName, values.drain_attribute, result);
+
             setAttrs(result);
         });
     });
@@ -267,20 +287,46 @@ function addColumnListener(technique) {
     on("change:" + technique, function() {
         console.log("column change", technique);
         getAttrs(inputAttributes, function(values) {
+            let integers = getIntegersFrom(values);
             let result = {};
             for (const domain of domains) {
-                calculateMagicCell(values, domain, technique, result);
+                calculateMagicCell(integers, domain, technique, result);
             }
             setAttrs(result);
         });
     });
 }
 
-function calculateMagicCell(values, domain, technique, result) {
-    let integers = getIntegersFrom(values);
+function calculateMagicCell(integers, domain, technique, result) {
     var total = "";
     if (integers[domain] && integers[technique]) {
         total = integers[domain] + integers[technique] + integers[domain + "_" + technique];
     }
     result["calc_total_" + domain + "_" + technique] = total;
 }
+
+on("sheet:opened change:drain_attribute", function(eventInfo) {
+    getAttrs(DOMAINS_AND_DRAIN_RELATED, function(values) {
+        let integers = getIntegersFrom(values);
+        let drainAttributeAbbreviation = values.drain_attribute;
+        console.log(
+            `calculating drain based on attribute ${drainAttributeAbbreviation}=${integers[drainAttributeAbbreviation]}`,
+            eventInfo);
+
+        let result = {};
+        calculateAllDrainRolls(integers, drainAttributeAbbreviation, result);
+        setAttrs(result);
+    });
+});
+
+function calculateAllDrainRolls(integers, drainAttributeAbbreviation, resultAttributes) {
+    for (const domainName of domains) {
+        calculateDrainRoll(integers, domainName, drainAttributeAbbreviation, resultAttributes);
+    }
+}
+
+function calculateDrainRoll(integers, domainName, drainAttributeAbbreviation, resultAttributes) {
+    resultAttributes["calc_drain_" + domainName] = integers[domainName] + integers[drainAttributeAbbreviation];
+}
+
+console.log("AdZ sheetworker initialized");

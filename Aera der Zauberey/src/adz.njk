@@ -45,6 +45,12 @@
         <label>Glück dazuwürfeln</label>
         #$ roll_button_special('use-luck', '＋ Glück', '@{gl}') $#
 
+        <label>Entzugsattribut</label>
+        <select name="attr_drain_attribute">
+            #% for abbreviation, name in drainAttributes %#
+                <option value="#$ abbreviation $#">#$ name $#</option>
+            #% endfor %#
+        </select>
     </div>
 
     <div class="sheet-notes">
@@ -99,8 +105,11 @@
         <div class="sheet-magic-matrix">
             <div>#! label !#</div>
             <div>#! input !#</div>
+            <div class="vertical r1 c3">
+                <label>Entzug</label>
+            </div>
             #% for technique in techniques %#
-                <div class="vertical technique r1 #$ 'c' + (loop.index + 2) $#">
+                <div class="vertical technique r1 #$ 'c' + (loop.index + 3) $#">
                     <label>#$ technique $#</label>
                     <input name="attr_#$ technique | lower $#" type="number" step="1" max="10"/>
                 </div>
@@ -109,8 +118,11 @@
                 #% set row = 'r' + (loop.index + 1) %#
                 <label class="domain #$ row $# c1">#$ domain $#</label>
                 <input class="#$ row $# c2" type="number" step="1" name="attr_#$ domain | lower $#" max="10"/>
+                <div class="#$ row $# c3">
+                    #$ roll_button_special('roll-drain-' + domain, 'Entzug (' + domain + ')', '@{calc_drain_' + domain | lower + '}' ) $#
+                </div>
                 #% for technique in techniques %#
-                    #% set column = 'c' + (loop.index + 2) %#
+                    #% set column = 'c' + (loop.index + 3) %#
                     <div class="horizontal node #$ row $# #$ column $#">
                         <input name="attr_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
                         <div class="stack clickable-total">
@@ -156,6 +168,13 @@
 <script type="text/worker">
 var attributes = [
     #%- for abbreviation, name in attributes -%#
+    "#$ abbreviation | lower $#"
+    #%- if not loop.last %#, #% endif -%#
+#%- endfor -%#
+];
+
+var drainAttributes = [
+    #%- for abbreviation, name in drainAttributes -%#
     "#$ abbreviation | lower $#"
     #%- if not loop.last %#, #% endif -%#
 #%- endfor -%#

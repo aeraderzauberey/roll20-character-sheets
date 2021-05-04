@@ -10,6 +10,12 @@
         "ch": "Charisma",
         "gl": "Glück"
     },
+    "drainAttributes": {
+        "kl": "Klugheit",
+        "wk": "Willenskraft",
+        "in": "Intuition",
+        "ch": "Charisma"
+    },
     "domains": [
         "Darstellung",
         "Erde",
