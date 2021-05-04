@@ -1,50 +1,37 @@
-on("sheet:opened", function() {
-    getSectionIDsOrdered("repeating_skills", function(ids) {
-        skillIdOrder = ids;
+const skillList = new RepeatingSection(16, 2, 'skills', (rowPrefix, attributesToSet) => {
+    attributesToSet[rowPrefix + '_attribute'] = '-';
+});
 
-        let valueIds = ids.map(id => "repeating_skills_" + id + "_value");
-        let attributeIds = ids.map(id => "repeating_skills_" + id + "_attribute");
-        let nameIds = ids.map(id => "repeating_skills_" + id + "_name");
-        var inputAttributes = valueIds.concat(attributeIds).concat(nameIds);
+on("sheet:opened", function() {
+    skillList.initialize(() => {
+        let idOrder = skillList.idOrder;
+
+        let inputAttributes = idOrder.flatMap(id => [
+            'name', 'attribute', 'value'].map(suffix => `repeating_skills_${id}_${suffix}`));
         bulkCalculateSkills(inputAttributes);
 
-        var newAttributes = {};
-        for (let i = ids.length; i < 16; i++) {
-            var newId = generateRowID();
-            newAttributes["repeating_skills_" + newId + "_attribute"] = "-";
-        }
-        setAttrs(newAttributes);
-
-        // Note: calculation of magic cells and drain values is triggered by a separate sheet:opened listener per domain
+        let resultAttributes = {};
+        skillList.generateMinimumRows(resultAttributes);
+        setAttrs(resultAttributes);
     });
 });
 
-var skillIdOrder = [];
-
 on("clicked:add-skills", function() {
     var newAttributes = {};
-
-    function add() {
-        const id = generateRowID();
-        newAttributes["repeating_skills_" + id + "_attribute"] = "-";
-        skillIdOrder.push(id.toLowerCase());
-    }
-    add();
-    add();
-
+    skillList.addNewRow(newAttributes);
+    skillList.addNewRow(newAttributes);
     setAttrs(newAttributes);
-    console.debug("add-skills - new skillIdOrder:", skillIdOrder);
 });
 
-on("change:repeating_skills", function(eventInfo) {
-    console.log("change:", eventInfo.sourceAttribute);
+skillList.onChange(eventInfo => {
+    console.log("skill change:", eventInfo.sourceAttribute);
     if (/_(value|attribute)$/.test(eventInfo.sourceAttribute)) {
-        console.debug("change", eventInfo);
+        console.debug("skill change", eventInfo);
 
         let inputAttributes = ["_value", "_attribute", "_name"].map(s => eventInfo.triggerName + s);
         bulkCalculateSkills(inputAttributes);
     } else if (/_name$/.test(eventInfo.sourceAttribute)) {
-        console.debug("rename", eventInfo);
+        console.debug("skill renamed", eventInfo);
 
         if (eventInfo.previousValue == "Reflexe") {
             setAttrs({ "calc_symlink_Reflexe": "" });
@@ -57,118 +44,34 @@ on("change:repeating_skills", function(eventInfo) {
     }
 });
 
-on("change:_reporder:skills", function(eventInfo) {
-    console.debug("change:_reporder:skills - eventInfo:", eventInfo);
-    if (eventInfo.newValue) {
-        skillIdOrder = eventInfo.newValue.toLowerCase().split(',');
-        console.debug("change:_reporder:skills - new skillIdOrder:", skillIdOrder);
-    } else {
-        console.debug("change:_reporder:skills - event includes no ordering info");
-        refreshSkillOrder();
+skillList.onRemoval((removedInfo, resultAttributes) => {
+    const nameKey = Object.keys(removedInfo).filter(key => key.endsWith("_name"))[0];
+    if (removedInfo[nameKey] == "Reflexe") {
+        resultAttributes.calc_symlink_Reflexe = "";
     }
-});
-
-on("remove:repeating_skills", function(eventInfo) {
-    console.debug("remove:repeating_skills - eventInfo:", eventInfo);
-
-    const removedId = eventInfo.sourceAttribute.match(/^repeating_skills_([^_]+)$/)[1];
-    console.info("removedId:", removedId);
-
-    // Store last two skill IDs before updating skillIdOrder
-    const lastTwoSkillIds = skillIdOrder.slice(-2);
-    console.info("last 2 skills:", lastTwoSkillIds);
-
-    getSectionIDsOrdered("repeating_skills", function(ids) {
-        skillIdOrder = ids;
-        console.debug("new skillIdOrder:", skillIdOrder);
-
-        const count = ids.length;
-        if (count < 16) {
-            const newId = addBalancingSkillRow();
-            console.info(`user removed a row; appending ${newId} to keep minimum row count`);
-        } else if (count % 2 == 1) {
-            if (lastTwoSkillIds.includes(removedId.toLowerCase())) {
-                console.info(`user removed row ${removedId}, one of the last two rows. balance columns by removing the other row (if empty) or add a new one`);
-                const otherRowId = lastTwoSkillIds.filter((lowerId) => lowerId != removedId.toLowerCase())[0];
-                balanceSkillRowsAfterTailRemoval(otherRowId);
-            } else {
-                console.info("user removed non-tail row; appending a new one to keep columns balanced");
-                addBalancingSkillRow();
-            }
-        }
-    });
-
-    const nameKey = Object.keys(eventInfo.removedInfo).filter(key => key.endsWith("_name"))[0];
-    if (eventInfo.removedInfo[nameKey] == "Reflexe") {
-        setAttrs({ "calc_symlink_Reflexe": "" });
-    }
-});
-
-function balanceSkillRowsAfterTailRemoval(rowId) {
-    const ids = ["name", "value"].map(suffix => "repeating_skills_" + rowId + "_" + suffix);
-    getAttrs(ids, function(values) {
-        const rowIsEmpty = Object.values(values).every((element) => element.length == 0);
-        if (rowIsEmpty) {
-            console.info(`other row ${rowId} is empty, too - removing.`);
-            removeRepeatingRow(`repeating_skills_${rowId}`);
-            refreshSkillOrder();
-        } else {
-            const newId = addBalancingSkillRow();
-            console.info(`not removing the remaining non-empty row ${rowId}. keeping columns balanced by adding new row ${newId}.`);
-        }
-    });
-}
-
-function refreshSkillOrder() {
-    getSectionIDsOrdered("repeating_skills", function(ids) {
-        skillIdOrder = ids;
-        console.debug("refreshSkillOrder - new skillIdOrder:", skillIdOrder);
-    });
-}
-
-function addBalancingSkillRow() {
-    var newId = generateRowID();
-    console.debug(`addBalancingSkillRow - newId:${newId}`);
-    var newAttributes = {};
-    newAttributes[`repeating_skills_${newId}_attribute`] = "-";
-    setAttrs(newAttributes);
-
-    skillIdOrder.push(newId.toLowerCase());
-    console.debug("addBalancingSkillRow - new skillIdOrder:", skillIdOrder);
-    return newId;
-}
-
-function getSectionIDsOrdered(sectionName, callback) {
-    'use strict';
-    getAttrs([`_reporder_${sectionName}`], function (v) {
-        getSectionIDs(sectionName, function (idArray) {
-            let reporderArray = v[`_reporder_${sectionName}`] ? v[`_reporder_${sectionName}`].toLowerCase().split(',') : [],
-                ids = [...new Set(reporderArray.filter(x => idArray.includes(x)).concat(idArray))];
-            callback(ids);
-        });
-    });
-};
+})
 
 function bulkCalculateSkills(inputAttributes) {
     getAttrs(inputAttributes.concat(attributes), function(values) {
         console.debug("bulkCalculateSkills with values", values);
-        let result = {};
-        for (const key of Object.keys(values).filter(key => key.endsWith("_value"))) {
+        let resultAttributes = {};
+        for (const key of Object.keys(values).filter(k => k.endsWith("_value"))) {
             let prefix = key.replace("_value", "");
-            calculateSkill(values, prefix, result);
+            calculateSkill(values, prefix, resultAttributes);
         }
-        console.log("bulk skill calculation result:", result);
-        setAttrs(result);
+        console.log("bulk skill calculation result:", resultAttributes);
+        // TODO leave setAttrs() to the call site
+        setAttrs(resultAttributes);
     });
 }
 
-function calculateSkill(values, prefix, target) {
+function calculateSkill(values, prefix, resultAttributes) {
     let rawValue = values[prefix + "_value"];
     let value = parseInt(rawValue) || 0;
 
     const name = values[prefix + "_name"];
     if (name == "Reflexe") {
-        target["calc_symlink_" + name] = value;
+        resultAttributes["calc_symlink_" + name] = value;
     }
 
     let attributeAbbreviation = values[prefix + "_attribute"];
@@ -181,7 +84,7 @@ function calculateSkill(values, prefix, target) {
         console.log("calculate " + prefix + " based on values: ", values);
         result = attributeValue + value;
     }
-    target[prefix + "_calc_total"] = result;
+    resultAttributes[prefix + "_calc_total"] = result;
 }
 
 on("sheet:opened change:in change:calc_symlink_reflexe", function(eventInfo) {
