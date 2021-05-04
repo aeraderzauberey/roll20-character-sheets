@@ -575,6 +575,7 @@ input::-webkit-inner-spin-button {
 
 .sheet-rolltemplate-adz .sheet-plain-roll .inlinerollresult {
 	font-weight: normal;
+	font-size: unset;
 }
 
 .sheet-rolltemplate-adz .sheet-large {
