@@ -53,9 +53,10 @@
 	grid-template-columns: min-content 1fr 1fr;
 	gap: 1em 2em;
 	grid-template-areas:
-			"base   notes   notes"
-			"attr   skills  skills"
-			"magic  magic   magic";
+			"base            notes         notes"
+			"attr            skills        skills"
+			"standardchecks  customchecks  customchecks"
+			"magic           magic         magic";
 	align-items: start;
 	justify-items: stretch;
 }
@@ -69,8 +70,9 @@
 .charsheet h1,
 .charsheet h2,
 .charsheet h3 {
-	margin-top: 0.5em;
+	margin-top: 0;
 	margin-bottom: 0.25em;
+    cursor: default;
 }
 
 .charsheet label,
@@ -78,6 +80,10 @@
 .charsheet h2,
 .charsheet h3 {
 	text-shadow: 2px 2px 2px rgba(1, 1, 1, 0.2)
+}
+
+.charsheet input {
+    width: auto;
 }
 
 .sheet-basics label::after,
@@ -92,7 +98,6 @@
 
 .sheet-notes {
 	grid-area: notes;
-	justify-self: stretch;
 	align-self: stretch;
 }
 
@@ -107,6 +112,20 @@
 .sheet-skills {
 	grid-area: skills;
 }
+
+/* Standard & custom checks */
+
+.sheet-checks-heading {
+    grid-area: checksheading;
+}
+.sheet-standard-checks {
+    grid-area: standardchecks;
+}
+.sheet-custom-checks {
+    grid-area: customchecks;
+}
+
+/**/
 
 .sheet-magic {
 	grid-area: magic;
@@ -163,8 +182,8 @@ button.sheet-labelled {
 }
 
 .sheet-notes {
+    grid-template-rows: min-content 1fr;
 	align-items: stretch;
-	justify-items: stretch;
 }
 
 .charsheet .sheet-notes textarea {
@@ -178,14 +197,108 @@ button.sheet-labelled {
 	resize: vertical;
 }
 
-.sheet-skill-list > div[class~="repcontainer"] {
+/* Global "repeated items" rules */
+
+.charsheet div[class~="repcontrol"] > button[class~="repcontrol_add"] {
+    /*
+     * Reasons we hide the '+Add' button:
+     * - it adds rows which get deleted on any change (reordering or value recalc)
+     * - it is placed way too far away from the 'Modify' button
+     */
+    display: none !important;
+}
+
+
+.charsheet button[type=action] {
+    float: right;
+
+    /* the remainder of this rule is copied from '.btn, .btn.btn-default' rule in Roll20 CSS */
+    display: inline-block;
+    padding: 4px 10px 4px;
+    margin-bottom: 0;
+    font-size: 13px;
+    line-height: 18px;
+    color: #333;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top,#fff,#e6e6e6);
+    background-image: -ms-linear-gradient(top,#fff,#e6e6e6);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top,#fff,#e6e6e6);
+    background-image: -o-linear-gradient(top,#fff,#e6e6e6);
+    background-image: linear-gradient(top,#fff,#e6e6e6);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e6e6e6',GradientType=0);
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    border: 1px solid #ccc;
+    border-bottom-color: #bbb;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    cursor: pointer;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.charsheet button[type=action]:hover {
+    /* the remainder of this rule is copied from '.btn, .btn.btn-default' rule in Roll20 CSS */
+    color: #333;
+    text-decoration: none;
+    background-color: #e6e6e6;
+    background-position: 0 -15px;
+    -webkit-transition: background-position .1s linear;
+    -moz-transition: background-position .1s linear;
+    -ms-transition: background-position .1s linear;
+    -o-transition: background-position .1s linear;
+    transition: background-position .1s linear;
+}
+
+/* Skill list */
+
+.sheet-skill-list > div[class~="repcontainer"]:not([class~="editmode"]) {
 	columns: 2;
 	column-gap: 2em;
 	margin-bottom: 0.5em;
 }
 
+.sheet-skills .repcontainer .repitem {
+	display: grid;
+	grid-template-columns: 1fr min-content min-content min-content;
+	grid-template-rows: min-content;
+	column-gap: 0.25em;
+	margin-bottom: 0.5em;
+}
 
-.sheet-skill-list > div[class~="repcontainer"] div[class~="itemcontrol"] > * {
+.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2)::before {
+	border-top: 1px dashed black;
+	content: " ";
+	position: absolute;
+	top: -4px;
+	width: 100%;
+	height: 2px;
+}
+
+.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2) .repcontrol_del {
+	position: relative;
+}
+.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2) .repcontrol_del::after {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	left: 30%;
+	width: 40%;
+	content: " ";
+	border-bottom: 7px solid var(--parchment-color-dark);
+}
+/* Repeating sections */
+
+div[class~="repcontainer"] div[class~="itemcontrol"] > * {
 	background: none;
 	height: 100%;
 	box-sizing: border-box;
@@ -198,24 +311,19 @@ button.sheet-labelled {
 	text-shadow: none;
 }
 
-.sheet-skill-list > div[class~="repcontainer"] div[class~="itemcontrol"] > button[class~="repcontrol_del"]:hover {
+div[class~="repcontainer"] div[class~="itemcontrol"] > button[class~="repcontrol_del"]:hover {
 	background: var(--danger-color);
 }
 
-.sheet-skill-list > div[class~="repcontrol"] > button[class~="repcontrol_add"] {
-	/* the '+Add' button adds rows which get deleted on any change (reordering or value recalc); hide it */
-	display: none !important;
-}
-
-.sheet-skill-list > div[class~="editmode"] ~ button[type=action] {
+div[class~="editmode"] ~ button[type=action] {
 	display: none;
 }
 
-.sheet-character-name[value$="🐛"] + .sheet-layout .sheet-skill-list div[class~="repitem"] {
+.sheet-character-name[value$="🐛"] + .sheet-layout div[class~="repitem"] {
 	position: relative;
 }
 
-.sheet-character-name[value$="🐛"] + .sheet-layout .sheet-skill-list div[class~="repitem"]::after {
+.sheet-character-name[value$="🐛"] + .sheet-layout div[class~="repitem"]::after {
 	content: attr(data-reprowid);
 	position: absolute;
 	top: 0;
@@ -235,119 +343,38 @@ button.sheet-labelled {
 	font-family: "JetBrains Mono", monospace;
 }
 
-.sheet-skill-list button[type=action] {
-	float: right;
-
-	/* the remainder of this rule is copied from '.btn, .btn.btn-default' rule in Roll20 CSS */
-	display: inline-block;
-	padding: 4px 10px 4px;
-	margin-bottom: 0;
-	font-size: 13px;
-	line-height: 18px;
-	color: #333;
-	text-align: center;
-	text-shadow: 0 1px 1px rgba(255,255,255,0.75);
-	vertical-align: middle;
-	background-color: #f5f5f5;
-	background-image: -moz-linear-gradient(top,#fff,#e6e6e6);
-	background-image: -ms-linear-gradient(top,#fff,#e6e6e6);
-	background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));
-	background-image: -webkit-linear-gradient(top,#fff,#e6e6e6);
-	background-image: -o-linear-gradient(top,#fff,#e6e6e6);
-	background-image: linear-gradient(top,#fff,#e6e6e6);
-	background-repeat: repeat-x;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e6e6e6',GradientType=0);
-	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-	border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
-	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-	border: 1px solid #ccc;
-	border-bottom-color: #bbb;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
-	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
-	box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
-	cursor: pointer;
-	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-}
-
-.sheet-skill-list button[type=action]:hover {
-	/* the remainder of this rule is copied from '.btn, .btn.btn-default' rule in Roll20 CSS */
-	color: #333;
-	text-decoration: none;
-	background-color: #e6e6e6;
-	background-position: 0 -15px;
-	-webkit-transition: background-position .1s linear;
-	-moz-transition: background-position .1s linear;
-	-ms-transition: background-position .1s linear;
-	-o-transition: background-position .1s linear;
-	transition: background-position .1s linear;
-}
-
-.sheet-skill-list > div[class~="repcontainer"][class~="editmode"] {
-	columns: 1;
-	max-width: 20em;
+div[class~="repcontainer"][class~="editmode"] {
+	max-width: 50%;
 	margin: 0 auto;
 }
 
-.sheet-skills .repcontainer .repitem .itemcontrol {
+.repcontainer .repitem .itemcontrol {
 	background: transparent !important;
 }
 
-.sheet-skills .repcontainer .repitem {
-	display: grid;
-	grid-template-columns: 1fr min-content min-content min-content;
-	grid-template-rows: min-content;
-	column-gap: 0.25em;
-	margin-bottom: 0.5em;
-}
-
-.sheet-skill-list > div[class~="editmode"] .repitem {
+.sheet-layout div div[class~="editmode"] .repitem {
 	display: block;
 	background: rgba(0, 0, 0, 0.04);
 }
 
-.sheet-skill-list > div[class~="editmode"] .repitem *[name^=attr_] {
-	display: none;
-}
-
-.sheet-skill-list > div[class~="editmode"] .repitem input[type=text] {
+div[class~="editmode"] .repitem input[type=text] {
 	display: block;
-	margin: 0 auto;
+	width: 100%;
+	padding: 0 2.5em;
 	border-color: transparent;
 }
 
-.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2)::before {
-	border-top: 1px dashed black;
-	content: " ";
-	position: absolute;
-	top: -4px;
-	width: 100%;
-	height: 2px;
+div[class~="editmode"] .repitem > *:not(.itemcontrol):not(input[type="text"]) {
+	display: none;
 }
 
-.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2) {
-	position: relative;
-}
-
-.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2) .repcontrol_del {
-	position: relative;
-}
-.sheet-skill-list > div[class~="editmode"] .repitem:nth-child(n+16):nth-last-child(2) .repcontrol_del::after {
-	position: absolute;
-	top: 0;
-	height: 100%;
-	left: 30%;
-	width: 40%;
-	content: " ";
-	border-bottom: 7px solid var(--parchment-color-dark);
-}
+/* * */
 
 select {
 	background: transparent;
 }
 
+/* TODO make this independent of sheet-skills */
 .sheet-skills select {
 	box-sizing: border-box;
 	width: min-content;
@@ -370,14 +397,54 @@ select {
 	background: var(--parchment-color-light);
 }
 
-.sheet-skills input {
-	width: auto;
+/* Standard & custom checks */
+
+.sheet-standard-checks > div {
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    column-gap: 0.25em;
+    margin-bottom: 0.5em;
 }
 
-/* FIXME make this work */
-.sheet-skills .repcontainer.editmode .sheet-clickable-total {
-	display: none;
+.sheet-custom-checks > div[class~="repcontainer"] {
+	margin-bottom: 0.5em;
 }
+
+.sheet-custom-checks > div[class~="repcontainer"]:not([class~="editmode"]) {
+	columns: 2;
+	column-gap: 2em;
+}
+
+.sheet-custom-checks .repcontainer .repitem {
+	display: grid;
+	grid-template-columns: 1fr min-content min-content;
+	grid-template-rows: min-content;
+	column-gap: 0.25em;
+	margin-bottom: 0.5em;
+}
+.sheet-custom-checks > div[class~="editmode"] .repitem:nth-child(n+4):nth-last-child(2)::before {
+	border-top: 1px dashed black;
+	content: " ";
+	position: absolute;
+	top: -4px;
+	width: 100%;
+	height: 2px;
+}
+
+.sheet-custom-checks > div[class~="editmode"] .repitem:nth-child(n+4):nth-last-child(2) .repcontrol_del {
+	position: relative;
+}
+.sheet-custom-checks > div[class~="editmode"] .repitem:nth-child(n+4):nth-last-child(2) .repcontrol_del::after {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	left: 30%;
+	width: 40%;
+	content: " ";
+	border-bottom: 7px solid var(--parchment-color-dark);
+}
+
+/* Magic matrix */
 
 .sheet-magic-matrix {
 	grid-template-columns: repeat(11, 1fr);

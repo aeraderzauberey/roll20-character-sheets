@@ -345,6 +345,82 @@
     </div>
 </div>
 
+<div class="standard-checks">
+    <h2>Sonstige Proben</h2><div>
+            <input type="text" value="Sich erinnern (KL + WK)" readonly="true" />
+            <div class="stack clickable-total">
+                <input name="attr_calc_check_remember" class="number" readonly="true" />
+                
+
+<button type='roll'
+        name='roll_remember'
+        value='&{template:adz} {{title=Sich erinnern}} {{dice=[[@{calc_check_remember}+0]]}} {{result=[[(@{calc_check_remember}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+</button>
+
+
+            </div>
+        </div><div>
+            <input type="text" value="Selbstbeherrschung (KO + WK)" readonly="true" />
+            <div class="stack clickable-total">
+                <input name="attr_calc_check_selfcontrol" class="number" readonly="true" />
+                
+
+<button type='roll'
+        name='roll_selfcontrol'
+        value='&{template:adz} {{title=Selbstbeherrschung}} {{dice=[[@{calc_check_selfcontrol}+0]]}} {{result=[[(@{calc_check_selfcontrol}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+</button>
+
+
+            </div>
+        </div><div>
+            <input type="text" value="Lernen (KL + IN)" readonly="true" />
+            <div class="stack clickable-total">
+                <input name="attr_calc_check_learning" class="number" readonly="true" />
+                
+
+<button type='roll'
+        name='roll_learning'
+        value='&{template:adz} {{title=Lernen}} {{dice=[[@{calc_check_learning}+0]]}} {{result=[[(@{calc_check_learning}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+</button>
+
+
+            </div>
+        </div><div>
+            <input type="text" value="Sturheit (WK + CH)" readonly="true" />
+            <div class="stack clickable-total">
+                <input name="attr_calc_check_stubbornness" class="number" readonly="true" />
+                
+
+<button type='roll'
+        name='roll_stubbornness'
+        value='&{template:adz} {{title=Sturheit}} {{dice=[[@{calc_check_stubbornness}+0]]}} {{result=[[(@{calc_check_stubbornness}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+</button>
+
+
+            </div>
+        </div></div>
+
+<div class="custom-checks">
+    <h2 style="visibility:hidden">Sonstige Proben</h2>
+
+    <fieldset class="repeating_checks">
+      <input type="text" name="attr_name" />
+      <input type="number" name="attr_value" />
+        <div class="stack clickable-total">
+            <input name="attr_value" class="number" readonly="true" />
+            
+
+<button type='roll'
+        name='roll_@{name}'
+        value='&{template:adz} {{title=@{name}}} {{dice=[[@{value}+0]]}} {{result=[[(@{value}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+</button>
+
+
+        </div>
+    </fieldset>
+    <button type="action" name="act_add-checks">Add Row</button>
+</div>
+
 <div class="sheet-magic">
     <h2>Techniken & Magiebereiche</h2>
 
@@ -2180,6 +2256,28 @@ var attributes = ["kk", "ko", "ge", "ff", "kl", "wk", "in", "ch", "gl"];
 
 var drainAttributes = ["kl", "wk", "in", "ch"];
 
+var standardChecks = [{
+        "key": "remember",
+        "label": "Sich erinnern",
+        "attr1": "kl",
+        "attr2": "wk"
+    }, {
+        "key": "selfcontrol",
+        "label": "Selbstbeherrschung",
+        "attr1": "ko",
+        "attr2": "wk"
+    }, {
+        "key": "learning",
+        "label": "Lernen",
+        "attr1": "kl",
+        "attr2": "in"
+    }, {
+        "key": "stubbornness",
+        "label": "Sturheit",
+        "attr1": "wk",
+        "attr2": "ch"
+    }];
+
 var techniques = ["beherrschen", "erkennen", "erschaffen", "kooperieren", "modifizieren", "verankern", "versetzen", "zerstören"];
 
 var domains = ["darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"];
@@ -2367,6 +2465,42 @@ function addAttributeListener(abbreviation) {
         });
     });
 }
+
+for (const check of standardChecks) {
+    addStandardCheckListener(check);
+}
+
+function addStandardCheckListener(check) {
+    on("sheet:opened change:" + check.attr1 + " change:" + check.attr2, function() {
+        console.log("standardCheck change:", check.key);
+        getAttrs([check.attr1, check.attr2], function(values) {
+            let integers = getIntegersFrom(values);
+            let result = {};
+            result["calc_check_" + check.key] = integers[check.attr1] + integers[check.attr2];
+            setAttrs(result);
+        });
+    });
+}
+
+const checkList = new RepeatingSection(4, 2, 'checks', (rowPrefix, attributesToSet) => {
+    console.log("checkList RepeatingSection newRow", rowPrefix);
+    attributesToSet[rowPrefix + '_name'] = '';
+});
+
+on("sheet:opened", function() {
+    checkList.initialize(() => {
+        let resultAttributes = {};
+        checkList.generateMinimumRows(resultAttributes);
+        setAttrs(resultAttributes);
+    });
+});
+
+on("clicked:add-checks", function() {
+    var newAttributes = {};
+    checkList.addNewRow(newAttributes);
+    checkList.addNewRow(newAttributes);
+    setAttrs(newAttributes);
+});
 
 const skillList = new RepeatingSection(16, 2, 'skills', (rowPrefix, attributesToSet) => {
     attributesToSet[rowPrefix + '_attribute'] = '-';

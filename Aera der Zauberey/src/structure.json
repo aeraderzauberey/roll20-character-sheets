@@ -16,6 +16,32 @@
         "in": "Intuition",
         "ch": "Charisma"
     },
+    "standardChecks": [
+        {
+            "key": "remember",
+            "label": "Sich erinnern",
+            "attr1": "kl",
+            "attr2": "wk"
+        },
+        {
+            "key": "selfcontrol",
+            "label": "Selbstbeherrschung",
+            "attr1": "ko",
+            "attr2": "wk"
+        },
+        {
+            "key": "learning",
+            "label": "Lernen",
+            "attr1": "kl",
+            "attr2": "in"
+        },
+        {
+            "key": "stubbornness",
+            "label": "Sturheit",
+            "attr1": "wk",
+            "attr2": "ch"
+        }
+    ],
     "domains": [
         "Darstellung",
         "Erde",

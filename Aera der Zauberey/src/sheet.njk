@@ -75,6 +75,34 @@
     </div>
 </div>
 
+<div class="standard-checks">
+    <h2>Sonstige Proben</h2>
+
+    #%- for check in standardChecks -%#
+        <div>
+            <input type="text" value="#$ check.label $# (#$ check.attr1 | upper $# + #$ check.attr2 | upper $#)" readonly="true" />
+            <div class="stack clickable-total">
+                <input name="attr_calc_check_#$ check.key $#" class="number" readonly="true" />
+                #$ roll_button(check.key, check.label, '@{calc_check_' + check.key + '}') $#
+            </div>
+        </div>
+    #%- endfor -%#
+</div>
+
+<div class="custom-checks">
+    <h2 style="visibility:hidden">Sonstige Proben</h2>
+
+    <fieldset class="repeating_checks">
+      <input type="text" name="attr_name" />
+      <input type="number" name="attr_value" />
+        <div class="stack clickable-total">
+            <input name="attr_value" class="number" readonly="true" />
+            #$ roll_button('@{name}', '@{name}', '@{value}') $#
+        </div>
+    </fieldset>
+    <button type="action" name="act_add-checks">Add Row</button>
+</div>
+
 <div class="sheet-magic">
     <h2>Techniken & Magiebereiche</h2>
 

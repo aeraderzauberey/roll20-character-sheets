@@ -12,6 +12,18 @@ var drainAttributes = [
 #%- endfor -%#
 ];
 
+var standardChecks = [
+    #%- for check in standardChecks -%#
+    {
+        "key": "#$ check.key $#",
+        "label": "#$ check.label $#",
+        "attr1": "#$ check.attr1 $#",
+        "attr2": "#$ check.attr2 $#"
+    }
+    #%- if not loop.last %#, #% endif -%#
+#%- endfor -%#
+];
+
 var techniques = [
     #%- for technique in techniques -%#
     "#$ technique | lower $#"
