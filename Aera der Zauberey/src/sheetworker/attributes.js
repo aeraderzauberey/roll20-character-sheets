@@ -27,8 +27,6 @@ function addAttributeListener(abbreviation) {
             }
 
             writeAttrs(resultAttributes);
-
-            // FIXME recalculate skill values due to attribute change
         });
     });
 }

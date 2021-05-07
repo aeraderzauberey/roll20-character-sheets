@@ -5,18 +5,28 @@ const skillList = new RepeatingSection(16, 2, 'skills', (rowPrefix, attributesTo
     attributesToSet[rowPrefix + '_attribute'] = '-';
 });
 
-on("sheet:opened", function() {
-    skillList.initialize(() => {
-        let idOrder = skillList.idOrder;
-        let inputAttributes = [REFLEXES_SYMLINK_KEY].concat(attributes, idOrder.flatMap(id => [
-            'name', 'attribute', 'value', 'calc_total'].map(suffix => `repeating_skills_${id}_${suffix}`)));
+function getSkillRelatedKeys() {
+    let idOrder = skillList.idOrder;
+    return [REFLEXES_SYMLINK_KEY].concat(attributes, idOrder.flatMap(id => [
+        'name', 'attribute', 'value', 'calc_total'].map(suffix => `repeating_skills_${id}_${suffix}`)));
+}
 
-        getAttrs(inputAttributes, values => {
+on("sheet:opened", () => {
+    skillList.initialize(() => {
+        getAttrs(getSkillRelatedKeys(), values => {
             let resultAttributes = {};
             bulkCalculateSkills(values, resultAttributes);
             skillList.generateMinimumRows(resultAttributes);
             writeAttrs(resultAttributes);
         });
+    });
+});
+
+on(attributes.map(attribute => `change:${attribute}`).join(" "), () => {
+    getAttrs(getSkillRelatedKeys(), values => {
+        let resultAttributes = {};
+        bulkCalculateSkills(values, resultAttributes);
+        writeAttrs(resultAttributes);
     });
 });
 
