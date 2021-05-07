@@ -4,26 +4,29 @@ for (const abbreviation of attributes) {
 }
 
 function addAttributeListener(abbreviation) {
+    const targetKey = "calc_total_" + abbreviation;
+    // TODO create registry of startup handlers which specify their input attributes & write to one shared resultAttributes object used for a single writeAttrs call
     on("sheet:opened change:" + abbreviation, function() {
         console.log("attribute change:", abbreviation);
-        getAttrs([abbreviation].concat(DOMAINS_AND_DRAIN_RELATED), function(values) {
+        getAttrs([abbreviation, targetKey].concat(DOMAINS_AND_DRAIN_RELATED), function(values) {
             let integers = getIntegersFrom(values);
 
-            let result = {};
+            let resultAttributes = {};
 
             var total = "";
             if (integers[abbreviation]) {
                 total = integers[abbreviation] * 2;
             }
-            result["calc_total_" + abbreviation] = total;
+
+            addAttrIfChanged(values, targetKey, total, resultAttributes);
 
             let drainAttributeAbbreviation = values.drain_attribute;
             if (drainAttributeAbbreviation === abbreviation) {
                 console.log("recalculating drain");
-                calculateAllDrainRolls(integers, drainAttributeAbbreviation, result);
+                calculateAllDrainRolls(integers, drainAttributeAbbreviation, resultAttributes);
             }
 
-            setAttrs(result);
+            writeAttrs(resultAttributes);
 
             // FIXME recalculate skill values due to attribute change
         });

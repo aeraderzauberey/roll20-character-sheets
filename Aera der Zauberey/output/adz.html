@@ -2282,7 +2282,9 @@ var techniques = ["beherrschen", "erkennen", "erschaffen", "kooperieren", "modif
 
 var domains = ["darstellung", "erde", "feuer", "geist", "humanoid", "kraft", "luft", "metall", "pflanze", "tier", "wasser"];
 
-const DOMAINS_AND_DRAIN_RELATED = ["drain_attribute"].concat(drainAttributes, domains);
+const DOMAINS_AND_DRAIN_RELATED = ['drain_attribute'].concat(drainAttributes,
+    domains,
+    domains.map(domain => `calc_drain_${domain}`));
 const MAGIC_MATRIX_INPUT = DOMAINS_AND_DRAIN_RELATED.concat(techniques);
 
 function getIntegersFrom(values) {
@@ -2304,9 +2306,31 @@ function getSectionIDsOrdered(sectionName, callback) {
     });
 }
 
-function setAttrsIfNonEmpty(attributes) {
-    if (Object.keys(attributes).length > 0) {
+// TODO encapsulate values&resultAttributes into a Transaction class with commit() doing the real writeAttrs() call
+function addAttrIfChanged(values, targetKey, calculated, resultAttributes) {
+    if (Number.isNaN(calculated) || calculated == null) {
+        console.warn(`Normalizing illegal value ${calculated} to "" for ${targetKey}`);
+        calculated = "";
+    }
+    if (targetKey in values) {
+        if (values[targetKey] == calculated) {
+            console.debug(`Skipping write of identical value for ${targetKey}`);
+            return;
+        }
+    } else {
+        console.warn(`Value for ${targetKey} was not loaded or does not exist`);
+    }
+    resultAttributes[targetKey] = calculated;
+}
+
+function writeAttrs(attributes) {
+    let keys = Object.keys(attributes);
+    const count = keys.length;
+    if (count > 0) {
+        console.info(`Writing ${count} attributes: ${keys}`);
         setAttrs(attributes);
+    } else {
+        console.debug("No attributes to write");
     }
 }
 
@@ -2365,7 +2389,7 @@ class RepeatingSection {
 
                 this._removalListener(eventInfo.removedInfo, resultAttributes);
 
-                setAttrsIfNonEmpty(resultAttributes);
+                writeAttrs(resultAttributes);
             });
         });
     }
@@ -2428,7 +2452,7 @@ class RepeatingSection {
                 const newId = this.addNewRow(resultAttributes);
                 console.info(`not removing the remaining non-empty rows ${remainingRowIds}. keeping columns balanced by adding new row ${newId}.`);
 
-                setAttrs(resultAttributes);
+                writeAttrs(resultAttributes);
             }
         });
     }
@@ -2440,46 +2464,70 @@ for (const abbreviation of attributes) {
 }
 
 function addAttributeListener(abbreviation) {
+    const targetKey = "calc_total_" + abbreviation;
+    // TODO create registry of startup handlers which specify their input attributes & write to one shared resultAttributes object used for a single writeAttrs call
     on("sheet:opened change:" + abbreviation, function() {
         console.log("attribute change:", abbreviation);
-        getAttrs([abbreviation].concat(DOMAINS_AND_DRAIN_RELATED), function(values) {
+        getAttrs([abbreviation, targetKey].concat(DOMAINS_AND_DRAIN_RELATED), function(values) {
             let integers = getIntegersFrom(values);
 
-            let result = {};
+            let resultAttributes = {};
 
             var total = "";
             if (integers[abbreviation]) {
                 total = integers[abbreviation] * 2;
             }
-            result["calc_total_" + abbreviation] = total;
+
+            addAttrIfChanged(values, targetKey, total, resultAttributes);
 
             let drainAttributeAbbreviation = values.drain_attribute;
             if (drainAttributeAbbreviation === abbreviation) {
                 console.log("recalculating drain");
-                calculateAllDrainRolls(integers, drainAttributeAbbreviation, result);
+                calculateAllDrainRolls(integers, drainAttributeAbbreviation, resultAttributes);
             }
 
-            setAttrs(result);
+            writeAttrs(resultAttributes);
 
             // FIXME recalculate skill values due to attribute change
         });
     });
 }
 
+on("sheet:opened", () => {
+    getAttrs(attributes.concat(standardChecks.map(check => `calc_check_${check.key}`)), function(values) {
+        let integers = getIntegersFrom(values);
+        let resultAttributes = {};
+        for (const check of standardChecks) {
+            calculateStandardCheck(integers, check, resultAttributes);
+        }
+        writeAttrs(resultAttributes);
+    });
+});
+
+
 for (const check of standardChecks) {
     addStandardCheckListener(check);
 }
 
 function addStandardCheckListener(check) {
-    on("sheet:opened change:" + check.attr1 + " change:" + check.attr2, function() {
+    on(`change:${check.attr1} change:${check.attr2}`, function() {
         console.log("standardCheck change:", check.key);
-        getAttrs([check.attr1, check.attr2], function(values) {
+        getAttrs([check.attr1, check.attr2, makeCheckKey(check)], function(values) {
             let integers = getIntegersFrom(values);
-            let result = {};
-            result["calc_check_" + check.key] = integers[check.attr1] + integers[check.attr2];
-            setAttrs(result);
+            let resultAttributes = {};
+            calculateStandardCheck(integers, check, resultAttributes);
+            writeAttrs(resultAttributes);
         });
     });
+}
+
+function makeCheckKey(check) {
+    return `calc_check_${check.key}`;
+}
+
+function calculateStandardCheck(integers, check, resultAttributes) {
+    let calculated = integers[check.attr1] + integers[check.attr2];
+    addAttrIfChanged(integers, makeCheckKey(check), calculated, resultAttributes);
 }
 
 const checkList = new RepeatingSection(4, 2, 'checks', (rowPrefix, attributesToSet) => {
@@ -2491,7 +2539,7 @@ on("sheet:opened", function() {
     checkList.initialize(() => {
         let resultAttributes = {};
         checkList.generateMinimumRows(resultAttributes);
-        setAttrs(resultAttributes);
+        writeAttrs(resultAttributes);
     });
 });
 
@@ -2499,8 +2547,11 @@ on("clicked:add-checks", function() {
     var newAttributes = {};
     checkList.addNewRow(newAttributes);
     checkList.addNewRow(newAttributes);
-    setAttrs(newAttributes);
+    writeAttrs(newAttributes);
 });
+
+const REFLEXES_SYMLINK_KEY = "calc_symlink_Reflexe";
+const INITIATIVE_BASE_KEY = "calc_initiative_base";
 
 const skillList = new RepeatingSection(16, 2, 'skills', (rowPrefix, attributesToSet) => {
     attributesToSet[rowPrefix + '_attribute'] = '-';
@@ -2509,14 +2560,15 @@ const skillList = new RepeatingSection(16, 2, 'skills', (rowPrefix, attributesTo
 on("sheet:opened", function() {
     skillList.initialize(() => {
         let idOrder = skillList.idOrder;
+        let inputAttributes = [REFLEXES_SYMLINK_KEY].concat(attributes, idOrder.flatMap(id => [
+            'name', 'attribute', 'value', 'calc_total'].map(suffix => `repeating_skills_${id}_${suffix}`)));
 
-        let inputAttributes = idOrder.flatMap(id => [
-            'name', 'attribute', 'value'].map(suffix => `repeating_skills_${id}_${suffix}`));
-        bulkCalculateSkills(inputAttributes);
-
-        let resultAttributes = {};
-        skillList.generateMinimumRows(resultAttributes);
-        setAttrs(resultAttributes);
+        getAttrs(inputAttributes, values => {
+            let resultAttributes = {};
+            bulkCalculateSkills(values, resultAttributes);
+            skillList.generateMinimumRows(resultAttributes);
+            writeAttrs(resultAttributes);
+        });
     });
 });
 
@@ -2524,49 +2576,51 @@ on("clicked:add-skills", function() {
     var newAttributes = {};
     skillList.addNewRow(newAttributes);
     skillList.addNewRow(newAttributes);
-    setAttrs(newAttributes);
+    writeAttrs(newAttributes);
 });
 
 skillList.onChange(eventInfo => {
-    console.log("skill change:", eventInfo.sourceAttribute);
     if (/_(value|attribute)$/.test(eventInfo.sourceAttribute)) {
         console.debug("skill change", eventInfo);
 
-        let inputAttributes = ["_value", "_attribute", "_name"].map(s => eventInfo.triggerName + s);
-        bulkCalculateSkills(inputAttributes);
+        let inputAttributes = ['_value', '_attribute', '_name', '_calc_total'].map(suffix => eventInfo.triggerName
+            + suffix);
+        getAttrs(inputAttributes, values => {
+            let resultAttributes = {};
+            bulkCalculateSkills(values, resultAttributes);
+            writeAttrs(resultAttributes);
+        });
     } else if (/_name$/.test(eventInfo.sourceAttribute)) {
         console.debug("skill renamed", eventInfo);
 
         if (eventInfo.previousValue == "Reflexe") {
-            setAttrs({ "calc_symlink_Reflexe": "" });
+            let resultAttributes = {};
+            resultAttributes[REFLEXES_SYMLINK_KEY] = "";
+            writeAttrs(resultAttributes);
         } else if (eventInfo.newValue == "Reflexe") {
-            var valueId = eventInfo.sourceAttribute.replace("_name", "_value");
-            getAttrs([valueId], function(values) {
-                setAttrs({ "calc_symlink_Reflexe": values[valueId] });
+            let valueKey = eventInfo.sourceAttribute.replace("_name", "_value");
+            getAttrs([valueKey, REFLEXES_SYMLINK_KEY], values => {
+                let resultAttributes = {};
+                addAttrIfChanged(values, REFLEXES_SYMLINK_KEY, values[valueKey], resultAttributes);
+                writeAttrs(resultAttributes);
             });
         }
     }
+
 });
 
 skillList.onRemoval((removedInfo, resultAttributes) => {
     const nameKey = Object.keys(removedInfo).filter(key => key.endsWith("_name"))[0];
     if (removedInfo[nameKey] == "Reflexe") {
-        resultAttributes.calc_symlink_Reflexe = "";
+        resultAttributes[REFLEXES_SYMLINK_KEY] = "";
     }
 })
 
-function bulkCalculateSkills(inputAttributes) {
-    getAttrs(inputAttributes.concat(attributes), function(values) {
-        console.debug("bulkCalculateSkills with values", values);
-        let resultAttributes = {};
-        for (const key of Object.keys(values).filter(k => k.endsWith("_value"))) {
-            let prefix = key.replace("_value", "");
-            calculateSkill(values, prefix, resultAttributes);
-        }
-        console.log("bulk skill calculation result:", resultAttributes);
-        // TODO leave setAttrs() to the call site
-        setAttrs(resultAttributes);
-    });
+function bulkCalculateSkills(values, resultAttributes) {
+    for (const key of Object.keys(values).filter(k => k.endsWith('_value'))) {
+        let prefix = key.replace('_value', '');
+        calculateSkill(values, prefix, resultAttributes);
+    }
 }
 
 function calculateSkill(values, prefix, resultAttributes) {
@@ -2575,7 +2629,7 @@ function calculateSkill(values, prefix, resultAttributes) {
 
     const name = values[prefix + "_name"];
     if (name == "Reflexe") {
-        resultAttributes["calc_symlink_" + name] = value;
+        addAttrIfChanged(values, REFLEXES_SYMLINK_KEY, value, resultAttributes);
     }
 
     let attributeAbbreviation = values[prefix + "_attribute"];
@@ -2584,22 +2638,25 @@ function calculateSkill(values, prefix, resultAttributes) {
     if (attributeAbbreviation != "-") {
         let attributeRawValue = values[attributeAbbreviation];
         let attributeValue = parseInt(attributeRawValue) || 0;
-
-        console.log("calculate " + prefix + " based on values: ", values);
         result = attributeValue + value;
     }
-    resultAttributes[prefix + "_calc_total"] = result;
+    addAttrIfChanged(values, `${prefix}_calc_total`, result, resultAttributes);
 }
 
-on("sheet:opened change:in change:calc_symlink_reflexe", function(eventInfo) {
+on(`sheet:opened change:in change:${REFLEXES_SYMLINK_KEY}`, eventInfo => {
     console.log("initiative base change:", eventInfo.sourceAttribute);
-    getAttrs(["in", "calc_symlink_Reflexe"], function(values) {
-        var base = 0;
-        for (const value of Object.values(values)) {
-            base += parseInt(value) * 2;
+    getAttrs(["in", REFLEXES_SYMLINK_KEY, INITIATIVE_BASE_KEY], values => {
+        let integers = getIntegersFrom(values);
+
+        let calculated = 0;
+        for (const key of ["in", REFLEXES_SYMLINK_KEY]) {
+            calculated += integers[key] * 2;
         }
-        console.log("base=", base);
-        setAttrs({ "calc_initiative_base": base });
+        console.log("initiative base =", calculated);
+
+        let resultAttributes = {};
+        addAttrIfChanged(values, INITIATIVE_BASE_KEY, calculated, resultAttributes);
+        writeAttrs(resultAttributes);
     });
 });
 
@@ -2616,21 +2673,22 @@ for (const technique of techniques) {
     addColumnListener(technique);
 }
 
-function addCellListener(domain, technique) {
-    var combination = domain + "_" + technique;
-    on("change:" + combination, function() {
-        console.log("cell change", domain, technique);
-        getAttrs([domain, technique, combination], function(values) {
+function addCellListener(domainName, techniqueName) {
+    let focus = makeFocusKey(domainName, techniqueName);
+    on("change:" + focus, function() {
+        console.log("cell change", domainName, techniqueName);
+        getAttrs([domainName, techniqueName, focus, makeMagicTotalKey(domainName, techniqueName)], function(values) {
             let integers = getIntegersFrom(values);
             let result = {};
-            calculateMagicCell(integers, domain, technique, result);
-            setAttrs(result);
+            calculateMagicCell(integers, domainName, techniqueName, result);
+            writeAttrs(result);
         });
     });
 }
 
 function addRowListener(domainName) {
-    var inputAttributes = MAGIC_MATRIX_INPUT.concat(techniques.map(techniqueName => domainName + '_' + techniqueName));
+    var inputAttributes = MAGIC_MATRIX_INPUT.concat(techniques.flatMap(techniqueName => [
+        makeFocusKey(domainName, techniqueName), makeMagicTotalKey(domainName, techniqueName)]));
     on("sheet:opened change:" + domainName, function() {
         console.log("row change", domainName);
         getAttrs(inputAttributes, function(values) {
@@ -2641,47 +2699,57 @@ function addRowListener(domainName) {
                 calculateMagicCell(integers, domainName, techniqueName, result);
             }
 
-            calculateDrainRoll(integers, domainName, values.drain_attribute, result);
+            calculateDrainRoll(integers, domainName, values["drain_attribute"], result);
 
-            setAttrs(result);
+            writeAttrs(result);
         });
     });
 }
 
-function addColumnListener(technique) {
-    var inputAttributes = [technique].concat(domains, domains.map(domain => domain + "_" + technique));
-    on("change:" + technique, function() {
-        console.log("column change", technique);
+function makeFocusKey(domainName, techniqueName) {
+    return `${domainName}_${techniqueName}`;
+}
+
+function makeMagicTotalKey(domainName, techniqueName) {
+    return `calc_total_${domainName}_${techniqueName}`;
+}
+
+function addColumnListener(techniqueName) {
+    var inputAttributes = [techniqueName].concat(domains, domains.flatMap(domainName => [
+        makeFocusKey(domainName, techniqueName), makeMagicTotalKey(domainName, techniqueName)]));
+    on("change:" + techniqueName, function() {
+        console.log("column change", techniqueName);
         getAttrs(inputAttributes, function(values) {
             let integers = getIntegersFrom(values);
             let result = {};
             for (const domain of domains) {
-                calculateMagicCell(integers, domain, technique, result);
+                calculateMagicCell(integers, domain, techniqueName, result);
             }
-            setAttrs(result);
+            writeAttrs(result);
         });
     });
 }
 
-function calculateMagicCell(integers, domain, technique, result) {
-    var total = "";
-    if (integers[domain] && integers[technique]) {
-        total = integers[domain] + integers[technique] + integers[domain + "_" + technique];
+function calculateMagicCell(integers, domainName, techniqueName, resultAttributes) {
+    var calculated = "";
+    if (integers[domainName] && integers[techniqueName]) {
+        calculated = integers[domainName] + integers[techniqueName] + integers[makeFocusKey(domainName, techniqueName)];
     }
-    result["calc_total_" + domain + "_" + technique] = total;
+    addAttrIfChanged(integers, makeMagicTotalKey(domainName, techniqueName), calculated, resultAttributes)
 }
 
+// TODO have one 'sheet:opened' per category which uses a shared getAttrs() (and setAttrs()) call. only the 'change:' listeners must stay separate.
 on("sheet:opened change:drain_attribute", function(eventInfo) {
     getAttrs(DOMAINS_AND_DRAIN_RELATED, function(values) {
         let integers = getIntegersFrom(values);
-        let drainAttributeAbbreviation = values.drain_attribute;
+        let drainAttributeAbbreviation = values["drain_attribute"];
         console.log(
             `calculating drain based on attribute ${drainAttributeAbbreviation}=${integers[drainAttributeAbbreviation]}`,
             eventInfo);
 
         let result = {};
         calculateAllDrainRolls(integers, drainAttributeAbbreviation, result);
-        setAttrs(result);
+        writeAttrs(result);
     });
 });
 
@@ -2692,7 +2760,9 @@ function calculateAllDrainRolls(integers, drainAttributeAbbreviation, resultAttr
 }
 
 function calculateDrainRoll(integers, domainName, drainAttributeAbbreviation, resultAttributes) {
-    resultAttributes["calc_drain_" + domainName] = integers[domainName] + integers[drainAttributeAbbreviation];
+    let key = "calc_drain_" + domainName;
+    let calculated = integers[domainName] + integers[drainAttributeAbbreviation];
+    addAttrIfChanged(integers, key, calculated, resultAttributes);
 }
 
 

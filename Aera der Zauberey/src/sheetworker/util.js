@@ -1,4 +1,6 @@
-const DOMAINS_AND_DRAIN_RELATED = ["drain_attribute"].concat(drainAttributes, domains);
+const DOMAINS_AND_DRAIN_RELATED = ['drain_attribute'].concat(drainAttributes,
+    domains,
+    domains.map(domain => `calc_drain_${domain}`));
 const MAGIC_MATRIX_INPUT = DOMAINS_AND_DRAIN_RELATED.concat(techniques);
 
 function getIntegersFrom(values) {
@@ -20,9 +22,31 @@ function getSectionIDsOrdered(sectionName, callback) {
     });
 }
 
-function setAttrsIfNonEmpty(attributes) {
-    if (Object.keys(attributes).length > 0) {
+// TODO encapsulate values&resultAttributes into a Transaction class with commit() doing the real writeAttrs() call
+function addAttrIfChanged(values, targetKey, calculated, resultAttributes) {
+    if (Number.isNaN(calculated) || calculated == null) {
+        console.warn(`Normalizing illegal value ${calculated} to "" for ${targetKey}`);
+        calculated = "";
+    }
+    if (targetKey in values) {
+        if (values[targetKey] == calculated) {
+            console.debug(`Skipping write of identical value for ${targetKey}`);
+            return;
+        }
+    } else {
+        console.warn(`Value for ${targetKey} was not loaded or does not exist`);
+    }
+    resultAttributes[targetKey] = calculated;
+}
+
+function writeAttrs(attributes) {
+    let keys = Object.keys(attributes);
+    const count = keys.length;
+    if (count > 0) {
+        console.info(`Writing ${count} attributes: ${keys}`);
         setAttrs(attributes);
+    } else {
+        console.debug("No attributes to write");
     }
 }
 
@@ -81,7 +105,7 @@ class RepeatingSection {
 
                 this._removalListener(eventInfo.removedInfo, resultAttributes);
 
-                setAttrsIfNonEmpty(resultAttributes);
+                writeAttrs(resultAttributes);
             });
         });
     }
@@ -144,7 +168,7 @@ class RepeatingSection {
                 const newId = this.addNewRow(resultAttributes);
                 console.info(`not removing the remaining non-empty rows ${remainingRowIds}. keeping columns balanced by adding new row ${newId}.`);
 
-                setAttrs(resultAttributes);
+                writeAttrs(resultAttributes);
             }
         });
     }

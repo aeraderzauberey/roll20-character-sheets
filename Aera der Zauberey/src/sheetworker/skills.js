@@ -1,3 +1,6 @@
+const REFLEXES_SYMLINK_KEY = "calc_symlink_Reflexe";
+const INITIATIVE_BASE_KEY = "calc_initiative_base";
+
 const skillList = new RepeatingSection(16, 2, 'skills', (rowPrefix, attributesToSet) => {
     attributesToSet[rowPrefix + '_attribute'] = '-';
 });
@@ -5,14 +8,15 @@ const skillList = new RepeatingSection(16, 2, 'skills', (rowPrefix, attributesTo
 on("sheet:opened", function() {
     skillList.initialize(() => {
         let idOrder = skillList.idOrder;
+        let inputAttributes = [REFLEXES_SYMLINK_KEY].concat(attributes, idOrder.flatMap(id => [
+            'name', 'attribute', 'value', 'calc_total'].map(suffix => `repeating_skills_${id}_${suffix}`)));
 
-        let inputAttributes = idOrder.flatMap(id => [
-            'name', 'attribute', 'value'].map(suffix => `repeating_skills_${id}_${suffix}`));
-        bulkCalculateSkills(inputAttributes);
-
-        let resultAttributes = {};
-        skillList.generateMinimumRows(resultAttributes);
-        setAttrs(resultAttributes);
+        getAttrs(inputAttributes, values => {
+            let resultAttributes = {};
+            bulkCalculateSkills(values, resultAttributes);
+            skillList.generateMinimumRows(resultAttributes);
+            writeAttrs(resultAttributes);
+        });
     });
 });
 
@@ -20,49 +24,51 @@ on("clicked:add-skills", function() {
     var newAttributes = {};
     skillList.addNewRow(newAttributes);
     skillList.addNewRow(newAttributes);
-    setAttrs(newAttributes);
+    writeAttrs(newAttributes);
 });
 
 skillList.onChange(eventInfo => {
-    console.log("skill change:", eventInfo.sourceAttribute);
     if (/_(value|attribute)$/.test(eventInfo.sourceAttribute)) {
         console.debug("skill change", eventInfo);
 
-        let inputAttributes = ["_value", "_attribute", "_name"].map(s => eventInfo.triggerName + s);
-        bulkCalculateSkills(inputAttributes);
+        let inputAttributes = ['_value', '_attribute', '_name', '_calc_total'].map(suffix => eventInfo.triggerName
+            + suffix);
+        getAttrs(inputAttributes, values => {
+            let resultAttributes = {};
+            bulkCalculateSkills(values, resultAttributes);
+            writeAttrs(resultAttributes);
+        });
     } else if (/_name$/.test(eventInfo.sourceAttribute)) {
         console.debug("skill renamed", eventInfo);
 
         if (eventInfo.previousValue == "Reflexe") {
-            setAttrs({ "calc_symlink_Reflexe": "" });
+            let resultAttributes = {};
+            resultAttributes[REFLEXES_SYMLINK_KEY] = "";
+            writeAttrs(resultAttributes);
         } else if (eventInfo.newValue == "Reflexe") {
-            var valueId = eventInfo.sourceAttribute.replace("_name", "_value");
-            getAttrs([valueId], function(values) {
-                setAttrs({ "calc_symlink_Reflexe": values[valueId] });
+            let valueKey = eventInfo.sourceAttribute.replace("_name", "_value");
+            getAttrs([valueKey, REFLEXES_SYMLINK_KEY], values => {
+                let resultAttributes = {};
+                addAttrIfChanged(values, REFLEXES_SYMLINK_KEY, values[valueKey], resultAttributes);
+                writeAttrs(resultAttributes);
             });
         }
     }
+
 });
 
 skillList.onRemoval((removedInfo, resultAttributes) => {
     const nameKey = Object.keys(removedInfo).filter(key => key.endsWith("_name"))[0];
     if (removedInfo[nameKey] == "Reflexe") {
-        resultAttributes.calc_symlink_Reflexe = "";
+        resultAttributes[REFLEXES_SYMLINK_KEY] = "";
     }
 })
 
-function bulkCalculateSkills(inputAttributes) {
-    getAttrs(inputAttributes.concat(attributes), function(values) {
-        console.debug("bulkCalculateSkills with values", values);
-        let resultAttributes = {};
-        for (const key of Object.keys(values).filter(k => k.endsWith("_value"))) {
-            let prefix = key.replace("_value", "");
-            calculateSkill(values, prefix, resultAttributes);
-        }
-        console.log("bulk skill calculation result:", resultAttributes);
-        // TODO leave setAttrs() to the call site
-        setAttrs(resultAttributes);
-    });
+function bulkCalculateSkills(values, resultAttributes) {
+    for (const key of Object.keys(values).filter(k => k.endsWith('_value'))) {
+        let prefix = key.replace('_value', '');
+        calculateSkill(values, prefix, resultAttributes);
+    }
 }
 
 function calculateSkill(values, prefix, resultAttributes) {
@@ -71,7 +77,7 @@ function calculateSkill(values, prefix, resultAttributes) {
 
     const name = values[prefix + "_name"];
     if (name == "Reflexe") {
-        resultAttributes["calc_symlink_" + name] = value;
+        addAttrIfChanged(values, REFLEXES_SYMLINK_KEY, value, resultAttributes);
     }
 
     let attributeAbbreviation = values[prefix + "_attribute"];
@@ -80,21 +86,24 @@ function calculateSkill(values, prefix, resultAttributes) {
     if (attributeAbbreviation != "-") {
         let attributeRawValue = values[attributeAbbreviation];
         let attributeValue = parseInt(attributeRawValue) || 0;
-
-        console.log("calculate " + prefix + " based on values: ", values);
         result = attributeValue + value;
     }
-    resultAttributes[prefix + "_calc_total"] = result;
+    addAttrIfChanged(values, `${prefix}_calc_total`, result, resultAttributes);
 }
 
-on("sheet:opened change:in change:calc_symlink_reflexe", function(eventInfo) {
+on(`sheet:opened change:in change:${REFLEXES_SYMLINK_KEY}`, eventInfo => {
     console.log("initiative base change:", eventInfo.sourceAttribute);
-    getAttrs(["in", "calc_symlink_Reflexe"], function(values) {
-        var base = 0;
-        for (const value of Object.values(values)) {
-            base += parseInt(value) * 2;
+    getAttrs(["in", REFLEXES_SYMLINK_KEY, INITIATIVE_BASE_KEY], values => {
+        let integers = getIntegersFrom(values);
+
+        let calculated = 0;
+        for (const key of ["in", REFLEXES_SYMLINK_KEY]) {
+            calculated += integers[key] * 2;
         }
-        console.log("base=", base);
-        setAttrs({ "calc_initiative_base": base });
+        console.log("initiative base =", calculated);
+
+        let resultAttributes = {};
+        addAttrIfChanged(values, INITIATIVE_BASE_KEY, calculated, resultAttributes);
+        writeAttrs(resultAttributes);
     });
 });

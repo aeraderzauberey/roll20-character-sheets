@@ -11,21 +11,22 @@ for (const technique of techniques) {
     addColumnListener(technique);
 }
 
-function addCellListener(domain, technique) {
-    var combination = domain + "_" + technique;
-    on("change:" + combination, function() {
-        console.log("cell change", domain, technique);
-        getAttrs([domain, technique, combination], function(values) {
+function addCellListener(domainName, techniqueName) {
+    let focus = makeFocusKey(domainName, techniqueName);
+    on("change:" + focus, function() {
+        console.log("cell change", domainName, techniqueName);
+        getAttrs([domainName, techniqueName, focus, makeMagicTotalKey(domainName, techniqueName)], function(values) {
             let integers = getIntegersFrom(values);
             let result = {};
-            calculateMagicCell(integers, domain, technique, result);
-            setAttrs(result);
+            calculateMagicCell(integers, domainName, techniqueName, result);
+            writeAttrs(result);
         });
     });
 }
 
 function addRowListener(domainName) {
-    var inputAttributes = MAGIC_MATRIX_INPUT.concat(techniques.map(techniqueName => domainName + '_' + techniqueName));
+    var inputAttributes = MAGIC_MATRIX_INPUT.concat(techniques.flatMap(techniqueName => [
+        makeFocusKey(domainName, techniqueName), makeMagicTotalKey(domainName, techniqueName)]));
     on("sheet:opened change:" + domainName, function() {
         console.log("row change", domainName);
         getAttrs(inputAttributes, function(values) {
@@ -36,47 +37,57 @@ function addRowListener(domainName) {
                 calculateMagicCell(integers, domainName, techniqueName, result);
             }
 
-            calculateDrainRoll(integers, domainName, values.drain_attribute, result);
+            calculateDrainRoll(integers, domainName, values["drain_attribute"], result);
 
-            setAttrs(result);
+            writeAttrs(result);
         });
     });
 }
 
-function addColumnListener(technique) {
-    var inputAttributes = [technique].concat(domains, domains.map(domain => domain + "_" + technique));
-    on("change:" + technique, function() {
-        console.log("column change", technique);
+function makeFocusKey(domainName, techniqueName) {
+    return `${domainName}_${techniqueName}`;
+}
+
+function makeMagicTotalKey(domainName, techniqueName) {
+    return `calc_total_${domainName}_${techniqueName}`;
+}
+
+function addColumnListener(techniqueName) {
+    var inputAttributes = [techniqueName].concat(domains, domains.flatMap(domainName => [
+        makeFocusKey(domainName, techniqueName), makeMagicTotalKey(domainName, techniqueName)]));
+    on("change:" + techniqueName, function() {
+        console.log("column change", techniqueName);
         getAttrs(inputAttributes, function(values) {
             let integers = getIntegersFrom(values);
             let result = {};
             for (const domain of domains) {
-                calculateMagicCell(integers, domain, technique, result);
+                calculateMagicCell(integers, domain, techniqueName, result);
             }
-            setAttrs(result);
+            writeAttrs(result);
         });
     });
 }
 
-function calculateMagicCell(integers, domain, technique, result) {
-    var total = "";
-    if (integers[domain] && integers[technique]) {
-        total = integers[domain] + integers[technique] + integers[domain + "_" + technique];
+function calculateMagicCell(integers, domainName, techniqueName, resultAttributes) {
+    var calculated = "";
+    if (integers[domainName] && integers[techniqueName]) {
+        calculated = integers[domainName] + integers[techniqueName] + integers[makeFocusKey(domainName, techniqueName)];
     }
-    result["calc_total_" + domain + "_" + technique] = total;
+    addAttrIfChanged(integers, makeMagicTotalKey(domainName, techniqueName), calculated, resultAttributes)
 }
 
+// TODO have one 'sheet:opened' per category which uses a shared getAttrs() (and setAttrs()) call. only the 'change:' listeners must stay separate.
 on("sheet:opened change:drain_attribute", function(eventInfo) {
     getAttrs(DOMAINS_AND_DRAIN_RELATED, function(values) {
         let integers = getIntegersFrom(values);
-        let drainAttributeAbbreviation = values.drain_attribute;
+        let drainAttributeAbbreviation = values["drain_attribute"];
         console.log(
             `calculating drain based on attribute ${drainAttributeAbbreviation}=${integers[drainAttributeAbbreviation]}`,
             eventInfo);
 
         let result = {};
         calculateAllDrainRolls(integers, drainAttributeAbbreviation, result);
-        setAttrs(result);
+        writeAttrs(result);
     });
 });
 
@@ -87,5 +98,7 @@ function calculateAllDrainRolls(integers, drainAttributeAbbreviation, resultAttr
 }
 
 function calculateDrainRoll(integers, domainName, drainAttributeAbbreviation, resultAttributes) {
-    resultAttributes["calc_drain_" + domainName] = integers[domainName] + integers[drainAttributeAbbreviation];
+    let key = "calc_drain_" + domainName;
+    let calculated = integers[domainName] + integers[drainAttributeAbbreviation];
+    addAttrIfChanged(integers, key, calculated, resultAttributes);
 }
