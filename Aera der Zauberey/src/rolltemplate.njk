@@ -1,5 +1,5 @@
 <rolltemplate class="sheet-rolltemplate-adz">
-    <div class="sheet-scroll">
+    <div class="scroll apply-penalty_{{apply_penalty}}">
         <h1>{{title}}</h1>
 
         {{#dice}}
@@ -10,12 +10,8 @@
                 <span class="plain-roll transparent-roll">{{dice}}</span>
                 Würfel{{#^rollTotal() dice 1}}n{{/^rollTotal() dice 1}}
             </p>
-            {{#penalty}}
-                <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
-            {{/penalty}}
-            {{^penalty}}
-                <p class="note">Erfolgsabzug ignoriert.</p>
-            {{/penalty}}
+            <p class="note if-penalty-applied">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
+            <p class="note if-penalty-ignored">Erfolgsabzug ignoriert.</p>
         {{/dice}}
         {{^dice}}
             <p class="large transparent-roll">{{result}}</p>

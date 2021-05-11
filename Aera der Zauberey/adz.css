@@ -51,14 +51,19 @@
 	padding: 1.5em 1.0em 3em 1.0em;
 
 	grid-template-columns: min-content 1fr 1fr;
-	gap: 1em 2em;
+	gap: 0 2em;
 	grid-template-areas:
 			"base            notes         notes"
 			"attr            skills        skills"
+			"checksheading   checksheading checksheading"
 			"standardchecks  customchecks  customchecks"
 			"magic           magic         magic";
 	align-items: start;
 	justify-items: stretch;
+}
+
+.sheet-layout > *:not(.sheet-no-bottom-padding) {
+	padding-bottom: 1em;
 }
 
 .charsheet label {
@@ -598,6 +603,23 @@ input::-webkit-inner-spin-button {
 	margin: 0;
 }
 
+div.sheet-toggle-container {
+	display: inline;
+}
+
+button.sheet-toggle {
+	display: inline;
+	float: none;
+	border-width: 0;
+	padding: 0 3px;
+	font-size: var(--base-font-size);
+}
+
+input.sheet-toggle:not([value="1"]) ~ button.sheet-toggle > span.sheet-checked,
+input.sheet-toggle[value="1"] ~ button.sheet-toggle > span.sheet-unchecked {
+	display: none;
+}
+
 .sheet-rolltemplate-adz {
 	padding: 20px;
 }
@@ -651,4 +673,9 @@ input::-webkit-inner-spin-button {
 
 .sheet-rolltemplate-adz .sheet-note {
 	font-size: 70%;
+}
+
+.sheet-rolltemplate-adz .sheet-apply-penalty_0 .sheet-if-penalty-applied,
+.sheet-rolltemplate-adz .sheet-apply-penalty_1 .sheet-if-penalty-ignored {
+	display: none;
 }

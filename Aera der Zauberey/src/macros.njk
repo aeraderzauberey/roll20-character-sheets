@@ -1,15 +1,15 @@
-#% macro roll_button(name, title, dice, buttonLabel) %#
-#$ roll_button_impl(name, title, dice, buttonLabel, true) $#
+#% macro roll_with_auto_penalty_button(name, title, dice, buttonLabel) %#
+#$ roll_button_impl(name, title, dice, buttonLabel, '@{apply_penalty}') $#
 #% endmacro %#
 
-#% macro roll_button_special(name, title, dice, buttonLabel) %#
-#$ roll_button_impl(name, title, dice, buttonLabel, false) $#
+#% macro roll_without_penalty_button(name, title, dice, buttonLabel) %#
+#$ roll_button_impl(name, title, dice, buttonLabel, 0) $#
 #% endmacro %#
 
-#% macro roll_button_impl(name, title, dice, buttonLabel, penaltyActive) %#
+#% macro roll_button_impl(name, title, dice, buttonLabel, applyPenalty) %#
 <button type='roll'
         name='roll_#$ name $#'
-        value='&{template:adz} {{title=#$ title $#}} {{dice=[[#$ dice $#+0]]}} {{result=[[(#$ dice $#+0)d6>5cs>5cf<0#$ " - @{penalty}" if penaltyActive $#]]}}#$ " {{penalty=@{penalty}}}" if penaltyActive $#'
+        value='&{template:adz} {{title=#$ title $#}} {{dice=[[#$ dice $#+0]]}} {{result=[[(#$ dice $#+0)d6>5cs>5cf<0 - @{penalty}*#$ applyPenalty $#]]}} {{penalty=@{penalty}}} {{apply_penalty=#$ applyPenalty $#}}'
         #%- if buttonLabel %#
         class="labelled">
     <label>#$ buttonLabel $#</label>
@@ -17,4 +17,22 @@
         >
         #%- endif %#
 </button>
+#% endmacro %#
+
+#% macro penalty_toggle() %#
+#$ penalty_toggle_impl('💔 Aktiv', '🤍 Inaktiv', false) $#
+#% endmacro %#
+
+#% macro penalty_toggle_ref() %#
+#$ penalty_toggle_impl('💔 mit Abzug', '🤍 kein Abzug', true) $#
+#% endmacro %#
+
+#% macro penalty_toggle_impl(labelChecked, labelUnchecked, showPenalty) %#
+<div class="toggle-container">
+  <input type="hidden" class="toggle" name="attr_apply_penalty" />
+  <button type="action" name="act_toggle_apply_penalty" class="toggle">
+    <span class="checked">#$ labelChecked $##% if showPenalty %# (<span name=attr_penalty></span>)#% endif %#</span>
+    <span class="unchecked">#$ labelUnchecked $##% if showPenalty %# (<span name=attr_penalty></span>)#% endif %#</span>
+  </button>
+</div>
 #% endmacro %#

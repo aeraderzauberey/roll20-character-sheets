@@ -4,12 +4,10 @@
 
     <label>Erfolgsabzug</label>
     <input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
+    #$ penalty_toggle() $#
 
     <label>Sonstige Probe</label>
-    #$ roll_button('custom-roll', '?{Titel|Probe}', '?{Würfelanzahl|1}') $#
-
-    <label>Sonstige Probe (ohne Abzug)</label>
-    #$ roll_button_special('custom-roll-special', '?{Titel|Probe}', '?{Würfelanzahl|1}') $#
+    #$ roll_with_auto_penalty_button('custom-roll', '?{Titel|Probe}', '?{Würfelanzahl|1}') $#
 
     <label>Initiativewurf</label>
     <button type='roll'
@@ -19,7 +17,7 @@
     <input name="attr_calc_initiative_base" class="number" readonly="true" />
 
     <label>Glück dazuwürfeln</label>
-    #$ roll_button_special('use-luck', '＋ Glück', '@{gl}') $#
+    #$ roll_without_penalty_button('use-luck', '＋ Glück', '@{gl}') $#
 
     <label>Entzugsattribut</label>
     <select name="attr_drain_attribute">
@@ -35,16 +33,16 @@
 </div>
 
 <div class="sheet-attributes">
-    <h2>Attribute</h2>
+    <h2>Attribute #$ penalty_toggle_ref() $#</h2>
 
     <div class="sheet-attributes-list">
         #% for abbreviation, name in attributes %#
-        #$ roll_button(abbreviation, name, '@{calc_total_' + abbreviation + '}', name) $#
+        #$ roll_with_auto_penalty_button(abbreviation, name, '@{calc_total_' + abbreviation + '}', name) $#
         <div class="horizontal">
             <input type="number" step="1" name="attr_#$ abbreviation $#" max="10"/>
             <div class="stack clickable-total">
                 <input name="attr_calc_total_#$ abbreviation $#" class="number" readonly="true" />
-                #$ roll_button(abbreviation, name, '@{calc_total_' + abbreviation + '}') $#
+                #$ roll_with_auto_penalty_button(abbreviation, name, '@{calc_total_' + abbreviation + '}') $#
             </div>
         </div>
         #% endfor %#
@@ -52,7 +50,7 @@
 </div>
 
 <div class="sheet-skills">
-    <h2>Fertigkeiten</h2>
+    <h2>Fertigkeiten #$ penalty_toggle_ref() $#</h2>
 
     <div class="skill-list">
         <fieldset class="repeating_skills">
@@ -68,43 +66,43 @@
 
             <div class="stack clickable-total">
                 <input name="attr_calc_total" class="number" readonly="true" />
-                #$ roll_button('@{name}', '@{name}', '@{calc_total}') $#
+                #$ roll_with_auto_penalty_button('@{name}', '@{name}', '@{calc_total}') $#
             </div>
         </fieldset>
         <button type="action" name="act_add-skills">Add Row</button>
     </div>
 </div>
 
-<div class="standard-checks">
-    <h2>Sonstige Proben</h2>
+<div class="sheet-checks-heading no-bottom-padding">
+    <h2>Sonstige Proben #$ penalty_toggle_ref() $#</h2>
+</div>
 
+<div class="standard-checks">
     #%- for check in standardChecks -%#
         <div>
             <input type="text" value="#$ check.label $# (#$ check.attr1 | upper $# + #$ check.attr2 | upper $#)" readonly="true" />
             <div class="stack clickable-total">
                 <input name="attr_calc_check_#$ check.key $#" class="number" readonly="true" />
-                #$ roll_button(check.key, check.label, '@{calc_check_' + check.key + '}') $#
+                #$ roll_with_auto_penalty_button(check.key, check.label, '@{calc_check_' + check.key + '}') $#
             </div>
         </div>
     #%- endfor -%#
 </div>
 
 <div class="custom-checks">
-    <h2 style="visibility:hidden">Sonstige Proben</h2>
-
     <fieldset class="repeating_checks">
       <input type="text" name="attr_name" />
       <input type="number" name="attr_value" />
         <div class="stack clickable-total">
             <input name="attr_value" class="number" readonly="true" />
-            #$ roll_button('@{name}', '@{name}', '@{value}') $#
+            #$ roll_with_auto_penalty_button('@{name}', '@{name}', '@{value}') $#
         </div>
     </fieldset>
     <button type="action" name="act_add-checks">Add Row</button>
 </div>
 
 <div class="sheet-magic">
-    <h2>Techniken & Magiebereiche</h2>
+    <h2>Techniken & Magiebereiche #$ penalty_toggle_ref() $#</h2>
 
     <div class="sheet-magic-matrix">
         <div>#! label !#</div>
@@ -123,7 +121,7 @@
             <label class="domain #$ row $# c1">#$ domain $#</label>
             <input class="#$ row $# c2" type="number" step="1" name="attr_#$ domain | lower $#" max="10"/>
             <div class="#$ row $# c3">
-                #$ roll_button_special('roll-drain-' + domain, 'Entzug (' + domain + ')', '@{calc_drain_' + domain | lower + '}' ) $#
+                #$ roll_without_penalty_button('roll-drain-' + domain, 'Entzug (' + domain + ')', '@{calc_drain_' + domain | lower + '}' ) $#
             </div>
             #% for technique in techniques %#
                 #% set column = 'c' + (loop.index + 3) %#
@@ -131,7 +129,7 @@
                     <input name="attr_#$ domain | lower $#_#$ technique | lower $#" type="number" step="1" max="10" />
                     <div class="stack clickable-total">
                         <input name="attr_calc_total_#$ domain | lower $#_#$ technique | lower $#" class="number" readonly="true" />
-                        #$ roll_button(domain | lower + '_' + technique | lower, domain + ' ' + technique | lower, '@{calc_total_' + domain | lower + '_' + technique | lower + '}') $#
+                        #$ roll_with_auto_penalty_button(domain | lower + '_' + technique | lower, domain + ' ' + technique | lower, '@{calc_total_' + domain | lower + '_' + technique | lower + '}') $#
                     </div>
                 </div>
                 <div class="column-marker r1 #$ column $#"></div>

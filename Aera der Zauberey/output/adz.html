@@ -8,23 +8,24 @@
 
     <label>Erfolgsabzug</label>
     <input type="number" step="1" name="attr_penalty" class="sheet-variable" value="0"/>
+    
+
+<div class="toggle-container">
+  <input type="hidden" class="toggle" name="attr_apply_penalty" />
+  <button type="action" name="act_toggle_apply_penalty" class="toggle">
+    <span class="checked">💔 Aktiv</span>
+    <span class="unchecked">🤍 Inaktiv</span>
+  </button>
+</div>
+
+
 
     <label>Sonstige Probe</label>
     
 
 <button type='roll'
         name='roll_custom-roll'
-        value='&{template:adz} {{title=?{Titel|Probe}}} {{dice=[[?{Würfelanzahl|1}+0]]}} {{result=[[(?{Würfelanzahl|1}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
-</button>
-
-
-
-    <label>Sonstige Probe (ohne Abzug)</label>
-    
-
-<button type='roll'
-        name='roll_custom-roll-special'
-        value='&{template:adz} {{title=?{Titel|Probe}}} {{dice=[[?{Würfelanzahl|1}+0]]}} {{result=[[(?{Würfelanzahl|1}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=?{Titel|Probe}}} {{dice=[[?{Würfelanzahl|1}+0]]}} {{result=[[(?{Würfelanzahl|1}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -41,7 +42,7 @@
 
 <button type='roll'
         name='roll_use-luck'
-        value='&{template:adz} {{title=＋ Glück}} {{dice=[[@{gl}+0]]}} {{result=[[(@{gl}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=＋ Glück}} {{dice=[[@{gl}+0]]}} {{result=[[(@{gl}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -66,7 +67,17 @@
 </div>
 
 <div class="sheet-attributes">
-    <h2>Attribute</h2>
+    <h2>Attribute 
+
+<div class="toggle-container">
+  <input type="hidden" class="toggle" name="attr_apply_penalty" />
+  <button type="action" name="act_toggle_apply_penalty" class="toggle">
+    <span class="checked">💔 mit Abzug (<span name=attr_penalty></span>)</span>
+    <span class="unchecked">🤍 kein Abzug (<span name=attr_penalty></span>)</span>
+  </button>
+</div>
+
+</h2>
 
     <div class="sheet-attributes-list">
         
@@ -74,7 +85,7 @@
 
 <button type='roll'
         name='roll_kk'
-        value='&{template:adz} {{title=Körperkraft}} {{dice=[[@{calc_total_kk}+0]]}} {{result=[[(@{calc_total_kk}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=Körperkraft}} {{dice=[[@{calc_total_kk}+0]]}} {{result=[[(@{calc_total_kk}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'
         class="labelled">
     <label>Körperkraft</label>
 </button>
@@ -88,7 +99,7 @@
 
 <button type='roll'
         name='roll_kk'
-        value='&{template:adz} {{title=Körperkraft}} {{dice=[[@{calc_total_kk}+0]]}} {{result=[[(@{calc_total_kk}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Körperkraft}} {{dice=[[@{calc_total_kk}+0]]}} {{result=[[(@{calc_total_kk}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -99,7 +110,7 @@
 
 <button type='roll'
         name='roll_ko'
-        value='&{template:adz} {{title=Konstitution}} {{dice=[[@{calc_total_ko}+0]]}} {{result=[[(@{calc_total_ko}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=Konstitution}} {{dice=[[@{calc_total_ko}+0]]}} {{result=[[(@{calc_total_ko}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'
         class="labelled">
     <label>Konstitution</label>
 </button>
@@ -113,7 +124,7 @@
 
 <button type='roll'
         name='roll_ko'
-        value='&{template:adz} {{title=Konstitution}} {{dice=[[@{calc_total_ko}+0]]}} {{result=[[(@{calc_total_ko}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Konstitution}} {{dice=[[@{calc_total_ko}+0]]}} {{result=[[(@{calc_total_ko}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -124,7 +135,7 @@
 
 <button type='roll'
         name='roll_ge'
-        value='&{template:adz} {{title=Gewandtheit}} {{dice=[[@{calc_total_ge}+0]]}} {{result=[[(@{calc_total_ge}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=Gewandtheit}} {{dice=[[@{calc_total_ge}+0]]}} {{result=[[(@{calc_total_ge}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'
         class="labelled">
     <label>Gewandtheit</label>
 </button>
@@ -138,7 +149,7 @@
 
 <button type='roll'
         name='roll_ge'
-        value='&{template:adz} {{title=Gewandtheit}} {{dice=[[@{calc_total_ge}+0]]}} {{result=[[(@{calc_total_ge}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Gewandtheit}} {{dice=[[@{calc_total_ge}+0]]}} {{result=[[(@{calc_total_ge}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -149,7 +160,7 @@
 
 <button type='roll'
         name='roll_ff'
-        value='&{template:adz} {{title=Fingerfertigkeit}} {{dice=[[@{calc_total_ff}+0]]}} {{result=[[(@{calc_total_ff}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=Fingerfertigkeit}} {{dice=[[@{calc_total_ff}+0]]}} {{result=[[(@{calc_total_ff}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'
         class="labelled">
     <label>Fingerfertigkeit</label>
 </button>
@@ -163,7 +174,7 @@
 
 <button type='roll'
         name='roll_ff'
-        value='&{template:adz} {{title=Fingerfertigkeit}} {{dice=[[@{calc_total_ff}+0]]}} {{result=[[(@{calc_total_ff}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Fingerfertigkeit}} {{dice=[[@{calc_total_ff}+0]]}} {{result=[[(@{calc_total_ff}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -174,7 +185,7 @@
 
 <button type='roll'
         name='roll_kl'
-        value='&{template:adz} {{title=Klugheit}} {{dice=[[@{calc_total_kl}+0]]}} {{result=[[(@{calc_total_kl}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=Klugheit}} {{dice=[[@{calc_total_kl}+0]]}} {{result=[[(@{calc_total_kl}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'
         class="labelled">
     <label>Klugheit</label>
 </button>
@@ -188,7 +199,7 @@
 
 <button type='roll'
         name='roll_kl'
-        value='&{template:adz} {{title=Klugheit}} {{dice=[[@{calc_total_kl}+0]]}} {{result=[[(@{calc_total_kl}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Klugheit}} {{dice=[[@{calc_total_kl}+0]]}} {{result=[[(@{calc_total_kl}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -199,7 +210,7 @@
 
 <button type='roll'
         name='roll_wk'
-        value='&{template:adz} {{title=Willenskraft}} {{dice=[[@{calc_total_wk}+0]]}} {{result=[[(@{calc_total_wk}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=Willenskraft}} {{dice=[[@{calc_total_wk}+0]]}} {{result=[[(@{calc_total_wk}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'
         class="labelled">
     <label>Willenskraft</label>
 </button>
@@ -213,7 +224,7 @@
 
 <button type='roll'
         name='roll_wk'
-        value='&{template:adz} {{title=Willenskraft}} {{dice=[[@{calc_total_wk}+0]]}} {{result=[[(@{calc_total_wk}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Willenskraft}} {{dice=[[@{calc_total_wk}+0]]}} {{result=[[(@{calc_total_wk}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -224,7 +235,7 @@
 
 <button type='roll'
         name='roll_in'
-        value='&{template:adz} {{title=Intuition}} {{dice=[[@{calc_total_in}+0]]}} {{result=[[(@{calc_total_in}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=Intuition}} {{dice=[[@{calc_total_in}+0]]}} {{result=[[(@{calc_total_in}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'
         class="labelled">
     <label>Intuition</label>
 </button>
@@ -238,7 +249,7 @@
 
 <button type='roll'
         name='roll_in'
-        value='&{template:adz} {{title=Intuition}} {{dice=[[@{calc_total_in}+0]]}} {{result=[[(@{calc_total_in}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Intuition}} {{dice=[[@{calc_total_in}+0]]}} {{result=[[(@{calc_total_in}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -249,7 +260,7 @@
 
 <button type='roll'
         name='roll_ch'
-        value='&{template:adz} {{title=Charisma}} {{dice=[[@{calc_total_ch}+0]]}} {{result=[[(@{calc_total_ch}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=Charisma}} {{dice=[[@{calc_total_ch}+0]]}} {{result=[[(@{calc_total_ch}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'
         class="labelled">
     <label>Charisma</label>
 </button>
@@ -263,7 +274,7 @@
 
 <button type='roll'
         name='roll_ch'
-        value='&{template:adz} {{title=Charisma}} {{dice=[[@{calc_total_ch}+0]]}} {{result=[[(@{calc_total_ch}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Charisma}} {{dice=[[@{calc_total_ch}+0]]}} {{result=[[(@{calc_total_ch}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -274,7 +285,7 @@
 
 <button type='roll'
         name='roll_gl'
-        value='&{template:adz} {{title=Glück}} {{dice=[[@{calc_total_gl}+0]]}} {{result=[[(@{calc_total_gl}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'
+        value='&{template:adz} {{title=Glück}} {{dice=[[@{calc_total_gl}+0]]}} {{result=[[(@{calc_total_gl}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'
         class="labelled">
     <label>Glück</label>
 </button>
@@ -288,7 +299,7 @@
 
 <button type='roll'
         name='roll_gl'
-        value='&{template:adz} {{title=Glück}} {{dice=[[@{calc_total_gl}+0]]}} {{result=[[(@{calc_total_gl}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Glück}} {{dice=[[@{calc_total_gl}+0]]}} {{result=[[(@{calc_total_gl}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -299,7 +310,17 @@
 </div>
 
 <div class="sheet-skills">
-    <h2>Fertigkeiten</h2>
+    <h2>Fertigkeiten 
+
+<div class="toggle-container">
+  <input type="hidden" class="toggle" name="attr_apply_penalty" />
+  <button type="action" name="act_toggle_apply_penalty" class="toggle">
+    <span class="checked">💔 mit Abzug (<span name=attr_penalty></span>)</span>
+    <span class="unchecked">🤍 kein Abzug (<span name=attr_penalty></span>)</span>
+  </button>
+</div>
+
+</h2>
 
     <div class="skill-list">
         <fieldset class="repeating_skills">
@@ -335,7 +356,7 @@
 
 <button type='roll'
         name='roll_@{name}'
-        value='&{template:adz} {{title=@{name}}} {{dice=[[@{calc_total}+0]]}} {{result=[[(@{calc_total}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=@{name}}} {{dice=[[@{calc_total}+0]]}} {{result=[[(@{calc_total}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -345,8 +366,21 @@
     </div>
 </div>
 
-<div class="standard-checks">
-    <h2>Sonstige Proben</h2><div>
+<div class="sheet-checks-heading no-bottom-padding">
+    <h2>Sonstige Proben 
+
+<div class="toggle-container">
+  <input type="hidden" class="toggle" name="attr_apply_penalty" />
+  <button type="action" name="act_toggle_apply_penalty" class="toggle">
+    <span class="checked">💔 mit Abzug (<span name=attr_penalty></span>)</span>
+    <span class="unchecked">🤍 kein Abzug (<span name=attr_penalty></span>)</span>
+  </button>
+</div>
+
+</h2>
+</div>
+
+<div class="standard-checks"><div>
             <input type="text" value="Sich erinnern (KL + WK)" readonly="true" />
             <div class="stack clickable-total">
                 <input name="attr_calc_check_remember" class="number" readonly="true" />
@@ -354,7 +388,7 @@
 
 <button type='roll'
         name='roll_remember'
-        value='&{template:adz} {{title=Sich erinnern}} {{dice=[[@{calc_check_remember}+0]]}} {{result=[[(@{calc_check_remember}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Sich erinnern}} {{dice=[[@{calc_check_remember}+0]]}} {{result=[[(@{calc_check_remember}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -367,7 +401,7 @@
 
 <button type='roll'
         name='roll_selfcontrol'
-        value='&{template:adz} {{title=Selbstbeherrschung}} {{dice=[[@{calc_check_selfcontrol}+0]]}} {{result=[[(@{calc_check_selfcontrol}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Selbstbeherrschung}} {{dice=[[@{calc_check_selfcontrol}+0]]}} {{result=[[(@{calc_check_selfcontrol}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -380,7 +414,7 @@
 
 <button type='roll'
         name='roll_learning'
-        value='&{template:adz} {{title=Lernen}} {{dice=[[@{calc_check_learning}+0]]}} {{result=[[(@{calc_check_learning}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Lernen}} {{dice=[[@{calc_check_learning}+0]]}} {{result=[[(@{calc_check_learning}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -393,7 +427,7 @@
 
 <button type='roll'
         name='roll_stubbornness'
-        value='&{template:adz} {{title=Sturheit}} {{dice=[[@{calc_check_stubbornness}+0]]}} {{result=[[(@{calc_check_stubbornness}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Sturheit}} {{dice=[[@{calc_check_stubbornness}+0]]}} {{result=[[(@{calc_check_stubbornness}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -401,8 +435,6 @@
         </div></div>
 
 <div class="custom-checks">
-    <h2 style="visibility:hidden">Sonstige Proben</h2>
-
     <fieldset class="repeating_checks">
       <input type="text" name="attr_name" />
       <input type="number" name="attr_value" />
@@ -412,7 +444,7 @@
 
 <button type='roll'
         name='roll_@{name}'
-        value='&{template:adz} {{title=@{name}}} {{dice=[[@{value}+0]]}} {{result=[[(@{value}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=@{name}}} {{dice=[[@{value}+0]]}} {{result=[[(@{value}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -422,7 +454,17 @@
 </div>
 
 <div class="sheet-magic">
-    <h2>Techniken & Magiebereiche</h2>
+    <h2>Techniken & Magiebereiche 
+
+<div class="toggle-container">
+  <input type="hidden" class="toggle" name="attr_apply_penalty" />
+  <button type="action" name="act_toggle_apply_penalty" class="toggle">
+    <span class="checked">💔 mit Abzug (<span name=attr_penalty></span>)</span>
+    <span class="unchecked">🤍 kein Abzug (<span name=attr_penalty></span>)</span>
+  </button>
+</div>
+
+</h2>
 
     <div class="sheet-magic-matrix">
         <div></div>
@@ -480,7 +522,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Darstellung'
-        value='&{template:adz} {{title=Entzug (Darstellung)}} {{dice=[[@{calc_drain_darstellung}+0]]}} {{result=[[(@{calc_drain_darstellung}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Darstellung)}} {{dice=[[@{calc_drain_darstellung}+0]]}} {{result=[[(@{calc_drain_darstellung}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -495,7 +537,7 @@
 
 <button type='roll'
         name='roll_darstellung_beherrschen'
-        value='&{template:adz} {{title=Darstellung beherrschen}} {{dice=[[@{calc_total_darstellung_beherrschen}+0]]}} {{result=[[(@{calc_total_darstellung_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Darstellung beherrschen}} {{dice=[[@{calc_total_darstellung_beherrschen}+0]]}} {{result=[[(@{calc_total_darstellung_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -513,7 +555,7 @@
 
 <button type='roll'
         name='roll_darstellung_erkennen'
-        value='&{template:adz} {{title=Darstellung erkennen}} {{dice=[[@{calc_total_darstellung_erkennen}+0]]}} {{result=[[(@{calc_total_darstellung_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Darstellung erkennen}} {{dice=[[@{calc_total_darstellung_erkennen}+0]]}} {{result=[[(@{calc_total_darstellung_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -531,7 +573,7 @@
 
 <button type='roll'
         name='roll_darstellung_erschaffen'
-        value='&{template:adz} {{title=Darstellung erschaffen}} {{dice=[[@{calc_total_darstellung_erschaffen}+0]]}} {{result=[[(@{calc_total_darstellung_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Darstellung erschaffen}} {{dice=[[@{calc_total_darstellung_erschaffen}+0]]}} {{result=[[(@{calc_total_darstellung_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -549,7 +591,7 @@
 
 <button type='roll'
         name='roll_darstellung_kooperieren'
-        value='&{template:adz} {{title=Darstellung kooperieren}} {{dice=[[@{calc_total_darstellung_kooperieren}+0]]}} {{result=[[(@{calc_total_darstellung_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Darstellung kooperieren}} {{dice=[[@{calc_total_darstellung_kooperieren}+0]]}} {{result=[[(@{calc_total_darstellung_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -567,7 +609,7 @@
 
 <button type='roll'
         name='roll_darstellung_modifizieren'
-        value='&{template:adz} {{title=Darstellung modifizieren}} {{dice=[[@{calc_total_darstellung_modifizieren}+0]]}} {{result=[[(@{calc_total_darstellung_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Darstellung modifizieren}} {{dice=[[@{calc_total_darstellung_modifizieren}+0]]}} {{result=[[(@{calc_total_darstellung_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -585,7 +627,7 @@
 
 <button type='roll'
         name='roll_darstellung_verankern'
-        value='&{template:adz} {{title=Darstellung verankern}} {{dice=[[@{calc_total_darstellung_verankern}+0]]}} {{result=[[(@{calc_total_darstellung_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Darstellung verankern}} {{dice=[[@{calc_total_darstellung_verankern}+0]]}} {{result=[[(@{calc_total_darstellung_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -603,7 +645,7 @@
 
 <button type='roll'
         name='roll_darstellung_versetzen'
-        value='&{template:adz} {{title=Darstellung versetzen}} {{dice=[[@{calc_total_darstellung_versetzen}+0]]}} {{result=[[(@{calc_total_darstellung_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Darstellung versetzen}} {{dice=[[@{calc_total_darstellung_versetzen}+0]]}} {{result=[[(@{calc_total_darstellung_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -621,7 +663,7 @@
 
 <button type='roll'
         name='roll_darstellung_zerstören'
-        value='&{template:adz} {{title=Darstellung zerstören}} {{dice=[[@{calc_total_darstellung_zerstören}+0]]}} {{result=[[(@{calc_total_darstellung_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Darstellung zerstören}} {{dice=[[@{calc_total_darstellung_zerstören}+0]]}} {{result=[[(@{calc_total_darstellung_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -639,7 +681,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Erde'
-        value='&{template:adz} {{title=Entzug (Erde)}} {{dice=[[@{calc_drain_erde}+0]]}} {{result=[[(@{calc_drain_erde}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Erde)}} {{dice=[[@{calc_drain_erde}+0]]}} {{result=[[(@{calc_drain_erde}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -654,7 +696,7 @@
 
 <button type='roll'
         name='roll_erde_beherrschen'
-        value='&{template:adz} {{title=Erde beherrschen}} {{dice=[[@{calc_total_erde_beherrschen}+0]]}} {{result=[[(@{calc_total_erde_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Erde beherrschen}} {{dice=[[@{calc_total_erde_beherrschen}+0]]}} {{result=[[(@{calc_total_erde_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -672,7 +714,7 @@
 
 <button type='roll'
         name='roll_erde_erkennen'
-        value='&{template:adz} {{title=Erde erkennen}} {{dice=[[@{calc_total_erde_erkennen}+0]]}} {{result=[[(@{calc_total_erde_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Erde erkennen}} {{dice=[[@{calc_total_erde_erkennen}+0]]}} {{result=[[(@{calc_total_erde_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -690,7 +732,7 @@
 
 <button type='roll'
         name='roll_erde_erschaffen'
-        value='&{template:adz} {{title=Erde erschaffen}} {{dice=[[@{calc_total_erde_erschaffen}+0]]}} {{result=[[(@{calc_total_erde_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Erde erschaffen}} {{dice=[[@{calc_total_erde_erschaffen}+0]]}} {{result=[[(@{calc_total_erde_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -708,7 +750,7 @@
 
 <button type='roll'
         name='roll_erde_kooperieren'
-        value='&{template:adz} {{title=Erde kooperieren}} {{dice=[[@{calc_total_erde_kooperieren}+0]]}} {{result=[[(@{calc_total_erde_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Erde kooperieren}} {{dice=[[@{calc_total_erde_kooperieren}+0]]}} {{result=[[(@{calc_total_erde_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -726,7 +768,7 @@
 
 <button type='roll'
         name='roll_erde_modifizieren'
-        value='&{template:adz} {{title=Erde modifizieren}} {{dice=[[@{calc_total_erde_modifizieren}+0]]}} {{result=[[(@{calc_total_erde_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Erde modifizieren}} {{dice=[[@{calc_total_erde_modifizieren}+0]]}} {{result=[[(@{calc_total_erde_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -744,7 +786,7 @@
 
 <button type='roll'
         name='roll_erde_verankern'
-        value='&{template:adz} {{title=Erde verankern}} {{dice=[[@{calc_total_erde_verankern}+0]]}} {{result=[[(@{calc_total_erde_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Erde verankern}} {{dice=[[@{calc_total_erde_verankern}+0]]}} {{result=[[(@{calc_total_erde_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -762,7 +804,7 @@
 
 <button type='roll'
         name='roll_erde_versetzen'
-        value='&{template:adz} {{title=Erde versetzen}} {{dice=[[@{calc_total_erde_versetzen}+0]]}} {{result=[[(@{calc_total_erde_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Erde versetzen}} {{dice=[[@{calc_total_erde_versetzen}+0]]}} {{result=[[(@{calc_total_erde_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -780,7 +822,7 @@
 
 <button type='roll'
         name='roll_erde_zerstören'
-        value='&{template:adz} {{title=Erde zerstören}} {{dice=[[@{calc_total_erde_zerstören}+0]]}} {{result=[[(@{calc_total_erde_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Erde zerstören}} {{dice=[[@{calc_total_erde_zerstören}+0]]}} {{result=[[(@{calc_total_erde_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -798,7 +840,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Feuer'
-        value='&{template:adz} {{title=Entzug (Feuer)}} {{dice=[[@{calc_drain_feuer}+0]]}} {{result=[[(@{calc_drain_feuer}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Feuer)}} {{dice=[[@{calc_drain_feuer}+0]]}} {{result=[[(@{calc_drain_feuer}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -813,7 +855,7 @@
 
 <button type='roll'
         name='roll_feuer_beherrschen'
-        value='&{template:adz} {{title=Feuer beherrschen}} {{dice=[[@{calc_total_feuer_beherrschen}+0]]}} {{result=[[(@{calc_total_feuer_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Feuer beherrschen}} {{dice=[[@{calc_total_feuer_beherrschen}+0]]}} {{result=[[(@{calc_total_feuer_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -831,7 +873,7 @@
 
 <button type='roll'
         name='roll_feuer_erkennen'
-        value='&{template:adz} {{title=Feuer erkennen}} {{dice=[[@{calc_total_feuer_erkennen}+0]]}} {{result=[[(@{calc_total_feuer_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Feuer erkennen}} {{dice=[[@{calc_total_feuer_erkennen}+0]]}} {{result=[[(@{calc_total_feuer_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -849,7 +891,7 @@
 
 <button type='roll'
         name='roll_feuer_erschaffen'
-        value='&{template:adz} {{title=Feuer erschaffen}} {{dice=[[@{calc_total_feuer_erschaffen}+0]]}} {{result=[[(@{calc_total_feuer_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Feuer erschaffen}} {{dice=[[@{calc_total_feuer_erschaffen}+0]]}} {{result=[[(@{calc_total_feuer_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -867,7 +909,7 @@
 
 <button type='roll'
         name='roll_feuer_kooperieren'
-        value='&{template:adz} {{title=Feuer kooperieren}} {{dice=[[@{calc_total_feuer_kooperieren}+0]]}} {{result=[[(@{calc_total_feuer_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Feuer kooperieren}} {{dice=[[@{calc_total_feuer_kooperieren}+0]]}} {{result=[[(@{calc_total_feuer_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -885,7 +927,7 @@
 
 <button type='roll'
         name='roll_feuer_modifizieren'
-        value='&{template:adz} {{title=Feuer modifizieren}} {{dice=[[@{calc_total_feuer_modifizieren}+0]]}} {{result=[[(@{calc_total_feuer_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Feuer modifizieren}} {{dice=[[@{calc_total_feuer_modifizieren}+0]]}} {{result=[[(@{calc_total_feuer_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -903,7 +945,7 @@
 
 <button type='roll'
         name='roll_feuer_verankern'
-        value='&{template:adz} {{title=Feuer verankern}} {{dice=[[@{calc_total_feuer_verankern}+0]]}} {{result=[[(@{calc_total_feuer_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Feuer verankern}} {{dice=[[@{calc_total_feuer_verankern}+0]]}} {{result=[[(@{calc_total_feuer_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -921,7 +963,7 @@
 
 <button type='roll'
         name='roll_feuer_versetzen'
-        value='&{template:adz} {{title=Feuer versetzen}} {{dice=[[@{calc_total_feuer_versetzen}+0]]}} {{result=[[(@{calc_total_feuer_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Feuer versetzen}} {{dice=[[@{calc_total_feuer_versetzen}+0]]}} {{result=[[(@{calc_total_feuer_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -939,7 +981,7 @@
 
 <button type='roll'
         name='roll_feuer_zerstören'
-        value='&{template:adz} {{title=Feuer zerstören}} {{dice=[[@{calc_total_feuer_zerstören}+0]]}} {{result=[[(@{calc_total_feuer_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Feuer zerstören}} {{dice=[[@{calc_total_feuer_zerstören}+0]]}} {{result=[[(@{calc_total_feuer_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -957,7 +999,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Geist'
-        value='&{template:adz} {{title=Entzug (Geist)}} {{dice=[[@{calc_drain_geist}+0]]}} {{result=[[(@{calc_drain_geist}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Geist)}} {{dice=[[@{calc_drain_geist}+0]]}} {{result=[[(@{calc_drain_geist}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -972,7 +1014,7 @@
 
 <button type='roll'
         name='roll_geist_beherrschen'
-        value='&{template:adz} {{title=Geist beherrschen}} {{dice=[[@{calc_total_geist_beherrschen}+0]]}} {{result=[[(@{calc_total_geist_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Geist beherrschen}} {{dice=[[@{calc_total_geist_beherrschen}+0]]}} {{result=[[(@{calc_total_geist_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -990,7 +1032,7 @@
 
 <button type='roll'
         name='roll_geist_erkennen'
-        value='&{template:adz} {{title=Geist erkennen}} {{dice=[[@{calc_total_geist_erkennen}+0]]}} {{result=[[(@{calc_total_geist_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Geist erkennen}} {{dice=[[@{calc_total_geist_erkennen}+0]]}} {{result=[[(@{calc_total_geist_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1008,7 +1050,7 @@
 
 <button type='roll'
         name='roll_geist_erschaffen'
-        value='&{template:adz} {{title=Geist erschaffen}} {{dice=[[@{calc_total_geist_erschaffen}+0]]}} {{result=[[(@{calc_total_geist_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Geist erschaffen}} {{dice=[[@{calc_total_geist_erschaffen}+0]]}} {{result=[[(@{calc_total_geist_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1026,7 +1068,7 @@
 
 <button type='roll'
         name='roll_geist_kooperieren'
-        value='&{template:adz} {{title=Geist kooperieren}} {{dice=[[@{calc_total_geist_kooperieren}+0]]}} {{result=[[(@{calc_total_geist_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Geist kooperieren}} {{dice=[[@{calc_total_geist_kooperieren}+0]]}} {{result=[[(@{calc_total_geist_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1044,7 +1086,7 @@
 
 <button type='roll'
         name='roll_geist_modifizieren'
-        value='&{template:adz} {{title=Geist modifizieren}} {{dice=[[@{calc_total_geist_modifizieren}+0]]}} {{result=[[(@{calc_total_geist_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Geist modifizieren}} {{dice=[[@{calc_total_geist_modifizieren}+0]]}} {{result=[[(@{calc_total_geist_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1062,7 +1104,7 @@
 
 <button type='roll'
         name='roll_geist_verankern'
-        value='&{template:adz} {{title=Geist verankern}} {{dice=[[@{calc_total_geist_verankern}+0]]}} {{result=[[(@{calc_total_geist_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Geist verankern}} {{dice=[[@{calc_total_geist_verankern}+0]]}} {{result=[[(@{calc_total_geist_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1080,7 +1122,7 @@
 
 <button type='roll'
         name='roll_geist_versetzen'
-        value='&{template:adz} {{title=Geist versetzen}} {{dice=[[@{calc_total_geist_versetzen}+0]]}} {{result=[[(@{calc_total_geist_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Geist versetzen}} {{dice=[[@{calc_total_geist_versetzen}+0]]}} {{result=[[(@{calc_total_geist_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1098,7 +1140,7 @@
 
 <button type='roll'
         name='roll_geist_zerstören'
-        value='&{template:adz} {{title=Geist zerstören}} {{dice=[[@{calc_total_geist_zerstören}+0]]}} {{result=[[(@{calc_total_geist_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Geist zerstören}} {{dice=[[@{calc_total_geist_zerstören}+0]]}} {{result=[[(@{calc_total_geist_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1116,7 +1158,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Humanoid'
-        value='&{template:adz} {{title=Entzug (Humanoid)}} {{dice=[[@{calc_drain_humanoid}+0]]}} {{result=[[(@{calc_drain_humanoid}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Humanoid)}} {{dice=[[@{calc_drain_humanoid}+0]]}} {{result=[[(@{calc_drain_humanoid}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -1131,7 +1173,7 @@
 
 <button type='roll'
         name='roll_humanoid_beherrschen'
-        value='&{template:adz} {{title=Humanoid beherrschen}} {{dice=[[@{calc_total_humanoid_beherrschen}+0]]}} {{result=[[(@{calc_total_humanoid_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Humanoid beherrschen}} {{dice=[[@{calc_total_humanoid_beherrschen}+0]]}} {{result=[[(@{calc_total_humanoid_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1149,7 +1191,7 @@
 
 <button type='roll'
         name='roll_humanoid_erkennen'
-        value='&{template:adz} {{title=Humanoid erkennen}} {{dice=[[@{calc_total_humanoid_erkennen}+0]]}} {{result=[[(@{calc_total_humanoid_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Humanoid erkennen}} {{dice=[[@{calc_total_humanoid_erkennen}+0]]}} {{result=[[(@{calc_total_humanoid_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1167,7 +1209,7 @@
 
 <button type='roll'
         name='roll_humanoid_erschaffen'
-        value='&{template:adz} {{title=Humanoid erschaffen}} {{dice=[[@{calc_total_humanoid_erschaffen}+0]]}} {{result=[[(@{calc_total_humanoid_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Humanoid erschaffen}} {{dice=[[@{calc_total_humanoid_erschaffen}+0]]}} {{result=[[(@{calc_total_humanoid_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1185,7 +1227,7 @@
 
 <button type='roll'
         name='roll_humanoid_kooperieren'
-        value='&{template:adz} {{title=Humanoid kooperieren}} {{dice=[[@{calc_total_humanoid_kooperieren}+0]]}} {{result=[[(@{calc_total_humanoid_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Humanoid kooperieren}} {{dice=[[@{calc_total_humanoid_kooperieren}+0]]}} {{result=[[(@{calc_total_humanoid_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1203,7 +1245,7 @@
 
 <button type='roll'
         name='roll_humanoid_modifizieren'
-        value='&{template:adz} {{title=Humanoid modifizieren}} {{dice=[[@{calc_total_humanoid_modifizieren}+0]]}} {{result=[[(@{calc_total_humanoid_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Humanoid modifizieren}} {{dice=[[@{calc_total_humanoid_modifizieren}+0]]}} {{result=[[(@{calc_total_humanoid_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1221,7 +1263,7 @@
 
 <button type='roll'
         name='roll_humanoid_verankern'
-        value='&{template:adz} {{title=Humanoid verankern}} {{dice=[[@{calc_total_humanoid_verankern}+0]]}} {{result=[[(@{calc_total_humanoid_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Humanoid verankern}} {{dice=[[@{calc_total_humanoid_verankern}+0]]}} {{result=[[(@{calc_total_humanoid_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1239,7 +1281,7 @@
 
 <button type='roll'
         name='roll_humanoid_versetzen'
-        value='&{template:adz} {{title=Humanoid versetzen}} {{dice=[[@{calc_total_humanoid_versetzen}+0]]}} {{result=[[(@{calc_total_humanoid_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Humanoid versetzen}} {{dice=[[@{calc_total_humanoid_versetzen}+0]]}} {{result=[[(@{calc_total_humanoid_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1257,7 +1299,7 @@
 
 <button type='roll'
         name='roll_humanoid_zerstören'
-        value='&{template:adz} {{title=Humanoid zerstören}} {{dice=[[@{calc_total_humanoid_zerstören}+0]]}} {{result=[[(@{calc_total_humanoid_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Humanoid zerstören}} {{dice=[[@{calc_total_humanoid_zerstören}+0]]}} {{result=[[(@{calc_total_humanoid_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1275,7 +1317,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Kraft'
-        value='&{template:adz} {{title=Entzug (Kraft)}} {{dice=[[@{calc_drain_kraft}+0]]}} {{result=[[(@{calc_drain_kraft}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Kraft)}} {{dice=[[@{calc_drain_kraft}+0]]}} {{result=[[(@{calc_drain_kraft}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -1290,7 +1332,7 @@
 
 <button type='roll'
         name='roll_kraft_beherrschen'
-        value='&{template:adz} {{title=Kraft beherrschen}} {{dice=[[@{calc_total_kraft_beherrschen}+0]]}} {{result=[[(@{calc_total_kraft_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Kraft beherrschen}} {{dice=[[@{calc_total_kraft_beherrschen}+0]]}} {{result=[[(@{calc_total_kraft_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1308,7 +1350,7 @@
 
 <button type='roll'
         name='roll_kraft_erkennen'
-        value='&{template:adz} {{title=Kraft erkennen}} {{dice=[[@{calc_total_kraft_erkennen}+0]]}} {{result=[[(@{calc_total_kraft_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Kraft erkennen}} {{dice=[[@{calc_total_kraft_erkennen}+0]]}} {{result=[[(@{calc_total_kraft_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1326,7 +1368,7 @@
 
 <button type='roll'
         name='roll_kraft_erschaffen'
-        value='&{template:adz} {{title=Kraft erschaffen}} {{dice=[[@{calc_total_kraft_erschaffen}+0]]}} {{result=[[(@{calc_total_kraft_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Kraft erschaffen}} {{dice=[[@{calc_total_kraft_erschaffen}+0]]}} {{result=[[(@{calc_total_kraft_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1344,7 +1386,7 @@
 
 <button type='roll'
         name='roll_kraft_kooperieren'
-        value='&{template:adz} {{title=Kraft kooperieren}} {{dice=[[@{calc_total_kraft_kooperieren}+0]]}} {{result=[[(@{calc_total_kraft_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Kraft kooperieren}} {{dice=[[@{calc_total_kraft_kooperieren}+0]]}} {{result=[[(@{calc_total_kraft_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1362,7 +1404,7 @@
 
 <button type='roll'
         name='roll_kraft_modifizieren'
-        value='&{template:adz} {{title=Kraft modifizieren}} {{dice=[[@{calc_total_kraft_modifizieren}+0]]}} {{result=[[(@{calc_total_kraft_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Kraft modifizieren}} {{dice=[[@{calc_total_kraft_modifizieren}+0]]}} {{result=[[(@{calc_total_kraft_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1380,7 +1422,7 @@
 
 <button type='roll'
         name='roll_kraft_verankern'
-        value='&{template:adz} {{title=Kraft verankern}} {{dice=[[@{calc_total_kraft_verankern}+0]]}} {{result=[[(@{calc_total_kraft_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Kraft verankern}} {{dice=[[@{calc_total_kraft_verankern}+0]]}} {{result=[[(@{calc_total_kraft_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1398,7 +1440,7 @@
 
 <button type='roll'
         name='roll_kraft_versetzen'
-        value='&{template:adz} {{title=Kraft versetzen}} {{dice=[[@{calc_total_kraft_versetzen}+0]]}} {{result=[[(@{calc_total_kraft_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Kraft versetzen}} {{dice=[[@{calc_total_kraft_versetzen}+0]]}} {{result=[[(@{calc_total_kraft_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1416,7 +1458,7 @@
 
 <button type='roll'
         name='roll_kraft_zerstören'
-        value='&{template:adz} {{title=Kraft zerstören}} {{dice=[[@{calc_total_kraft_zerstören}+0]]}} {{result=[[(@{calc_total_kraft_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Kraft zerstören}} {{dice=[[@{calc_total_kraft_zerstören}+0]]}} {{result=[[(@{calc_total_kraft_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1434,7 +1476,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Luft'
-        value='&{template:adz} {{title=Entzug (Luft)}} {{dice=[[@{calc_drain_luft}+0]]}} {{result=[[(@{calc_drain_luft}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Luft)}} {{dice=[[@{calc_drain_luft}+0]]}} {{result=[[(@{calc_drain_luft}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -1449,7 +1491,7 @@
 
 <button type='roll'
         name='roll_luft_beherrschen'
-        value='&{template:adz} {{title=Luft beherrschen}} {{dice=[[@{calc_total_luft_beherrschen}+0]]}} {{result=[[(@{calc_total_luft_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Luft beherrschen}} {{dice=[[@{calc_total_luft_beherrschen}+0]]}} {{result=[[(@{calc_total_luft_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1467,7 +1509,7 @@
 
 <button type='roll'
         name='roll_luft_erkennen'
-        value='&{template:adz} {{title=Luft erkennen}} {{dice=[[@{calc_total_luft_erkennen}+0]]}} {{result=[[(@{calc_total_luft_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Luft erkennen}} {{dice=[[@{calc_total_luft_erkennen}+0]]}} {{result=[[(@{calc_total_luft_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1485,7 +1527,7 @@
 
 <button type='roll'
         name='roll_luft_erschaffen'
-        value='&{template:adz} {{title=Luft erschaffen}} {{dice=[[@{calc_total_luft_erschaffen}+0]]}} {{result=[[(@{calc_total_luft_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Luft erschaffen}} {{dice=[[@{calc_total_luft_erschaffen}+0]]}} {{result=[[(@{calc_total_luft_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1503,7 +1545,7 @@
 
 <button type='roll'
         name='roll_luft_kooperieren'
-        value='&{template:adz} {{title=Luft kooperieren}} {{dice=[[@{calc_total_luft_kooperieren}+0]]}} {{result=[[(@{calc_total_luft_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Luft kooperieren}} {{dice=[[@{calc_total_luft_kooperieren}+0]]}} {{result=[[(@{calc_total_luft_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1521,7 +1563,7 @@
 
 <button type='roll'
         name='roll_luft_modifizieren'
-        value='&{template:adz} {{title=Luft modifizieren}} {{dice=[[@{calc_total_luft_modifizieren}+0]]}} {{result=[[(@{calc_total_luft_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Luft modifizieren}} {{dice=[[@{calc_total_luft_modifizieren}+0]]}} {{result=[[(@{calc_total_luft_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1539,7 +1581,7 @@
 
 <button type='roll'
         name='roll_luft_verankern'
-        value='&{template:adz} {{title=Luft verankern}} {{dice=[[@{calc_total_luft_verankern}+0]]}} {{result=[[(@{calc_total_luft_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Luft verankern}} {{dice=[[@{calc_total_luft_verankern}+0]]}} {{result=[[(@{calc_total_luft_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1557,7 +1599,7 @@
 
 <button type='roll'
         name='roll_luft_versetzen'
-        value='&{template:adz} {{title=Luft versetzen}} {{dice=[[@{calc_total_luft_versetzen}+0]]}} {{result=[[(@{calc_total_luft_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Luft versetzen}} {{dice=[[@{calc_total_luft_versetzen}+0]]}} {{result=[[(@{calc_total_luft_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1575,7 +1617,7 @@
 
 <button type='roll'
         name='roll_luft_zerstören'
-        value='&{template:adz} {{title=Luft zerstören}} {{dice=[[@{calc_total_luft_zerstören}+0]]}} {{result=[[(@{calc_total_luft_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Luft zerstören}} {{dice=[[@{calc_total_luft_zerstören}+0]]}} {{result=[[(@{calc_total_luft_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1593,7 +1635,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Metall'
-        value='&{template:adz} {{title=Entzug (Metall)}} {{dice=[[@{calc_drain_metall}+0]]}} {{result=[[(@{calc_drain_metall}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Metall)}} {{dice=[[@{calc_drain_metall}+0]]}} {{result=[[(@{calc_drain_metall}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -1608,7 +1650,7 @@
 
 <button type='roll'
         name='roll_metall_beherrschen'
-        value='&{template:adz} {{title=Metall beherrschen}} {{dice=[[@{calc_total_metall_beherrschen}+0]]}} {{result=[[(@{calc_total_metall_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Metall beherrschen}} {{dice=[[@{calc_total_metall_beherrschen}+0]]}} {{result=[[(@{calc_total_metall_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1626,7 +1668,7 @@
 
 <button type='roll'
         name='roll_metall_erkennen'
-        value='&{template:adz} {{title=Metall erkennen}} {{dice=[[@{calc_total_metall_erkennen}+0]]}} {{result=[[(@{calc_total_metall_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Metall erkennen}} {{dice=[[@{calc_total_metall_erkennen}+0]]}} {{result=[[(@{calc_total_metall_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1644,7 +1686,7 @@
 
 <button type='roll'
         name='roll_metall_erschaffen'
-        value='&{template:adz} {{title=Metall erschaffen}} {{dice=[[@{calc_total_metall_erschaffen}+0]]}} {{result=[[(@{calc_total_metall_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Metall erschaffen}} {{dice=[[@{calc_total_metall_erschaffen}+0]]}} {{result=[[(@{calc_total_metall_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1662,7 +1704,7 @@
 
 <button type='roll'
         name='roll_metall_kooperieren'
-        value='&{template:adz} {{title=Metall kooperieren}} {{dice=[[@{calc_total_metall_kooperieren}+0]]}} {{result=[[(@{calc_total_metall_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Metall kooperieren}} {{dice=[[@{calc_total_metall_kooperieren}+0]]}} {{result=[[(@{calc_total_metall_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1680,7 +1722,7 @@
 
 <button type='roll'
         name='roll_metall_modifizieren'
-        value='&{template:adz} {{title=Metall modifizieren}} {{dice=[[@{calc_total_metall_modifizieren}+0]]}} {{result=[[(@{calc_total_metall_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Metall modifizieren}} {{dice=[[@{calc_total_metall_modifizieren}+0]]}} {{result=[[(@{calc_total_metall_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1698,7 +1740,7 @@
 
 <button type='roll'
         name='roll_metall_verankern'
-        value='&{template:adz} {{title=Metall verankern}} {{dice=[[@{calc_total_metall_verankern}+0]]}} {{result=[[(@{calc_total_metall_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Metall verankern}} {{dice=[[@{calc_total_metall_verankern}+0]]}} {{result=[[(@{calc_total_metall_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1716,7 +1758,7 @@
 
 <button type='roll'
         name='roll_metall_versetzen'
-        value='&{template:adz} {{title=Metall versetzen}} {{dice=[[@{calc_total_metall_versetzen}+0]]}} {{result=[[(@{calc_total_metall_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Metall versetzen}} {{dice=[[@{calc_total_metall_versetzen}+0]]}} {{result=[[(@{calc_total_metall_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1734,7 +1776,7 @@
 
 <button type='roll'
         name='roll_metall_zerstören'
-        value='&{template:adz} {{title=Metall zerstören}} {{dice=[[@{calc_total_metall_zerstören}+0]]}} {{result=[[(@{calc_total_metall_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Metall zerstören}} {{dice=[[@{calc_total_metall_zerstören}+0]]}} {{result=[[(@{calc_total_metall_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1752,7 +1794,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Pflanze'
-        value='&{template:adz} {{title=Entzug (Pflanze)}} {{dice=[[@{calc_drain_pflanze}+0]]}} {{result=[[(@{calc_drain_pflanze}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Pflanze)}} {{dice=[[@{calc_drain_pflanze}+0]]}} {{result=[[(@{calc_drain_pflanze}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -1767,7 +1809,7 @@
 
 <button type='roll'
         name='roll_pflanze_beherrschen'
-        value='&{template:adz} {{title=Pflanze beherrschen}} {{dice=[[@{calc_total_pflanze_beherrschen}+0]]}} {{result=[[(@{calc_total_pflanze_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Pflanze beherrschen}} {{dice=[[@{calc_total_pflanze_beherrschen}+0]]}} {{result=[[(@{calc_total_pflanze_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1785,7 +1827,7 @@
 
 <button type='roll'
         name='roll_pflanze_erkennen'
-        value='&{template:adz} {{title=Pflanze erkennen}} {{dice=[[@{calc_total_pflanze_erkennen}+0]]}} {{result=[[(@{calc_total_pflanze_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Pflanze erkennen}} {{dice=[[@{calc_total_pflanze_erkennen}+0]]}} {{result=[[(@{calc_total_pflanze_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1803,7 +1845,7 @@
 
 <button type='roll'
         name='roll_pflanze_erschaffen'
-        value='&{template:adz} {{title=Pflanze erschaffen}} {{dice=[[@{calc_total_pflanze_erschaffen}+0]]}} {{result=[[(@{calc_total_pflanze_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Pflanze erschaffen}} {{dice=[[@{calc_total_pflanze_erschaffen}+0]]}} {{result=[[(@{calc_total_pflanze_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1821,7 +1863,7 @@
 
 <button type='roll'
         name='roll_pflanze_kooperieren'
-        value='&{template:adz} {{title=Pflanze kooperieren}} {{dice=[[@{calc_total_pflanze_kooperieren}+0]]}} {{result=[[(@{calc_total_pflanze_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Pflanze kooperieren}} {{dice=[[@{calc_total_pflanze_kooperieren}+0]]}} {{result=[[(@{calc_total_pflanze_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1839,7 +1881,7 @@
 
 <button type='roll'
         name='roll_pflanze_modifizieren'
-        value='&{template:adz} {{title=Pflanze modifizieren}} {{dice=[[@{calc_total_pflanze_modifizieren}+0]]}} {{result=[[(@{calc_total_pflanze_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Pflanze modifizieren}} {{dice=[[@{calc_total_pflanze_modifizieren}+0]]}} {{result=[[(@{calc_total_pflanze_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1857,7 +1899,7 @@
 
 <button type='roll'
         name='roll_pflanze_verankern'
-        value='&{template:adz} {{title=Pflanze verankern}} {{dice=[[@{calc_total_pflanze_verankern}+0]]}} {{result=[[(@{calc_total_pflanze_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Pflanze verankern}} {{dice=[[@{calc_total_pflanze_verankern}+0]]}} {{result=[[(@{calc_total_pflanze_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1875,7 +1917,7 @@
 
 <button type='roll'
         name='roll_pflanze_versetzen'
-        value='&{template:adz} {{title=Pflanze versetzen}} {{dice=[[@{calc_total_pflanze_versetzen}+0]]}} {{result=[[(@{calc_total_pflanze_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Pflanze versetzen}} {{dice=[[@{calc_total_pflanze_versetzen}+0]]}} {{result=[[(@{calc_total_pflanze_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1893,7 +1935,7 @@
 
 <button type='roll'
         name='roll_pflanze_zerstören'
-        value='&{template:adz} {{title=Pflanze zerstören}} {{dice=[[@{calc_total_pflanze_zerstören}+0]]}} {{result=[[(@{calc_total_pflanze_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Pflanze zerstören}} {{dice=[[@{calc_total_pflanze_zerstören}+0]]}} {{result=[[(@{calc_total_pflanze_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1911,7 +1953,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Tier'
-        value='&{template:adz} {{title=Entzug (Tier)}} {{dice=[[@{calc_drain_tier}+0]]}} {{result=[[(@{calc_drain_tier}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Tier)}} {{dice=[[@{calc_drain_tier}+0]]}} {{result=[[(@{calc_drain_tier}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -1926,7 +1968,7 @@
 
 <button type='roll'
         name='roll_tier_beherrschen'
-        value='&{template:adz} {{title=Tier beherrschen}} {{dice=[[@{calc_total_tier_beherrschen}+0]]}} {{result=[[(@{calc_total_tier_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Tier beherrschen}} {{dice=[[@{calc_total_tier_beherrschen}+0]]}} {{result=[[(@{calc_total_tier_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1944,7 +1986,7 @@
 
 <button type='roll'
         name='roll_tier_erkennen'
-        value='&{template:adz} {{title=Tier erkennen}} {{dice=[[@{calc_total_tier_erkennen}+0]]}} {{result=[[(@{calc_total_tier_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Tier erkennen}} {{dice=[[@{calc_total_tier_erkennen}+0]]}} {{result=[[(@{calc_total_tier_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1962,7 +2004,7 @@
 
 <button type='roll'
         name='roll_tier_erschaffen'
-        value='&{template:adz} {{title=Tier erschaffen}} {{dice=[[@{calc_total_tier_erschaffen}+0]]}} {{result=[[(@{calc_total_tier_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Tier erschaffen}} {{dice=[[@{calc_total_tier_erschaffen}+0]]}} {{result=[[(@{calc_total_tier_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1980,7 +2022,7 @@
 
 <button type='roll'
         name='roll_tier_kooperieren'
-        value='&{template:adz} {{title=Tier kooperieren}} {{dice=[[@{calc_total_tier_kooperieren}+0]]}} {{result=[[(@{calc_total_tier_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Tier kooperieren}} {{dice=[[@{calc_total_tier_kooperieren}+0]]}} {{result=[[(@{calc_total_tier_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -1998,7 +2040,7 @@
 
 <button type='roll'
         name='roll_tier_modifizieren'
-        value='&{template:adz} {{title=Tier modifizieren}} {{dice=[[@{calc_total_tier_modifizieren}+0]]}} {{result=[[(@{calc_total_tier_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Tier modifizieren}} {{dice=[[@{calc_total_tier_modifizieren}+0]]}} {{result=[[(@{calc_total_tier_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2016,7 +2058,7 @@
 
 <button type='roll'
         name='roll_tier_verankern'
-        value='&{template:adz} {{title=Tier verankern}} {{dice=[[@{calc_total_tier_verankern}+0]]}} {{result=[[(@{calc_total_tier_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Tier verankern}} {{dice=[[@{calc_total_tier_verankern}+0]]}} {{result=[[(@{calc_total_tier_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2034,7 +2076,7 @@
 
 <button type='roll'
         name='roll_tier_versetzen'
-        value='&{template:adz} {{title=Tier versetzen}} {{dice=[[@{calc_total_tier_versetzen}+0]]}} {{result=[[(@{calc_total_tier_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Tier versetzen}} {{dice=[[@{calc_total_tier_versetzen}+0]]}} {{result=[[(@{calc_total_tier_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2052,7 +2094,7 @@
 
 <button type='roll'
         name='roll_tier_zerstören'
-        value='&{template:adz} {{title=Tier zerstören}} {{dice=[[@{calc_total_tier_zerstören}+0]]}} {{result=[[(@{calc_total_tier_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Tier zerstören}} {{dice=[[@{calc_total_tier_zerstören}+0]]}} {{result=[[(@{calc_total_tier_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2070,7 +2112,7 @@
 
 <button type='roll'
         name='roll_roll-drain-Wasser'
-        value='&{template:adz} {{title=Entzug (Wasser)}} {{dice=[[@{calc_drain_wasser}+0]]}} {{result=[[(@{calc_drain_wasser}+0)d6>5cs>5cf<0]]}}'>
+        value='&{template:adz} {{title=Entzug (Wasser)}} {{dice=[[@{calc_drain_wasser}+0]]}} {{result=[[(@{calc_drain_wasser}+0)d6>5cs>5cf<0 - @{penalty}*0]]}} {{penalty=@{penalty}}} {{apply_penalty=0}}'>
 </button>
 
 
@@ -2085,7 +2127,7 @@
 
 <button type='roll'
         name='roll_wasser_beherrschen'
-        value='&{template:adz} {{title=Wasser beherrschen}} {{dice=[[@{calc_total_wasser_beherrschen}+0]]}} {{result=[[(@{calc_total_wasser_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Wasser beherrschen}} {{dice=[[@{calc_total_wasser_beherrschen}+0]]}} {{result=[[(@{calc_total_wasser_beherrschen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2103,7 +2145,7 @@
 
 <button type='roll'
         name='roll_wasser_erkennen'
-        value='&{template:adz} {{title=Wasser erkennen}} {{dice=[[@{calc_total_wasser_erkennen}+0]]}} {{result=[[(@{calc_total_wasser_erkennen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Wasser erkennen}} {{dice=[[@{calc_total_wasser_erkennen}+0]]}} {{result=[[(@{calc_total_wasser_erkennen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2121,7 +2163,7 @@
 
 <button type='roll'
         name='roll_wasser_erschaffen'
-        value='&{template:adz} {{title=Wasser erschaffen}} {{dice=[[@{calc_total_wasser_erschaffen}+0]]}} {{result=[[(@{calc_total_wasser_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Wasser erschaffen}} {{dice=[[@{calc_total_wasser_erschaffen}+0]]}} {{result=[[(@{calc_total_wasser_erschaffen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2139,7 +2181,7 @@
 
 <button type='roll'
         name='roll_wasser_kooperieren'
-        value='&{template:adz} {{title=Wasser kooperieren}} {{dice=[[@{calc_total_wasser_kooperieren}+0]]}} {{result=[[(@{calc_total_wasser_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Wasser kooperieren}} {{dice=[[@{calc_total_wasser_kooperieren}+0]]}} {{result=[[(@{calc_total_wasser_kooperieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2157,7 +2199,7 @@
 
 <button type='roll'
         name='roll_wasser_modifizieren'
-        value='&{template:adz} {{title=Wasser modifizieren}} {{dice=[[@{calc_total_wasser_modifizieren}+0]]}} {{result=[[(@{calc_total_wasser_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Wasser modifizieren}} {{dice=[[@{calc_total_wasser_modifizieren}+0]]}} {{result=[[(@{calc_total_wasser_modifizieren}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2175,7 +2217,7 @@
 
 <button type='roll'
         name='roll_wasser_verankern'
-        value='&{template:adz} {{title=Wasser verankern}} {{dice=[[@{calc_total_wasser_verankern}+0]]}} {{result=[[(@{calc_total_wasser_verankern}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Wasser verankern}} {{dice=[[@{calc_total_wasser_verankern}+0]]}} {{result=[[(@{calc_total_wasser_verankern}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2193,7 +2235,7 @@
 
 <button type='roll'
         name='roll_wasser_versetzen'
-        value='&{template:adz} {{title=Wasser versetzen}} {{dice=[[@{calc_total_wasser_versetzen}+0]]}} {{result=[[(@{calc_total_wasser_versetzen}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Wasser versetzen}} {{dice=[[@{calc_total_wasser_versetzen}+0]]}} {{result=[[(@{calc_total_wasser_versetzen}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2211,7 +2253,7 @@
 
 <button type='roll'
         name='roll_wasser_zerstören'
-        value='&{template:adz} {{title=Wasser zerstören}} {{dice=[[@{calc_total_wasser_zerstören}+0]]}} {{result=[[(@{calc_total_wasser_zerstören}+0)d6>5cs>5cf<0 - @{penalty}]]}} {{penalty=@{penalty}}}'>
+        value='&{template:adz} {{title=Wasser zerstören}} {{dice=[[@{calc_total_wasser_zerstören}+0]]}} {{result=[[(@{calc_total_wasser_zerstören}+0)d6>5cs>5cf<0 - @{penalty}*@{apply_penalty}]]}} {{penalty=@{penalty}}} {{apply_penalty=@{apply_penalty}}}'>
 </button>
 
 
@@ -2225,7 +2267,7 @@
 </div>
 
     <rolltemplate class="sheet-rolltemplate-adz">
-    <div class="sheet-scroll">
+    <div class="scroll apply-penalty_{{apply_penalty}}">
         <h1>{{title}}</h1>
 
         {{#dice}}
@@ -2236,12 +2278,8 @@
                 <span class="plain-roll transparent-roll">{{dice}}</span>
                 Würfel{{#^rollTotal() dice 1}}n{{/^rollTotal() dice 1}}
             </p>
-            {{#penalty}}
-                <p class="note">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
-            {{/penalty}}
-            {{^penalty}}
-                <p class="note">Erfolgsabzug ignoriert.</p>
-            {{/penalty}}
+            <p class="note if-penalty-applied">Erfolgsabzug von {{penalty}} berücksichtigt.</p>
+            <p class="note if-penalty-ignored">Erfolgsabzug ignoriert.</p>
         {{/dice}}
         {{^dice}}
             <p class="large transparent-roll">{{result}}</p>
@@ -2773,10 +2811,13 @@ function calculateDrainRoll(integers, domainName, drainAttributeAbbreviation, re
     addAttrIfChanged(integers, key, calculated, resultAttributes);
 }
 
-
-
-
-
+on("clicked:toggle_apply_penalty", () => {
+    getAttrs(["apply_penalty"], (v) => {
+        setAttrs({
+            "apply_penalty": v["apply_penalty"] !== "1" ? "1" : "0"
+        });
+    });
+});
 
 console.log("AdZ sheetworker initialized");
 
