@@ -324,11 +324,11 @@ div[class~="editmode"] ~ button[type=action] {
 	display: none;
 }
 
-.sheet-character-name[value$="🐛"] + .sheet-layout div[class~="repitem"] {
+.sheet-character-name[value$="#"] + .sheet-layout div[class~="repitem"] {
 	position: relative;
 }
 
-.sheet-character-name[value$="🐛"] + .sheet-layout div[class~="repitem"]::after {
+.sheet-character-name[value$="#"] + .sheet-layout div[class~="repitem"]::after {
 	content: attr(data-reprowid);
 	position: absolute;
 	top: 0;

@@ -20,19 +20,19 @@
 #% endmacro %#
 
 #% macro penalty_toggle() %#
-#$ penalty_toggle_impl('💔 Aktiv', '🤍 Inaktiv', false) $#
+#$ penalty_toggle_impl('&#x1f494; Aktiv', '&#x1f90d; Inaktiv', false) $#
 #% endmacro %#
 
 #% macro penalty_toggle_ref() %#
-#$ penalty_toggle_impl('💔 mit Abzug', '🤍 kein Abzug', true) $#
+#$ penalty_toggle_impl('&#x1f494; mit Abzug', '&#x1f90d; kein Abzug', true) $#
 #% endmacro %#
 
 #% macro penalty_toggle_impl(labelChecked, labelUnchecked, showPenalty) %#
 <div class="toggle-container">
   <input type="hidden" class="toggle" name="attr_apply_penalty" />
   <button type="action" name="act_toggle_apply_penalty" class="toggle">
-    <span class="checked">#$ labelChecked $##% if showPenalty %# (<span name=attr_penalty></span>)#% endif %#</span>
-    <span class="unchecked">#$ labelUnchecked $##% if showPenalty %# (<span name=attr_penalty></span>)#% endif %#</span>
+    <span class="checked">#$ labelChecked | safe $##% if showPenalty %# (<span name=attr_penalty></span>)#% endif %#</span>
+    <span class="unchecked">#$ labelUnchecked | safe $##% if showPenalty %# (<span name=attr_penalty></span>)#% endif %#</span>
   </button>
 </div>
 #% endmacro %#
