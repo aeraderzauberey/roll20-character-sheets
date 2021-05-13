@@ -17,7 +17,10 @@
     <input name="attr_calc_initiative_base" class="number" readonly="true" />
 
     <label>Glück dazuwürfeln</label>
-    #$ roll_without_penalty_button('use-luck', '＋ Glück', '@{gl}') $#
+    <div class="penalty-free-cell">
+        #$ roll_without_penalty_button('use-luck', '＋ Glück', '@{gl}') $#
+        <span class="hint">&#x1f90d;</span>
+    </div>
 
     <label>Entzugsattribut</label>
     <select name="attr_drain_attribute">
@@ -120,8 +123,9 @@
             #% set row = 'r' + (loop.index + 1) %#
             <label class="domain #$ row $# c1">#$ domain $#</label>
             <input class="#$ row $# c2" type="number" step="1" name="attr_#$ domain | lower $#" max="10"/>
-            <div class="#$ row $# c3">
+            <div class="#$ row $# c3 penalty-free-cell">
                 #$ roll_without_penalty_button('roll-drain-' + domain, 'Entzug (' + domain + ')', '@{calc_drain_' + domain | lower + '}' ) $#
+                <span class="hint">&#x1f90d;</span>
             </div>
             #% for technique in techniques %#
                 #% set column = 'c' + (loop.index + 3) %#

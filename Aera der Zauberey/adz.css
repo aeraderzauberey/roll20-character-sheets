@@ -490,6 +490,25 @@ select {
 	visibility: visible;
 }
 
+.sheet-penalty-free-cell {
+	display: inline-block;
+	position: relative;
+}
+.sheet-penalty-free-cell .sheet-hint {
+	display: none;
+}
+.sheet-penalty-free-cell button:hover ~ .sheet-hint {
+	display: inline-flex;
+	align-items: center;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	bottom: 40%;
+	left: 55%;
+	pointer-events: none;
+	cursor: hand;
+}
+
 .sheet-c1 {  grid-column-start: 1; grid-column-end: 2; }
 .sheet-c2 {  grid-column-start: 2; grid-column-end: 3; }
 .sheet-c3 {  grid-column-start: 3; grid-column-end: 4; }
